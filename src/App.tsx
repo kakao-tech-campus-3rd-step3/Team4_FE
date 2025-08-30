@@ -1,65 +1,65 @@
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
+
+// Pages
+import CharacterIndex from './pages/Character/\bCharacterIndex';
+import CharacterChat from './pages/Character/Chat';
+import CharacterLayout from './pages/Character/Layout';
+import DiariesDetail from './pages/Diaries/Detail';
+import DiariesFeedback from './pages/Diaries/Feedback';
+import DiariesLayout from './pages/Diaries/Layout';
+import DiariesList from './pages/Diaries/List';
+import DiariesNewLayout from './pages/Diaries/New/Layout';
+import DiariesNewMood from './pages/Diaries/New/Mood';
+import Errors from './pages/Errors';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Missions from './pages/Missions';
+import OnboardingLayout from './pages/Onboarding/Layout';
+import OnboardingStep from './pages/Onboarding/Step';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ROUTES.HOME} element={<div>home</div>} />
-        <Route path={ROUTES.LOGIN} element={<div>login</div>} />
+        {/* / */}
+        <Route path={ROUTES.HOME} element={<Home />} />
+        {/* /login */}
+        <Route path={ROUTES.LOGIN} element={<Login />} />
 
-        <Route
-          path={ROUTES.ONBOARDING}
-          element={
-            <div>
-              onboarding layout
-              <Outlet />
-            </div>
-          }
-        >
-          <Route path={ROUTES.ONBOARDING_STEP} element={<div>onboarding step</div>} />
+        {/* /onboarding */}
+        <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
+          {/* /onboarding/:step */}
+          <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
         </Route>
 
-        <Route
-          path={ROUTES.CHARACTER}
-          element={
-            <div>
-              character layout
-              <Outlet />
-            </div>
-          }
-        >
-          <Route index element={<div>character</div>} />
-          <Route path={ROUTES.CHARACTER_CHAT} element={<div>character chat</div>} />
+        {/* /character */}
+        <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
+          {/* /character */}
+          <Route index element={<CharacterIndex />} />
+          {/* /character/chat */}
+          <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
         </Route>
 
-        <Route
-          path={ROUTES.DIARIES}
-          element={
-            <div>
-              diary layout
-              <Outlet />
-            </div>
-          }
-        >
-          <Route index element={<div>diary list</div>} />
-          <Route
-            path={ROUTES.DIARIES_NEW}
-            element={
-              <div>
-                diary new
-                <Outlet />
-              </div>
-            }
-          >
-            <Route path={ROUTES.DIARIES_NEW_STEP} element={<div>step1: mood, step2: diary</div>} />
+        {/* /diaries */}
+        <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
+          {/* /diaries */}
+          <Route index element={<DiariesList />} />
+          {/* /diaries/new */}
+          <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
+            {/* /diaries/new/:step */}
+            <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
           </Route>
-          <Route path={ROUTES.DIARIES_DETAIL} element={<div>diary detail</div>} />
-          <Route path={ROUTES.DIARIES_FEEDBACK} element={<div>diary feedback</div>} />
+          {/* /diaries/:id */}
+          <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
+          {/* /diaries/:id/feedback */}
+          <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
         </Route>
 
-        <Route path={ROUTES.MISSIONS} element={<div>missions</div>} />
-        <Route path={ROUTES.NOT_FOUND} element={<div>404 Not Found</div>} />
+        {/* /missions */}
+        <Route path={ROUTES.MISSIONS} element={<Missions />} />
+        {/* * (404) */}
+        <Route path={ROUTES.NOT_FOUND} element={<Errors />} />
       </Routes>
     </BrowserRouter>
   );
