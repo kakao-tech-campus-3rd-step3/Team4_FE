@@ -1,14 +1,14 @@
-import "@emotion/react";
-import { theme } from "@/styles/theme";
+import { theme } from '@/styles/theme';
+import '@emotion/react';
 
 type ThemeType = typeof theme;
 
-declare module "@emotion/react" {
+declare module '@emotion/react' {
   export interface Theme {
-    colors: ThemeType["colors"];
-    typography: ThemeType["typography"];
-    spacing: ThemeType["spacing"];
-    layout: ThemeType["layout"];
-    borderRadius: ThemeType["borderRadius"];
+    colors: ThemeType['colors'];
+    typography: ThemeType['typography'];
+    spacing: ThemeType['spacing'];
+    layout: ThemeType['layout'];
+    borderRadius: ThemeType['borderRadius'];
   }
 }

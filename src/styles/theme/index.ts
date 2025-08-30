@@ -1,8 +1,8 @@
-import { colors, semanticColors } from "@/styles/theme/colors";
-import { typography } from "@/styles/theme/typography";
-import { spacing } from "@/styles/theme/spacing";
-import { layout } from "@/styles/theme/layout";
-import { borderRadius } from "@/styles/theme/borderRadius";
+import { borderRadius } from '@/styles/theme/borderRadius';
+import { colors, semanticColors } from '@/styles/theme/colors';
+import { layout } from '@/styles/theme/layout';
+import { spacing } from '@/styles/theme/spacing';
+import { typography } from '@/styles/theme/typography';
 
 export const theme = {
   colors: {

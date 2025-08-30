@@ -1,8 +1,8 @@
 export const layout = {
   width: {
-    container: "720px",
+    container: '720px',
   },
   height: {
-    viewport: "100vh",
+    viewport: '100vh',
   },
 } as const;
