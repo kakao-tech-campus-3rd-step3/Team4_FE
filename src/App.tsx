@@ -4,6 +4,7 @@ import { ROUTES } from './constants/routes';
 // Pages
 import styled from '@emotion/styled';
 
+import { DESIGN_BASE, DESIGN_RATIO } from './constants/layout';
 import CharacterIndex from './pages/Character/\bCharacterIndex';
 import CharacterChat from './pages/Character/Chat';
 import CharacterLayout from './pages/Character/Layout';
@@ -31,11 +32,15 @@ const AppViewport = styled.div`
 
 const DeviceFrame = styled.div`
   /* 세로 : 가로 = 892 : 412 ≈ 2.165 : 1 */
-  aspect-ratio: 412 / 892;
+  aspect-ratio: ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H};
 
   height: 100dvh;
 
-  width: clamp(320px, calc(100dvh * 412 / 892), 480px);
+  width: clamp(
+    ${DESIGN_BASE.MIN_WIDTH}px,
+    calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}),
+    ${DESIGN_BASE.MAX_WIDTH}px
+  );
 
   margin: 0 auto;
   background: ${({ theme }) => theme.colors.background.default};
