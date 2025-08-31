@@ -50,12 +50,11 @@ export const semanticColors = {
     default: colorScale.gray0,
     disabled: colorScale.gray200,
     fill: colorScale.gray100,
-    brandBackground: colorScale.orange0,
   },
 
   brand: {
-    brandBackground: colorScale.orange0,
-    primary: colorScale.brown100,
+    background: colorScale.orange0,
+    primary: colorScale.brown100, // 강조된 박스(일기 입력 칸, 피드백 말풍선 등)
     border: colorScale.brown400,
   },
 

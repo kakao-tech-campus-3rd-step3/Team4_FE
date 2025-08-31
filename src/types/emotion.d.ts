@@ -1,7 +1,7 @@
 import { theme } from '@/styles/theme';
 import '@emotion/react';
 
-type ThemeType = typeof theme;
+export type ThemeType = typeof theme;
 
 declare module '@emotion/react' {
   export interface Theme {
