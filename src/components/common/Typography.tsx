@@ -30,6 +30,7 @@ const StyledTypography = styled.p<{
   $variant: VariantKeys;
   $colorKey: ColorKeys;
 }>(({ theme, $variant, $colorKey }) => ({
+  fontFamily: `'OngleipEoyeonce', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`,
   ...theme.typography[$variant as keyof typeof theme.typography],
   color: pickColor(theme, $colorKey),
   margin: 0,

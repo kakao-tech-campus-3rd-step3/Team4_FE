@@ -1,3 +1,4 @@
+import { Global, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
@@ -26,10 +27,10 @@ const AppViewport = styled.div`
   align-items: center;
 
   width: 100%;
-  height: 100dvh; /* 주소창 변동 대응 */
+  height: 100dvh;
   background: ${({ theme }) => theme.colors.background.disabled};
 
-  overflow: hidden; /* 바깥 스크롤 방지 */
+  overflow: hidden;
 `;
 
 const DeviceFrame = styled.div`
@@ -45,18 +46,24 @@ const DeviceFrame = styled.div`
   );
 
   background: ${({ theme }) => theme.colors.background.default};
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Layout = styled.div`
-  /* iOS 노치/홈인디케이터 안전영역 */
+  /* ios safari 상하단 안전영역 대응 */
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
 
-  /* 상단: max(안전영역, 최소보장) + 추가 완충 + 컨텐츠 상단 여백 */
   padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
 
-  /* 하단: max(안전영역, 최소보장) + 추가 완충 */
   padding-bottom: calc(
     max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
   );
@@ -65,6 +72,7 @@ const Layout = styled.div`
 
   box-sizing: border-box;
   width: 100%;
+  max-width: 100%;
   min-height: 100%;
 `;
 
@@ -81,9 +89,28 @@ function AppLayout() {
   );
 }
 
+export const GlobalStyle = () => (
+  <Global
+    styles={css`
+      @font-face {
+        font-family: 'OngleipEoyeonce';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff')
+          format('woff');
+        font-weight: normal;
+        font-display: swap;
+      }
+
+      body {
+        font-family: 'OngleipEoyeonce', sans-serif;
+      }
+    `}
+  />
+);
+
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Routes>
         <Route element={<AppLayout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
