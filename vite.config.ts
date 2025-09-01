@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Team4-FE/',
+  base: '/Team4_FE/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
