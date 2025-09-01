@@ -5,7 +5,7 @@ name: Team4 CI/CD
 
 on:
   push:
-    branches: [ "develop", "chore/ci-cd" ]
+    branches: [ "develop" ]
   pull_request:
     branches: [ "develop" ]
 
