@@ -1,35 +1,76 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Global, css } from '@emotion/react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ROUTES } from './constants/routes';
+
+// pages
+import { default as CharacterIndex } from '@/pages/Character/Index';
+import CharacterLayout from '@/pages/Character/Layout';
+import DiariesDetail from '@/pages/Diaries/Detail';
+import DiariesFeedback from '@/pages/Diaries/Feedback';
+import DiariesLayout from '@/pages/Diaries/Layout';
+import DiariesList from '@/pages/Diaries/List';
+import DiariesNewLayout from '@/pages/Diaries/New/Layout';
+import DiariesNewMood from '@/pages/Diaries/New/Mood';
+import Errors from '@/pages/Errors';
+import Home from '@/pages/Home';
+import Login from '@/pages/Login';
+import Missions from '@/pages/Missions';
+import OnboardingLayout from '@/pages/Onboarding/Layout';
+import OnboardingStep from '@/pages/Onboarding/Step';
+import AppLayout from './Layout';
+import CharacterChat from './pages/Character/Chat';
+
+export const GlobalStyle = () => (
+  <Global
+    styles={css`
+      @font-face {
+        font-family: 'OngleipEoyeonce';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff')
+          format('woff');
+        font-weight: normal;
+        font-display: swap;
+      }
+
+      body {
+        font-family: 'OngleipEoyeonce', sans-serif;
+      }
+    `}
+  />
+);
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <GlobalStyle />
+      <Routes>
+        <Route element={<AppLayout />}>
+          <Route path={ROUTES.HOME} element={<Home />} />
+          <Route path={ROUTES.LOGIN} element={<Login />} />
+
+          <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
+            <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
+          </Route>
+
+          <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
+            <Route index element={<CharacterIndex />} />
+            <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
+          </Route>
+
+          <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
+            <Route index element={<DiariesList />} />
+            <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
+              <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
+            </Route>
+            <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
+            <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
+          </Route>
+
+          <Route path={ROUTES.MISSIONS} element={<Missions />} />
+          <Route path={ROUTES.NOT_FOUND} element={<Errors />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
