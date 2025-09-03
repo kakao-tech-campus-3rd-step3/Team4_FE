@@ -38,9 +38,11 @@ export const GlobalStyle = () => (
   />
 );
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={base}>
       <GlobalStyle />
       <Routes>
         <Route element={<AppLayout />}>
