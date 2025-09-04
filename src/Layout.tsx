@@ -19,7 +19,6 @@ const DeviceFrame = styled.div`
   aspect-ratio: ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H};
   height: 100dvh;
 
-  /* usable height 기반 너비 산출도 가능하지만, 여기선 전체 높이 기반 유지 */
   width: clamp(
     ${DESIGN_BASE.MIN_WIDTH}px,
     calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}),
@@ -43,13 +42,13 @@ const Layout = styled.div`
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
 
-  padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
+  // padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
 
-  padding-bottom: calc(
-    max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
-  );
+  // padding-bottom: calc(
+  //   max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
+  // );
 
-  padding-inline: ${({ theme }) => theme.spacing[9]};
+  // padding-inline: ${({ theme }) => theme.spacing[9]};
 
   box-sizing: border-box;
   width: 100%;
