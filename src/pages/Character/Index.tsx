@@ -38,18 +38,21 @@ const wagTail = keyframes`
 `;
 
 const TailImage = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+  width: 30px;
+  height: 50px;
+  object-fit: contain;
   position: absolute;
 
-  bottom: 16.6%;
-  left: 62%;
+  bottom: 22.7%;
+  left: 62.5%;
   transform: translateX(-50%);
+  rotate: 10deg;
 
-  background-color: #000;
+  // background-color: #000;
 
   animation: ${wagTail} 1s linear infinite alternate;
+
+  transform-origin: bottom left;
 `;
 
 function Index() {
