@@ -4,9 +4,8 @@ import styled from '@emotion/styled';
 const ImageContainer = styled.div`
   width: 100%;
   height: 80vh;
+  min-height: 600px;
   overflow: hidden;
-
-  background-color: #000;
 
   position: relative;
 `;
@@ -17,15 +16,25 @@ const BackgroundImage = styled.img`
   object-fit: cover;
 `;
 
-const CharacterImage = styled.img`
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
+const CharacterContainer = styled.div`
+  width: 30%;
+  height: 22%;
   position: absolute;
 
   bottom: 22%;
   left: 50%;
   transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const CharacterImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
 `;
 
 const wagTail = keyframes`
@@ -33,26 +42,36 @@ const wagTail = keyframes`
     transform: translateX(-50%) rotate(0deg);
   }
   to {
-    transform: translateX(-50%) rotate(10deg);
+    transform: translateX(-50%) rotate(8deg);
   }
 `;
 
 const TailImage = styled.img`
-  width: 30px;
-  height: 50px;
+  width: 30%;
+  height: 28%;
   object-fit: contain;
   position: absolute;
 
-  bottom: 22.7%;
-  left: 62.5%;
+  bottom: 10%;
+  left: 88%;
   transform: translateX(-50%);
-  rotate: 10deg;
-
-  // background-color: #000;
+  rotate: 11deg;
 
   animation: ${wagTail} 1s linear infinite alternate;
 
   transform-origin: bottom left;
+
+  @media (height < 800px) {
+    left: 89%;
+  }
+
+  @media (height < 850px) {
+    left: 90%;
+  }
+
+  @media (height < 700px) {
+    left: 91%;
+  }
 `;
 
 function Index() {
@@ -65,11 +84,13 @@ function Index() {
       }}
     >
       <ImageContainer>
-        <CharacterImage
-          alt="character"
-          src={`${import.meta.env.BASE_URL}assets/character/cat-no-tail.png`}
-        />
-        <TailImage alt="tail" src={`${import.meta.env.BASE_URL}assets/character/tail.png`} />
+        <CharacterContainer>
+          <CharacterImage
+            alt="character"
+            src={`${import.meta.env.BASE_URL}assets/character/cat-no-tail.png`}
+          />
+          <TailImage alt="tail" src={`${import.meta.env.BASE_URL}assets/character/tail.png`} />
+        </CharacterContainer>
         <BackgroundImage
           alt="bg"
           src={`${import.meta.env.BASE_URL}assets/character/background.png`}
