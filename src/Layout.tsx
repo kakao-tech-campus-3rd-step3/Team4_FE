@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { Outlet } from 'react-router-dom';
-import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import styled from "@emotion/styled";
+import { Outlet } from "react-router-dom";
+import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from "./constants/layout";
 
 const AppViewport = styled.div`
   display: flex;
@@ -20,11 +20,7 @@ const DeviceFrame = styled.div`
   height: 100dvh;
 
   /* usable height 기반 너비 산출도 가능하지만, 여기선 전체 높이 기반 유지 */
-  width: clamp(
-    ${DESIGN_BASE.MIN_WIDTH}px,
-    calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}),
-    ${DESIGN_BASE.MAX_WIDTH}px
-  );
+  width: clamp(${DESIGN_BASE.MIN_WIDTH}px, calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}), ${DESIGN_BASE.MAX_WIDTH}px);
 
   background: ${({ theme }) => theme.colors.background.default};
   overflow-y: auto;
@@ -45,9 +41,7 @@ const Layout = styled.div`
 
   padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
 
-  padding-bottom: calc(
-    max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
-  );
+  padding-bottom: calc(max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px);
 
   padding-inline: ${({ theme }) => theme.spacing[9]};
 
