@@ -1,4 +1,3 @@
-import { Global, css } from '@emotion/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
@@ -19,24 +18,7 @@ import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import AppLayout from './Layout';
 import CharacterChat from './pages/Character/Chat';
-
-export const GlobalStyle = () => (
-  <Global
-    styles={css`
-      @font-face {
-        font-family: 'OngleipEoyeonce';
-        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105@1.1/Uiyeun.woff')
-          format('woff');
-        font-weight: normal;
-        font-display: swap;
-      }
-
-      body {
-        font-family: 'OngleipEoyeonce', sans-serif;
-      }
-    `}
-  />
-);
+import GlobalStyle from './styles/GlobalStyle';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
