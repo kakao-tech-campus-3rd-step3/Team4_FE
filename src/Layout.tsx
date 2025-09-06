@@ -58,7 +58,7 @@ const Layout = styled.div`
 `;
 
 // 모바일 퍼스트 디자인
-export default function AppLayout() {
+function AppLayout() {
   return (
     <AppViewport>
       <DeviceFrame>
@@ -69,3 +69,5 @@ export default function AppLayout() {
     </AppViewport>
   );
 }
+
+export default AppLayout;
