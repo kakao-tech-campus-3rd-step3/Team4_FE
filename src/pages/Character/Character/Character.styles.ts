@@ -1,7 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const ImageContainer = styled.div`
+export const ImageContainer = styled.div`
   width: 100%;
   height: 80vh;
   min-height: 600px;
@@ -10,13 +10,14 @@ const ImageContainer = styled.div`
   position: relative;
 `;
 
-const BackgroundImage = styled.img`
+export const BackgroundImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
 `;
 
-const CharacterContainer = styled.div`
+// TODO: content-type: size 고려
+export const CharacterContainer = styled.div`
   width: 30%;
   height: 22%;
   position: absolute;
@@ -30,14 +31,14 @@ const CharacterContainer = styled.div`
   justify-content: center;
 `;
 
-const CharacterImage = styled.img`
+export const CharacterImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
   position: absolute;
 `;
 
-const wagTail = keyframes`
+export const wagTail = keyframes`
   from {
     transform: translateX(-50%) rotate(0deg);
   }
@@ -46,7 +47,7 @@ const wagTail = keyframes`
   }
 `;
 
-const TailImage = styled.img`
+export const TailImage = styled.img`
   width: 30%;
   height: 28%;
   object-fit: contain;
@@ -73,32 +74,3 @@ const TailImage = styled.img`
     left: 91%;
   }
 `;
-
-function Index() {
-  return (
-    <div
-      style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <ImageContainer>
-        <CharacterContainer>
-          <CharacterImage
-            alt="character"
-            src={`${import.meta.env.BASE_URL}assets/character/cat-no-tail.png`}
-          />
-          <TailImage alt="tail" src={`${import.meta.env.BASE_URL}assets/character/tail.png`} />
-        </CharacterContainer>
-        <BackgroundImage
-          alt="bg"
-          src={`${import.meta.env.BASE_URL}assets/character/background.png`}
-        />
-      </ImageContainer>
-      <div></div>
-    </div>
-  );
-}
-
-export default Index;
