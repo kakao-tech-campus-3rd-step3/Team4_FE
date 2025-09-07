@@ -1,11 +1,13 @@
-export const characterStoreItemsMock = [
+export const isOwnedItemsMock = [
   {
     id: 1,
     category: 'HAT',
     name: 'baseball-cap',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/111083b3-873c-42fc-9d3e-05605ea5aff4',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 2,
@@ -13,7 +15,9 @@ export const characterStoreItemsMock = [
     name: 'beret',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/ae39f08b-fa6e-4ae8-841e-1cba00729b91',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 3,
@@ -21,7 +25,9 @@ export const characterStoreItemsMock = [
     name: 'blue-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/732d0672-890a-473d-b662-b10bebe8dc13',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 4,
@@ -29,7 +35,9 @@ export const characterStoreItemsMock = [
     name: 'chef-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/f9023cc3-98dc-47c1-96ee-94a61986e201',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 5,
@@ -37,7 +45,9 @@ export const characterStoreItemsMock = [
     name: 'german-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/c987f10c-e997-4c57-aa06-5a093c9430aa',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 6,
@@ -45,7 +55,9 @@ export const characterStoreItemsMock = [
     name: 'brown-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/e252bb27-b4be-4ad3-a7f6-3e4f9723eb53',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 7,
@@ -53,7 +65,9 @@ export const characterStoreItemsMock = [
     name: 'santa-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/7078f1ee-44ee-47ea-ad9a-a5f4eb1315dc',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: true,
   },
   {
     id: 8,
@@ -61,7 +75,9 @@ export const characterStoreItemsMock = [
     name: 'top-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/e36b58b5-15b6-4f97-95e0-997d0b41e483',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 9,
@@ -69,7 +85,9 @@ export const characterStoreItemsMock = [
     name: 'wizard-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/6694d2d6-8625-407c-8ecc-47b1311ef983',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
   {
     id: 10,
@@ -77,7 +95,9 @@ export const characterStoreItemsMock = [
     name: 'asian-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/229ed48f-0f31-4a82-abef-4af71c7c9e3d',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: true,
   },
   {
     id: 11,
@@ -85,6 +105,8 @@ export const characterStoreItemsMock = [
     name: 'graduation-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/2396e31b-6f21-431b-a965-22a08220eb3f',
-    isOwned: true,
+    offsetX: 0,
+    offsetY: 0,
+    isUsed: false,
   },
 ];
