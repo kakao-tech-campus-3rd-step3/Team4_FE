@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Outlet, useLocation } from 'react-router-dom';
 import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import { ROUTES } from './constants/routes';
 
 const AppViewport = styled.div`
   display: flex;
@@ -60,7 +61,7 @@ const Layout = styled.div`
 function AppLayout() {
   const location = useLocation();
 
-  if (location.pathname === '/character') {
+  if (location.pathname === ROUTES.CHARACTER) {
     return (
       <AppViewport>
         <DeviceFrame>
