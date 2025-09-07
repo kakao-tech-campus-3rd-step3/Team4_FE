@@ -16,11 +16,11 @@ export const ContentContainer = styled.div`
 
 export const ImageContainer = styled.div`
   width: 100%;
-  height: 80vh;
-  min-height: 600px;
   overflow: hidden;
 
   position: relative;
+
+  background-color: rgb(221, 186, 136);
 `;
 
 export const BackgroundImage = styled.img`
@@ -67,7 +67,7 @@ export const TailImage = styled.img`
   position: absolute;
 
   bottom: 10%;
-  left: 88%;
+  left: 90%;
   transform: translateX(-50%);
   rotate: 11deg;
 
@@ -75,12 +75,12 @@ export const TailImage = styled.img`
 
   transform-origin: bottom left;
 
-  @media (height < 800px) {
-    left: 89%;
+  @media (height < 850px) {
+    left: 91%;
   }
 
-  @media (height < 850px) {
-    left: 90%;
+  @media (height < 800px) {
+    left: 91%;
   }
 
   @media (height < 700px) {
