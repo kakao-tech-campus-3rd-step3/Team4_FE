@@ -1,3 +1,4 @@
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { Typography } from '../../../components/common/Typography';
 import mocks from '../../../mockSetup';
@@ -11,6 +12,62 @@ import {
   ImageContainer,
   TailImage,
 } from './Character.styles';
+
+const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+`;
+
+const ContentContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const TabContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(221, 186, 136);
+`;
+
+const TabButton = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${theme.colors.brand.background};
+  padding: 10px;
+  cursor: pointer;
+`;
+
+const ItemGrid = styled.div`
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding-inline: 10px;
+`;
+
+const ItemCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${theme.colors.brand.primary};
+  border-radius: 10px;
+  padding: 10px;
+`;
+
+const ItemImage = styled.img`
+  height: 70px;
+  object-fit: contain;
+`;
 
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
@@ -28,14 +85,7 @@ function Index() {
   }, [tab]);
 
   return (
-    <div
-      style={{
-        flex: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        marginBottom: 30,
-      }}
-    >
+    <Container>
       <ImageContainer>
         <CharacterContainer>
           <CharacterImage
@@ -49,93 +99,31 @@ function Index() {
           src={`${import.meta.env.BASE_URL}assets/character/background.png`}
         />
       </ImageContainer>
-      <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <div
-          style={{
-            flex: 1,
-            display: 'flex',
-            flexDirection: 'row',
-            backgroundColor: 'rgb(221, 186, 136)',
-          }}
-        >
-          <div
-            onClick={() => setTab(TABS.STORE)}
-            style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              borderTopRightRadius: 10,
-              borderTopLeftRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: theme.colors.brand.background,
-              padding: 10,
-            }}
-          >
+      <ContentContainer>
+        <TabContainer>
+          <TabButton onClick={() => setTab(TABS.STORE)}>
             <Typography variant="body2Regular" color="default">
               상점
             </Typography>
-          </div>
-          <div
-            onClick={() => setTab(TABS.OWNED)}
-            style={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              borderTopRightRadius: 10,
-              borderTopLeftRadius: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: theme.colors.brand.background,
-              padding: 10,
-            }}
-          >
+          </TabButton>
+          <TabButton onClick={() => setTab(TABS.OWNED)}>
             <Typography variant="body2Regular" color="default">
               보유중
             </Typography>
-          </div>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 10,
-            paddingInline: 10,
-          }}
-        >
+          </TabButton>
+        </TabContainer>
+        <ItemGrid>
           {items.map((item) => (
-            <div
-              key={item.id}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: theme.colors.brand.primary,
-                borderRadius: 10,
-                padding: 10,
-              }}
-            >
-              <img
-                style={{ height: 70, objectFit: 'contain' }}
-                src={item.imageUrl}
-                alt={item.name}
-              />
+            <ItemCard key={item.id}>
+              <ItemImage src={item.imageUrl} alt={item.name} />
               <Typography variant="body2Regular" color="default">
                 {item.price}
               </Typography>
-            </div>
+            </ItemCard>
           ))}
-        </div>
-      </div>
-    </div>
+        </ItemGrid>
+      </ContentContainer>
+    </Container>
   );
 }
 
