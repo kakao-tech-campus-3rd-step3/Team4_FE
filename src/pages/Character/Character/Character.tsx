@@ -1,5 +1,4 @@
 import mocks from '@/mockSetup';
-import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { TABS } from '../constants/tab';
 import type { Item } from '../types/Item';
@@ -7,24 +6,13 @@ import {
   BackgroundImage,
   CharacterContainer,
   CharacterImage,
+  Container,
+  ContentContainer,
   ImageContainer,
   TailImage,
 } from './Character.styles';
 import ItemGrid from './ItemGrid';
 import Tab from './Tab';
-
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 30px;
-`;
-
-const ContentContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-`;
 
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);

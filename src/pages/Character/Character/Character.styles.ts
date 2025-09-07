@@ -1,6 +1,19 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
+export const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+`;
+
+export const ContentContainer = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
 export const ImageContainer = styled.div`
   width: 100%;
   height: 80vh;
