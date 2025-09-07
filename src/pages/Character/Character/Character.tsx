@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Typography } from '../../../components/common/Typography';
 import mocks from '../../../mockSetup';
 import theme from '../../../styles/theme';
+import { TABS } from '../constants/tab';
 import type { Item } from '../types/Item';
 import {
   BackgroundImage,
@@ -12,13 +13,13 @@ import {
 } from './Character.styles';
 
 function Index() {
-  const [tab, setTab] = useState<'store' | 'owned'>('store');
+  const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
   const [items, setItems] = useState<Item[]>([]);
 
   useEffect(() => {
     const mockItems = mocks.characterStoreItemsMock;
 
-    if (tab === 'owned') {
+    if (tab === TABS.OWNED) {
       setItems(mockItems.filter((item: Item) => item.isOwned));
       return;
     }
@@ -64,7 +65,7 @@ function Index() {
           }}
         >
           <div
-            onClick={() => setTab('store')}
+            onClick={() => setTab(TABS.STORE)}
             style={{
               flex: 1,
               display: 'flex',
@@ -82,7 +83,7 @@ function Index() {
             </Typography>
           </div>
           <div
-            onClick={() => setTab('owned')}
+            onClick={() => setTab(TABS.OWNED)}
             style={{
               flex: 1,
               display: 'flex',
