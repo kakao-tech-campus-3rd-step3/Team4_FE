@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Typography } from '../../../components/common/Typography';
 import mocks from '../../../mockSetup';
 import theme from '../../../styles/theme';
+import type { Item } from '../types/Item';
 import {
   BackgroundImage,
   CharacterContainer,
@@ -9,15 +10,6 @@ import {
   ImageContainer,
   TailImage,
 } from './Character.styles';
-
-type Item = {
-  id: number;
-  category: 'HAT';
-  name: string;
-  price: number;
-  imageUrl: string;
-  isOwned: boolean;
-};
 
 function Index() {
   const [tab, setTab] = useState<'store' | 'owned'>('store');
