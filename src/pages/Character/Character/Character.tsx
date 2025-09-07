@@ -45,7 +45,7 @@ function Index() {
         />
       </ImageContainer>
       <ContentContainer>
-        <Tab setTab={setTab} />
+        <Tab tab={tab} setTab={setTab} />
         <ItemGrid items={items} />
       </ContentContainer>
     </Container>

@@ -8,6 +8,7 @@ const Grid = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: ${({ theme }) => theme.spacing[2]};
   padding-inline: ${({ theme }) => theme.spacing[2]};
+  padding-top: ${({ theme }) => theme.spacing[2]};
 `;
 
 const ItemCard = styled.div`
