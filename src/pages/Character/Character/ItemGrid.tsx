@@ -1,5 +1,4 @@
 import { Typography } from '@/components/common/Typography';
-import theme from '@/styles/theme';
 import styled from '@emotion/styled';
 import type { Item } from '../types/Item';
 
@@ -7,8 +6,8 @@ const Grid = styled.div`
   flex: 1;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding-inline: 10px;
+  gap: ${({ theme }) => theme.spacing[2]};
+  padding-inline: ${({ theme }) => theme.spacing[1]};
 `;
 
 const ItemCard = styled.div`
@@ -16,9 +15,9 @@ const ItemCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${theme.colors.brand.primary};
-  border-radius: 10px;
-  padding: 10px;
+  background-color: ${({ theme }) => theme.colors.brand.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  padding: ${({ theme }) => theme.spacing[1]};
 `;
 
 const ItemImage = styled.img`

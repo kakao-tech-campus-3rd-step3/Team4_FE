@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: ${({ theme }) => theme.spacing[9]};
 `;
 
 export const ContentContainer = styled.div`

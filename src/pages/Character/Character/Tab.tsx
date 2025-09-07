@@ -1,5 +1,4 @@
 import { Typography } from '@/components/common/Typography';
-import theme from '@/styles/theme';
 import styled from '@emotion/styled';
 import { TABS } from '../constants/tab';
 
@@ -14,12 +13,12 @@ const TabButton = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-top-right-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-top-left-radius: ${({ theme }) => theme.borderRadius.lg};
   justify-content: center;
   align-items: center;
-  background-color: ${theme.colors.brand.background};
-  padding: 10px;
+  background-color: ${({ theme }) => theme.colors.brand.background};
+  padding: ${({ theme }) => theme.spacing[1]};
   cursor: pointer;
 `;
 
