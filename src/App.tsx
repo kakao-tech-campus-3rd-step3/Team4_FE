@@ -20,6 +20,12 @@ import AppLayout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import GlobalStyle from './styles/GlobalStyle';
 
+let mocks = null;
+
+if (import.meta.env.VITE_ENABLE_MOCK === '1') {
+  mocks = await import('../mocks/data/characterStoreItemsMock');
+}
+
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function App() {

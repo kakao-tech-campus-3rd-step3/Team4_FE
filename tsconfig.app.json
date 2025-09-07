@@ -37,7 +37,9 @@
   "include": [
     "src/**/*",
     "vite.config.ts",
-    "eslint.config.js"
+    "eslint.config.js",
+    "mocks/**/*",
+    "mocks"
   ],
   "exclude": [
     "dist",
