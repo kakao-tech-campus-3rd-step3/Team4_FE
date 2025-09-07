@@ -16,7 +16,7 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 3,
     category: 'HAT',
     name: 'blue-hat',
     price: 100,
@@ -24,7 +24,7 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 4,
     category: 'HAT',
     name: 'chef-hat',
     price: 100,
@@ -32,7 +32,7 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 5,
     category: 'HAT',
     name: 'german-hat',
     price: 100,
@@ -40,7 +40,7 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 6,
     category: 'HAT',
     name: 'brown-hat',
     price: 100,
@@ -48,15 +48,15 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 7,
     category: 'HAT',
     name: 'santa-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/7078f1ee-44ee-47ea-ad9a-a5f4eb1315dc',
-    isOwned: false,
+    isOwned: true,
   },
   {
-    id: 2,
+    id: 8,
     category: 'HAT',
     name: 'top-hat',
     price: 100,
@@ -64,7 +64,7 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 9,
     category: 'HAT',
     name: 'wizard-hat',
     price: 100,
@@ -72,15 +72,15 @@ export const characterStoreItemsMock = [
     isOwned: false,
   },
   {
-    id: 2,
+    id: 10,
     category: 'HAT',
     name: 'asian-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/229ed48f-0f31-4a82-abef-4af71c7c9e3d',
-    isOwned: false,
+    isOwned: true,
   },
   {
-    id: 2,
+    id: 11,
     category: 'HAT',
     name: 'graduation-hat',
     price: 100,
