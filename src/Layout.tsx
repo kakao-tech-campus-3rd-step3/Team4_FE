@@ -26,7 +26,7 @@ const DeviceFrame = styled.div`
     ${DESIGN_BASE.MAX_WIDTH}px
   );
 
-  background: ${({ theme }) => theme.colors.background.default};
+  background: ${({ theme }) => theme.colors.brand.background};
   overflow-y: auto;
   overflow-x: hidden;
 
