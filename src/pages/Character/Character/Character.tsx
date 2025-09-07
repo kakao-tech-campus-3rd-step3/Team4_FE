@@ -16,17 +16,23 @@ type Item = {
   name: string;
   price: number;
   imageUrl: string;
-  isOwned: false;
+  isOwned: boolean;
 };
 
 function Index() {
+  const [tab, setTab] = useState<'store' | 'owned'>('store');
   const [items, setItems] = useState<Item[]>([]);
 
-  console.log(items);
-
   useEffect(() => {
-    setItems(mocks.characterStoreItemsMock);
-  }, []);
+    const mockItems = mocks.characterStoreItemsMock;
+
+    if (tab === 'owned') {
+      setItems(mockItems.filter((item: Item) => item.isOwned));
+      return;
+    }
+
+    setItems(mockItems);
+  }, [tab]);
 
   return (
     <div
@@ -66,6 +72,7 @@ function Index() {
           }}
         >
           <div
+            onClick={() => setTab('store')}
             style={{
               flex: 1,
               display: 'flex',
@@ -83,6 +90,7 @@ function Index() {
             </Typography>
           </div>
           <div
+            onClick={() => setTab('owned')}
             style={{
               flex: 1,
               display: 'flex',
@@ -104,36 +112,34 @@ function Index() {
           style={{
             flex: 1,
             display: 'grid',
-            flexDirection: 'row',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: 10,
             paddingInline: 10,
           }}
         >
-          {items &&
-            items.map((item) => (
-              <div
-                key={item.id}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  backgroundColor: theme.colors.brand.primary,
-                  borderRadius: 10,
-                  padding: 10,
-                }}
-              >
-                <img
-                  style={{ height: 70, objectFit: 'contain' }}
-                  src={item.imageUrl}
-                  alt={item.name}
-                />
-                <Typography variant="body2Regular" color="default">
-                  {item.price}
-                </Typography>
-              </div>
-            ))}
+          {items.map((item) => (
+            <div
+              key={item.id}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: theme.colors.brand.primary,
+                borderRadius: 10,
+                padding: 10,
+              }}
+            >
+              <img
+                style={{ height: 70, objectFit: 'contain' }}
+                src={item.imageUrl}
+                alt={item.name}
+              />
+              <Typography variant="body2Regular" color="default">
+                {item.price}
+              </Typography>
+            </div>
+          ))}
         </div>
       </div>
     </div>

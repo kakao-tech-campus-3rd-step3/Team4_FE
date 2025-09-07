@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
 
 const LayoutContainer = styled.div`
-  flex: 1,
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
