@@ -1,6 +1,6 @@
+import { Typography } from '@/components/common/Typography';
+import theme from '@/styles/theme';
 import styled from '@emotion/styled';
-import { Typography } from '../../../components/common/Typography';
-import theme from '../../../styles/theme';
 import type { Item } from '../types/Item';
 
 const Grid = styled.div`

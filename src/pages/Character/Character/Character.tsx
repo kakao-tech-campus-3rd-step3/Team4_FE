@@ -1,6 +1,6 @@
+import mocks from '@/mockSetup';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import mocks from '../../../mockSetup';
 import { TABS } from '../constants/tab';
 import type { Item } from '../types/Item';
 import {

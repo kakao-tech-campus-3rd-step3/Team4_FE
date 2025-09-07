@@ -1,6 +1,6 @@
+import { Typography } from '@/components/common/Typography';
+import theme from '@/styles/theme';
 import styled from '@emotion/styled';
-import { Typography } from '../../../components/common/Typography';
-import theme from '../../../styles/theme';
 import { TABS } from '../constants/tab';
 
 const TabContainer = styled.div`
