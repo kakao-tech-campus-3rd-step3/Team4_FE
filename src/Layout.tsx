@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { Outlet } from "react-router-dom";
-import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from "./constants/layout";
+import styled from '@emotion/styled';
+import { Outlet, useLocation } from 'react-router-dom';
+import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
 
 const AppViewport = styled.div`
   display: flex;
@@ -42,13 +42,13 @@ const Layout = styled.div`
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
 
-  // padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
+  padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
 
-  // padding-bottom: calc(
-  //   max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
-  // );
+  padding-bottom: calc(
+    max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
+  );
 
-  // padding-inline: ${({ theme }) => theme.spacing[9]};
+  padding-inline: ${({ theme }) => theme.spacing[9]};
 
   box-sizing: border-box;
   width: 100%;
@@ -58,6 +58,18 @@ const Layout = styled.div`
 
 // 모바일 퍼스트 디자인
 function AppLayout() {
+  const location = useLocation();
+
+  if (location.pathname === '/character') {
+    return (
+      <AppViewport>
+        <DeviceFrame>
+          <Outlet />
+        </DeviceFrame>
+      </AppViewport>
+    );
+  }
+
   return (
     <AppViewport>
       <DeviceFrame>
