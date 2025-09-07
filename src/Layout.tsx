@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { Outlet } from 'react-router-dom';
-import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import styled from "@emotion/styled";
+import { Outlet } from "react-router-dom";
+import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from "./constants/layout";
 
 const AppViewport = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ const DeviceFrame = styled.div`
     ${DESIGN_BASE.MAX_WIDTH}px
   );
 
-  background: ${({ theme }) => theme.colors.background.default};
+  background: ${({ theme }) => theme.colors.brand.background};
   overflow-y: auto;
   overflow-x: hidden;
 
