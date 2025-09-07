@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { Typography } from '../../../components/common/Typography';
 import mocks from '../../../mockSetup';
-import theme from '../../../styles/theme';
 import { TABS } from '../constants/tab';
 import type { Item } from '../types/Item';
 import {
@@ -12,6 +10,8 @@ import {
   ImageContainer,
   TailImage,
 } from './Character.styles';
+import ItemGrid from './ItemGrid';
+import Tab from './Tab';
 
 const Container = styled.div`
   flex: 1;
@@ -24,49 +24,6 @@ const ContentContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
-
-const TabContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-  background-color: rgb(221, 186, 136);
-`;
-
-const TabButton = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  background-color: ${theme.colors.brand.background};
-  padding: 10px;
-  cursor: pointer;
-`;
-
-const ItemGrid = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding-inline: 10px;
-`;
-
-const ItemCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${theme.colors.brand.primary};
-  border-radius: 10px;
-  padding: 10px;
-`;
-
-const ItemImage = styled.img`
-  height: 70px;
-  object-fit: contain;
 `;
 
 function Index() {
@@ -100,28 +57,8 @@ function Index() {
         />
       </ImageContainer>
       <ContentContainer>
-        <TabContainer>
-          <TabButton onClick={() => setTab(TABS.STORE)}>
-            <Typography variant="body2Regular" color="default">
-              상점
-            </Typography>
-          </TabButton>
-          <TabButton onClick={() => setTab(TABS.OWNED)}>
-            <Typography variant="body2Regular" color="default">
-              보유중
-            </Typography>
-          </TabButton>
-        </TabContainer>
-        <ItemGrid>
-          {items.map((item) => (
-            <ItemCard key={item.id}>
-              <ItemImage src={item.imageUrl} alt={item.name} />
-              <Typography variant="body2Regular" color="default">
-                {item.price}
-              </Typography>
-            </ItemCard>
-          ))}
-        </ItemGrid>
+        <Tab setTab={setTab} />
+        <ItemGrid items={items} />
       </ContentContainer>
     </Container>
   );
