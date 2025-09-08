@@ -31,8 +31,8 @@ export const BackgroundImage = styled.img`
 
 // TODO: content-type: size 고려
 export const CharacterContainer = styled.div`
-  width: 30%;
-  height: 22%;
+  width: 60%;
+  height: 50%;
   position: absolute;
 
   bottom: 22%;
@@ -40,13 +40,13 @@ export const CharacterContainer = styled.div`
   transform: translateX(-50%);
 
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
 `;
 
 export const CharacterImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 65%;
+  height: 65%;
   object-fit: cover;
   position: absolute;
 `;
@@ -61,13 +61,13 @@ export const wagTail = keyframes`
 `;
 
 export const TailImage = styled.img`
-  width: 30%;
-  height: 28%;
+  width: 23%;
+  height: 20%;
   object-fit: contain;
   position: absolute;
 
-  bottom: 10%;
-  left: 90%;
+  bottom: 7%;
+  left: 81%;
   transform: translateX(-50%);
   rotate: 11deg;
 
@@ -76,14 +76,14 @@ export const TailImage = styled.img`
   transform-origin: bottom left;
 
   @media (height < 850px) {
-    left: 91%;
+    left: 81.2%;
   }
 
   @media (height < 800px) {
-    left: 91%;
+    left: 81.2%;
   }
 
   @media (height < 700px) {
-    left: 91%;
+    left: 81.2%;
   }
 `;

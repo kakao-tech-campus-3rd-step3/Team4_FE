@@ -1,6 +1,7 @@
 import { Typography } from '@/components/common/Typography';
 import styled from '@emotion/styled';
-import type { Item } from '../types/Item';
+import { TABS } from '../constants/tab';
+import type { SelectedItem, StoreItem } from '../types/Item';
 
 const Grid = styled.div`
   flex: 1;
@@ -26,11 +27,29 @@ const ItemImage = styled.img`
   object-fit: contain;
 `;
 
-function ItemGrid({ items }: { items: Item[] }) {
+function ItemGrid({
+  items,
+  tab,
+  selectedItem,
+  setSelectedItem,
+}: {
+  items: StoreItem[] | SelectedItem[];
+  tab: (typeof TABS)[keyof typeof TABS];
+  selectedItem: SelectedItem | null;
+  setSelectedItem: (item: SelectedItem | null) => void;
+}) {
   return (
     <Grid>
       {items.map((item) => (
-        <ItemCard key={item.id}>
+        <ItemCard
+          key={item.id}
+          onClick={() => {
+            if (tab === TABS.OWNED) {
+              setSelectedItem(item as SelectedItem);
+              return;
+            }
+          }}
+        >
           <ItemImage src={item.imageUrl} alt={item.name} />
           <Typography variant="body2Regular" color="default">
             {item.price}

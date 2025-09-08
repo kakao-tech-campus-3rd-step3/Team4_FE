@@ -1,7 +1,8 @@
 import mocks from '@/mockSetup';
+import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { TABS } from '../constants/tab';
-import type { Item } from '../types/Item';
+import type { SelectedItem, StoreItem } from '../types/Item';
 import {
   BackgroundImage,
   CharacterContainer,
@@ -14,19 +15,31 @@ import {
 import ItemGrid from './ItemGrid';
 import Tab from './Tab';
 
+const SelectedItemImage = styled.img<{ x: number; y: number }>`
+  position: absolute;
+  top: ${({ y }) => `calc(11% + ${y}%)`};
+  left: ${({ x }) => `calc(15.5% + ${x}%)`};
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+`;
+
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<StoreItem[]>([]);
+
+  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
 
   useEffect(() => {
-    const mockItems = mocks.characterStoreItemsMock;
+    const storeItemsMock = mocks.data.characterStoreItemsMock;
+    const ownedItemsMock = mocks.data.isOwnedItemsMock;
 
     if (tab === TABS.OWNED) {
-      setItems(mockItems.filter((item: Item) => item.isOwned));
+      setItems(ownedItemsMock);
       return;
     }
 
-    setItems(mockItems);
+    setItems(storeItemsMock);
   }, [tab]);
 
   return (
@@ -38,6 +51,14 @@ function Index() {
             src={`${import.meta.env.BASE_URL}assets/character/cat-no-tail.png`}
           />
           <TailImage alt="tail" src={`${import.meta.env.BASE_URL}assets/character/tail.png`} />
+          {selectedItem && (
+            <SelectedItemImage
+              alt="selected item"
+              src={selectedItem.imageUrl}
+              x={selectedItem.offsetX}
+              y={selectedItem.offsetY}
+            />
+          )}
         </CharacterContainer>
         <BackgroundImage
           alt="bg"
@@ -46,7 +67,12 @@ function Index() {
       </ImageContainer>
       <ContentContainer>
         <Tab tab={tab} setTab={setTab} />
-        <ItemGrid items={items} />
+        <ItemGrid
+          items={items}
+          tab={tab}
+          selectedItem={selectedItem}
+          setSelectedItem={setSelectedItem}
+        />
       </ContentContainer>
     </Container>
   );
