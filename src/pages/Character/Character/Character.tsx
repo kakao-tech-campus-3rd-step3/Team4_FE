@@ -12,7 +12,8 @@ import {
   ImageContainer,
   TailImage,
 } from './Character.styles';
-import ItemGrid from './ItemGrid';
+import ItemOwnedGrid from './ItemOwnedGrid';
+import { default as ItemStoreGrid } from './ItemStoreGrid';
 import Tab from './Tab';
 
 const SelectedItemImage = styled.img<{ x: number; y: number }>`
@@ -26,7 +27,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
-  const [items, setItems] = useState<StoreItem[]>([]);
+  const [items, setItems] = useState<StoreItem[] | SelectedItem[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
 
@@ -67,12 +68,11 @@ function Index() {
       </ImageContainer>
       <ContentContainer>
         <Tab tab={tab} setTab={setTab} />
-        <ItemGrid
-          items={items}
-          tab={tab}
-          selectedItem={selectedItem}
-          setSelectedItem={setSelectedItem}
-        />
+        {tab === TABS.STORE ? (
+          <ItemStoreGrid items={items as StoreItem[]} />
+        ) : (
+          <ItemOwnedGrid items={items as SelectedItem[]} setSelectedItem={setSelectedItem} />
+        )}
       </ContentContainer>
     </Container>
   );

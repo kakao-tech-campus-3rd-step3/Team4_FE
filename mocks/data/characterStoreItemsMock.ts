@@ -5,7 +5,7 @@ export const characterStoreItemsMock = [
     name: 'baseball-cap',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/111083b3-873c-42fc-9d3e-05605ea5aff4',
-    isOwned: true,
+    isOwned: false,
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export const characterStoreItemsMock = [
     name: 'blue-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/732d0672-890a-473d-b662-b10bebe8dc13',
-    isOwned: true,
+    isOwned: false,
   },
   {
     id: 4,
