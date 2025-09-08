@@ -97,7 +97,7 @@ export const isOwnedItemsMock = [
     imageUrl: 'https://github.com/user-attachments/assets/229ed48f-0f31-4a82-abef-4af71c7c9e3d',
     offsetX: 0,
     offsetY: 13,
-    isUsed: true,
+    isUsed: false,
   },
   {
     id: 11,

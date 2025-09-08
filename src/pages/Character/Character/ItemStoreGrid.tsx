@@ -1,41 +1,7 @@
 import { Typography } from '@/components/common/Typography';
 import styled from '@emotion/styled';
 import type { StoreItem } from '../types/Item';
-
-const Grid = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing[2]};
-  padding-inline: ${({ theme }) => theme.spacing[2]};
-  padding-top: ${({ theme }) => theme.spacing[2]};
-`;
-
-const ItemCard = styled.div<{ $isOwned?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.brand.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing[1]};
-  opacity: ${({ $isOwned }) => ($isOwned ? 1 : 0.5)};
-
-  cursor: ${({ $isOwned }) => ($isOwned ? 'pointer' : 'default')};
-`;
-
-const ItemImage = styled.img`
-  height: 70px;
-  object-fit: contain;
-`;
-
-const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing[1]};
-`;
+import { Grid, ItemImage, ItemInfo, StoreItemCard } from './ItemGrid.styles';
 
 const ItemHeart = styled.img`
   width: 13px;
@@ -43,10 +9,19 @@ const ItemHeart = styled.img`
 `;
 
 function ItemStoreGrid({ items }: { items: StoreItem[] }) {
+  const purchaseItem = (item: StoreItem) => {
+    if (item.isOwned) {
+      return;
+    }
+
+    // 상점 아이템 구매, POST, /api/items/{id}
+    console.log('상점 아이템 구매: ', item.id);
+  };
+
   return (
     <Grid>
       {items.map((item) => (
-        <ItemCard key={item.id} $isOwned={item.isOwned}>
+        <StoreItemCard key={item.id} $isOwned={item.isOwned} onClick={() => purchaseItem(item)}>
           <ItemImage src={item.imageUrl} alt={item.name} />
           <ItemInfo>
             <ItemHeart src={`${import.meta.env.BASE_URL}assets/character/hearts.png`} alt="heart" />
@@ -54,7 +29,7 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
               {item.price}
             </Typography>
           </ItemInfo>
-        </ItemCard>
+        </StoreItemCard>
       ))}
     </Grid>
   );

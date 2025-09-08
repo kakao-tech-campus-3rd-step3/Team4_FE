@@ -1,46 +1,6 @@
 import { Typography } from '@/components/common/Typography';
-import styled from '@emotion/styled';
 import type { SelectedItem } from '../types/Item';
-
-const Grid = styled.div`
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing[2]};
-  padding-inline: ${({ theme }) => theme.spacing[2]};
-  padding-top: ${({ theme }) => theme.spacing[2]};
-`;
-
-const ItemCard = styled.div<{ $isSelected?: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.colors.brand.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing[1]};
-  opacity: ${({ $isSelected }) => ($isSelected ? 1 : 0.5)};
-
-  cursor: ${({ $isSelected }) => ($isSelected ? 'pointer' : 'default')};
-`;
-
-const ItemImage = styled.img`
-  height: 70px;
-  object-fit: contain;
-`;
-
-const ItemInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: ${({ theme }) => theme.spacing[1]};
-`;
-
-const ItemHeart = styled.img`
-  width: 13px;
-  height: 13px;
-`;
+import { Grid, ItemImage, ItemInfo, OwnedItemCard } from './ItemGrid.styles';
 
 function ItemOwnedGrid({
   items,
@@ -49,13 +9,32 @@ function ItemOwnedGrid({
   items: SelectedItem[];
   setSelectedItem: (item: SelectedItem) => void;
 }) {
+  const handleItemEquip = (item: SelectedItem) => {
+    // 아이템 장착/해제, POST, /api/me/items/{id}
+
+    if (item.isUsed) {
+      // 아이템 해제
+      console.log('아이템 해제: ', item.id);
+      console.log('body: ', {
+        isUsed: false,
+      });
+    } else {
+      // 아이템 장착, POST, /api/me/items/{id}
+      console.log('아이템 장착: ', item.id);
+      console.log('body: ', {
+        isUsed: true,
+      });
+      setSelectedItem(item);
+    }
+  };
+
   return (
     <Grid>
       {items.map((item) => (
-        <ItemCard
+        <OwnedItemCard
           key={item.id}
           onClick={() => {
-            setSelectedItem(item);
+            handleItemEquip(item);
           }}
           $isSelected={item.isUsed}
         >
@@ -65,7 +44,7 @@ function ItemOwnedGrid({
               {item.price}
             </Typography>
           </ItemInfo>
-        </ItemCard>
+        </OwnedItemCard>
       ))}
     </Grid>
   );
