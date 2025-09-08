@@ -7,7 +7,7 @@ function ItemOwnedGrid({
   setSelectedItem,
 }: {
   items: SelectedItem[];
-  setSelectedItem: (item: SelectedItem) => void;
+  setSelectedItem: (item: SelectedItem | null) => void;
 }) {
   const handleItemEquip = (item: SelectedItem) => {
     // 아이템 장착/해제, POST, /api/me/items/{id}
@@ -18,14 +18,17 @@ function ItemOwnedGrid({
       console.log('body: ', {
         isUsed: false,
       });
-    } else {
-      // 아이템 장착, POST, /api/me/items/{id}
-      console.log('아이템 장착: ', item.id);
-      console.log('body: ', {
-        isUsed: true,
-      });
-      setSelectedItem(item);
+
+      setSelectedItem(null);
+      return;
     }
+
+    // 아이템 장착, POST, /api/me/items/{id}
+    console.log('아이템 장착: ', item.id);
+    console.log('body: ', {
+      isUsed: true,
+    });
+    setSelectedItem(item);
   };
 
   return (

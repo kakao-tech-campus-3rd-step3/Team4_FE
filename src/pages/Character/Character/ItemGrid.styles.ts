@@ -30,9 +30,9 @@ export const OwnedItemCard = styled.div<{ $isSelected?: boolean }>`
   background-color: ${({ theme }) => theme.colors.brand.primary};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   padding: ${({ theme }) => theme.spacing[1]};
-  opacity: ${({ $isSelected }) => ($isSelected ? 1 : 0.5)};
+  opacity: ${({ $isSelected }) => (!$isSelected ? 1 : 0.5)};
 
-  cursor: ${({ $isSelected }) => ($isSelected ? 'pointer' : 'default')};
+  cursor: ${({ $isSelected }) => (!$isSelected ? 'pointer' : 'default')};
 `;
 
 export const ItemImage = styled.img`

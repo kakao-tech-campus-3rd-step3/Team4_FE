@@ -35,13 +35,13 @@ function Index() {
     if (tab === TABS.OWNED) {
       // 보유 아이템 목록 조회, GET, /api/me/items
       const ownedItemsMock = mocks.data.isOwnedItemsMock;
-      setItems(ownedItemsMock);
+      setItems([...ownedItemsMock]);
       return;
     }
 
     // 상점 아이템 목록 조회, GET, /api/items?page=Integer&category=ItemCategoryEnum
     const storeItemsMock = mocks.data.characterStoreItemsMock;
-    setItems(storeItemsMock);
+    setItems([...storeItemsMock]);
   }, [tab]);
 
   return (
