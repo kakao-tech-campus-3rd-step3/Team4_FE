@@ -5,8 +5,8 @@ export const isOwnedItemsMock = [
     name: 'baseball-cap',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/111083b3-873c-42fc-9d3e-05605ea5aff4',
-    offsetX: 0,
-    offsetY: 0,
+    offsetX: -7,
+    offsetY: 2,
     isUsed: false,
   },
   {
@@ -26,7 +26,7 @@ export const isOwnedItemsMock = [
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/732d0672-890a-473d-b662-b10bebe8dc13',
     offsetX: 0,
-    offsetY: 0,
+    offsetY: -5,
     isUsed: false,
   },
   {
@@ -36,7 +36,7 @@ export const isOwnedItemsMock = [
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/f9023cc3-98dc-47c1-96ee-94a61986e201',
     offsetX: 0,
-    offsetY: 0,
+    offsetY: -7,
     isUsed: false,
   },
   {
@@ -65,8 +65,8 @@ export const isOwnedItemsMock = [
     name: 'santa-hat',
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/7078f1ee-44ee-47ea-ad9a-a5f4eb1315dc',
-    offsetX: 0,
-    offsetY: 0,
+    offsetX: 2,
+    offsetY: -5,
     isUsed: true,
   },
   {
@@ -76,7 +76,7 @@ export const isOwnedItemsMock = [
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/e36b58b5-15b6-4f97-95e0-997d0b41e483',
     offsetX: 0,
-    offsetY: 0,
+    offsetY: -4,
     isUsed: false,
   },
   {
@@ -86,7 +86,7 @@ export const isOwnedItemsMock = [
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/6694d2d6-8625-407c-8ecc-47b1311ef983',
     offsetX: 0,
-    offsetY: 0,
+    offsetY: -5,
     isUsed: false,
   },
   {
@@ -96,7 +96,7 @@ export const isOwnedItemsMock = [
     price: 100,
     imageUrl: 'https://github.com/user-attachments/assets/229ed48f-0f31-4a82-abef-4af71c7c9e3d',
     offsetX: 0,
-    offsetY: 0,
+    offsetY: 13,
     isUsed: true,
   },
   {
