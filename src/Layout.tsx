@@ -1,6 +1,7 @@
-import styled from "@emotion/styled";
-import { Outlet } from "react-router-dom";
-import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from "./constants/layout";
+import styled from '@emotion/styled';
+import { Outlet, useLocation } from 'react-router-dom';
+import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import { ROUTES } from './constants/routes';
 
 const AppViewport = styled.div`
   display: flex;
@@ -19,7 +20,6 @@ const DeviceFrame = styled.div`
   aspect-ratio: ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H};
   height: 100dvh;
 
-  /* usable height 기반 너비 산출도 가능하지만, 여기선 전체 높이 기반 유지 */
   width: clamp(
     ${DESIGN_BASE.MIN_WIDTH}px,
     calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}),
@@ -59,6 +59,18 @@ const Layout = styled.div`
 
 // 모바일 퍼스트 디자인
 function AppLayout() {
+  const location = useLocation();
+
+  if (location.pathname === ROUTES.CHARACTER) {
+    return (
+      <AppViewport>
+        <DeviceFrame>
+          <Outlet />
+        </DeviceFrame>
+      </AppViewport>
+    );
+  }
+
   return (
     <AppViewport>
       <DeviceFrame>
