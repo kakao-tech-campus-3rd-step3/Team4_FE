@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { semanticColors, colorScale } from "@/styles/theme/colors";
 import { DESIGN_BASE, PAGE_PADDING } from "@/constants/layout";
+import { useState } from "react";
 
 type Mission = { id: string; text: string };
 
@@ -32,7 +33,7 @@ const CardHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: ${semanticColors.brand.primary}; /* 상단 옅은 브라운 */
+  background: ${semanticColors.brand.primary};
   padding: 10px 14px;
   font-size: 14px;
   font-weight: 700;
@@ -122,6 +123,108 @@ const CTAButton = styled.button`
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
 `;
 
+/* --- Missions.tsx 전용 바텀시트 (간소화/비재사용) --- */
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 1000;
+`;
+
+const Sheet = styled.section`
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  background: ${semanticColors.background.default};
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px 20px;
+  animation: slideUp 180ms ease-out;
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(24px);
+      opacity: 0.7;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+`;
+
+const Handle = styled.div`
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: ${colorScale.gray300};
+  margin: 6px auto 12px;
+`;
+
+/* 바텀시트 내부 전용 스타일 */
+const SheetTitle = styled.h3`
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: ${semanticColors.text.default};
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid ${colorScale.gray300};
+  background: ${semanticColors.background.default};
+  color: ${semanticColors.text.default};
+  font-size: 14px;
+`;
+
+const ChipRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 12px 0 14px;
+`;
+
+const Chip = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid ${semanticColors.brand.border};
+  background: ${colorScale.brown0};
+  color: ${semanticColors.text.default};
+  font-weight: 700;
+  font-size: 13px;
+`;
+
+const Primary = styled.button`
+  width: 100%;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: ${colorScale.orange500};
+  color: ${semanticColors.background.default};
+  font-size: 15px;
+  font-weight: 800;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+`;
+
+const Danger = styled.button`
+  display: block;
+  margin: 12px auto 0;
+  background: transparent;
+  border: 0;
+  color: ${colorScale.red500};
+  font-size: 12px;
+  font-weight: 700;
+`;
+
 const missionsMock: Mission[] = [
   { id: "m1", text: "백엔드 직군 채용정보 5개 찾아보기" },
   { id: "m2", text: "자기소개서에서 나의 강점 3가지 정리해보기" },
@@ -129,15 +232,12 @@ const missionsMock: Mission[] = [
 ];
 
 export default function Missions() {
-  const onAddMission = () => {
-    // TODO: 미션추가 로직
-    alert("미션추가");
-  };
-  const onNext = () => {
-    // TODO: 다음 단계 라우팅
-    alert("다음");
-  };
+  const [openSheet, setOpenSheet] = useState(false);
 
+  const onAddMission = () => setOpenSheet(true);
+  const onCloseSheet = () => setOpenSheet(false);
+
+  const onNext = () => alert("다음");
   return (
     <>
       <Screen>
@@ -170,9 +270,33 @@ export default function Missions() {
           <CTAButton onClick={onNext}>다음</CTAButton>
         </CTAWrap>
       </Screen>
-      <Screen>
-        <Title>missions</Title>
-      </Screen>
+      {openSheet && (
+        <Overlay onClick={onCloseSheet}>
+          <Sheet onClick={(e) => e.stopPropagation()}>
+            <Handle />
+            <SheetTitle>미션 추가</SheetTitle>
+
+            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기" />
+
+            <ChipRow>
+              <Chip>⟳ 리프레시</Chip>
+              <Chip>📂 취업</Chip>
+              <Chip>☀️ 일상</Chip>
+            </ChipRow>
+
+            <Primary
+              onClick={() => {
+                // TODO: 실제 추가 로직
+                onCloseSheet();
+              }}
+            >
+              일일 계획에 추가
+            </Primary>
+
+            <Danger onClick={onCloseSheet}>삭제하기</Danger>
+          </Sheet>
+        </Overlay>
+      )}
     </>
   );
 }
