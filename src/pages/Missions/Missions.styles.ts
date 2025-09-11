@@ -1,11 +1,8 @@
-import styled from '@emotion/styled';
-import { semanticColors, colorScale } from '@/styles/theme/colors';
 import { DESIGN_BASE, PAGE_PADDING } from '@/constants/layout';
-import { useState } from 'react';
+import { colorScale, semanticColors } from '@/styles/theme/colors';
+import styled from '@emotion/styled';
 
-type Mission = { id: string; text: string };
-
-const Screen = styled.main`
+export const Screen = styled.main`
   max-width: ${DESIGN_BASE.MAX_WIDTH}px;
   margin: 0 auto;
   min-height: 100vh;
@@ -14,14 +11,14 @@ const Screen = styled.main`
   box-sizing: border-box;
 `;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   margin: 0 0 12px 0;
   font-size: 18px;
   font-weight: 800;
   color: ${semanticColors.text.default};
 `;
 
-const Card = styled.section`
+export const Card = styled.section`
   background: ${semanticColors.background.default};
   border: 1px solid ${semanticColors.brand.border};
   border-radius: 14px;
@@ -29,7 +26,7 @@ const Card = styled.section`
   overflow: hidden;
 `;
 
-const CardHeader = styled.div`
+export const CardHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,13 +37,13 @@ const CardHeader = styled.div`
   color: ${semanticColors.text.default};
 `;
 
-const CardBody = styled.div`
+export const CardBody = styled.div`
   padding: 16px 14px 18px;
   background: ${colorScale.brown0};
   min-height: 120px;
 `;
 
-const Section = styled.section`
+export const Section = styled.section`
   margin-top: 16px;
   background: ${semanticColors.background.default};
   border: 1px solid ${semanticColors.brand.border};
@@ -54,21 +51,21 @@ const Section = styled.section`
   padding: 12px 12px 10px;
 `;
 
-const SectionHeader = styled.div`
+export const SectionHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 6px;
 `;
 
-const SectionTitle = styled.h2`
+export const SectionTitle = styled.h2`
   margin: 0;
   font-size: 14px;
   font-weight: 700;
   color: ${semanticColors.text.default};
 `;
 
-const AddPill = styled.button`
+export const AddPill = styled.button`
   border: 0;
   outline: 0;
   cursor: pointer;
@@ -80,13 +77,13 @@ const AddPill = styled.button`
   font-weight: 700;
 `;
 
-const MissionList = styled.ul`
+export const MissionList = styled.ul`
   list-style: none;
   margin: 6px 0 0;
   padding: 0 2px 8px;
 `;
 
-const MissionItem = styled.li`
+export const MissionItem = styled.li`
   display: flex;
   align-items: flex-start;
   gap: 8px;
@@ -103,13 +100,13 @@ const MissionItem = styled.li`
   }
 `;
 
-const CTAWrap = styled.div`
+export const CTAWrap = styled.div`
   position: sticky;
   bottom: 16px;
   margin-top: 24px;
 `;
 
-const CTAButton = styled.button`
+export const CTAButton = styled.button`
   width: 100%;
   border: 0;
   outline: 0;
@@ -123,8 +120,7 @@ const CTAButton = styled.button`
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
 `;
 
-/* --- Missions.tsx 전용 바텀시트 (간소화/비재사용) --- */
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
@@ -134,7 +130,7 @@ const Overlay = styled.div`
   z-index: 1000;
 `;
 
-const Sheet = styled.section`
+export const Sheet = styled.section`
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
@@ -156,7 +152,7 @@ const Sheet = styled.section`
   }
 `;
 
-const Handle = styled.div`
+export const Handle = styled.div`
   width: 44px;
   height: 5px;
   border-radius: 999px;
@@ -164,15 +160,14 @@ const Handle = styled.div`
   margin: 6px auto 12px;
 `;
 
-/* 바텀시트 내부 전용 스타일 */
-const SheetTitle = styled.h3`
+export const SheetTitle = styled.h3`
   margin: 0 0 12px;
   font-size: 16px;
   font-weight: 800;
   color: ${semanticColors.text.default};
 `;
 
-const Input = styled.input`
+export const Input = styled.input`
   width: 100%;
   padding: 10px 12px;
   border-radius: 12px;
@@ -182,14 +177,14 @@ const Input = styled.input`
   font-size: 14px;
 `;
 
-const ChipRow = styled.div`
+export const ChipRow = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   margin: 12px 0 14px;
 `;
 
-const Chip = styled.button`
+export const Chip = styled.button`
   display: flex;
   align-items: center;
   gap: 6px;
@@ -203,7 +198,7 @@ const Chip = styled.button`
   font-size: 13px;
 `;
 
-const Primary = styled.button`
+export const Primary = styled.button`
   width: 100%;
   padding: 12px 16px;
   border: 0;
@@ -215,7 +210,7 @@ const Primary = styled.button`
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 `;
 
-const Danger = styled.button`
+export const Danger = styled.button`
   display: block;
   margin: 12px auto 0;
   background: transparent;
@@ -224,79 +219,3 @@ const Danger = styled.button`
   font-size: 12px;
   font-weight: 700;
 `;
-
-const missionsMock: Mission[] = [
-  { id: 'm1', text: '백엔드 직군 채용정보 5개 찾아보기' },
-  { id: 'm2', text: '자기소개서에서 나의 강점 3가지 정리해보기' },
-  { id: 'm3', text: '1분 자기소개 발표해보기' },
-];
-
-export default function Missions() {
-  const [openSheet, setOpenSheet] = useState(false);
-
-  const onAddMission = () => setOpenSheet(true);
-  const onCloseSheet = () => setOpenSheet(false);
-
-  const onNext = () => alert('다음');
-  return (
-    <>
-      <Screen>
-        <Title>missions</Title>
-
-        {/* 일일 계획 카드 */}
-        <Card>
-          <CardHeader>
-            <span>일일 계획</span>
-            <span>8월 9일</span>
-          </CardHeader>
-          <CardBody>{/* 일정/메모 입력 영역 */}</CardBody>
-        </Card>
-
-        {/* 미션 리스트 */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>미션 리스트</SectionTitle>
-            <AddPill onClick={onAddMission}>미션 추가</AddPill>
-          </SectionHeader>
-          <MissionList>
-            {missionsMock.map((m) => (
-              <MissionItem key={m.id}>{m.text}</MissionItem>
-            ))}
-          </MissionList>
-        </Section>
-
-        {/* 하단 CTA */}
-        <CTAWrap>
-          <CTAButton onClick={onNext}>다음</CTAButton>
-        </CTAWrap>
-      </Screen>
-      {openSheet && (
-        <Overlay onClick={onCloseSheet}>
-          <Sheet onClick={(e) => e.stopPropagation()}>
-            <Handle />
-            <SheetTitle>미션 추가</SheetTitle>
-
-            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기" />
-
-            <ChipRow>
-              <Chip>⟳ 리프레시</Chip>
-              <Chip>📂 취업</Chip>
-              <Chip>☀️ 일상</Chip>
-            </ChipRow>
-
-            <Primary
-              onClick={() => {
-                // TODO: 실제 추가 로직
-                onCloseSheet();
-              }}
-            >
-              일일 계획에 추가
-            </Primary>
-
-            <Danger onClick={onCloseSheet}>삭제하기</Danger>
-          </Sheet>
-        </Overlay>
-      )}
-    </>
-  );
-}
