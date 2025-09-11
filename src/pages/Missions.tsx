@@ -1,7 +1,7 @@
-import styled from "@emotion/styled";
-import { semanticColors, colorScale } from "@/styles/theme/colors";
-import { DESIGN_BASE, PAGE_PADDING } from "@/constants/layout";
-import { useState } from "react";
+import styled from '@emotion/styled';
+import { semanticColors, colorScale } from '@/styles/theme/colors';
+import { DESIGN_BASE, PAGE_PADDING } from '@/constants/layout';
+import { useState } from 'react';
 
 type Mission = { id: string; text: string };
 
@@ -95,7 +95,7 @@ const MissionItem = styled.li`
   color: ${semanticColors.text.default};
 
   &::before {
-    content: "📝";
+    content: '📝';
     display: inline-block;
     font-size: 14px;
     line-height: 1;
@@ -226,9 +226,9 @@ const Danger = styled.button`
 `;
 
 const missionsMock: Mission[] = [
-  { id: "m1", text: "백엔드 직군 채용정보 5개 찾아보기" },
-  { id: "m2", text: "자기소개서에서 나의 강점 3가지 정리해보기" },
-  { id: "m3", text: "1분 자기소개 발표해보기" },
+  { id: 'm1', text: '백엔드 직군 채용정보 5개 찾아보기' },
+  { id: 'm2', text: '자기소개서에서 나의 강점 3가지 정리해보기' },
+  { id: 'm3', text: '1분 자기소개 발표해보기' },
 ];
 
 export default function Missions() {
@@ -237,7 +237,7 @@ export default function Missions() {
   const onAddMission = () => setOpenSheet(true);
   const onCloseSheet = () => setOpenSheet(false);
 
-  const onNext = () => alert("다음");
+  const onNext = () => alert('다음');
   return (
     <>
       <Screen>

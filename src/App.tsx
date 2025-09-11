@@ -1,26 +1,26 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ROUTES } from "./constants/routes";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ROUTES } from './constants/routes';
 
 // pages
-import { default as CharacterIndex } from "@/pages/Character/Character/Character";
-import CharacterLayout from "@/pages/Character/Layout";
-import DiariesDetail from "@/pages/Diaries/Detail";
-import DiariesFeedback from "@/pages/Diaries/Feedback";
-import DiariesLayout from "@/pages/Diaries/Layout";
-import DiariesList from "@/pages/Diaries/List";
-import DiariesNewLayout from "@/pages/Diaries/New/Layout";
-import DiariesNewMood from "@/pages/Diaries/New/Mood";
-import Errors from "@/pages/Errors";
-import Home from "@/pages/Home";
-import Login from "@/pages/Login";
-import Missions from "@/pages/Missions";
-import OnboardingLayout from "@/pages/Onboarding/Layout";
-import OnboardingStep from "@/pages/Onboarding/Step";
-import AppLayout from "./Layout";
-import CharacterChat from "./pages/Character/Chat";
-import GlobalStyle from "./styles/GlobalStyle";
+import { default as CharacterIndex } from '@/pages/Character/Character/Character';
+import CharacterLayout from '@/pages/Character/Layout';
+import DiariesDetail from '@/pages/Diaries/Detail';
+import DiariesFeedback from '@/pages/Diaries/Feedback';
+import DiariesLayout from '@/pages/Diaries/Layout';
+import DiariesList from '@/pages/Diaries/List';
+import DiariesNewLayout from '@/pages/Diaries/New/Layout';
+import DiariesNewMood from '@/pages/Diaries/New/Mood';
+import Errors from '@/pages/Errors';
+import Home from '@/pages/Home';
+import Login from '@/pages/Login';
+import Missions from '@/pages/Missions';
+import OnboardingLayout from '@/pages/Onboarding/Layout';
+import OnboardingStep from '@/pages/Onboarding/Step';
+import AppLayout from './Layout';
+import CharacterChat from './pages/Character/Chat';
+import GlobalStyle from './styles/GlobalStyle';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 function App() {
   return (
