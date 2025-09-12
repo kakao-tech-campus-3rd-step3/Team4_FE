@@ -41,7 +41,7 @@ function Missions() {
     if (missionsMock) {
       setMissions([...missionsMock]);
     } else {
-      setMissions([]); // mock이 비어있으면 빈 배열
+      setMissions([]);
     }
   }, []);
 

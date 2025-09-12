@@ -21,7 +21,7 @@ export const Title = styled.h1`
 export const Card = styled.section`
   background: ${semanticColors.background.default};
   border: 1px solid ${semanticColors.brand.border};
-  border-radius: 14px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
   overflow: hidden;
 `;
@@ -38,17 +38,17 @@ export const CardHeader = styled.div`
 `;
 
 export const CardBody = styled.div`
-  padding: 16px 14px 18px;
+  padding: ${({ theme }) => theme.spacing[4]} 14px 18px;
   background: ${colorScale.brown0};
   min-height: 120px;
 `;
 
 export const Section = styled.section`
-  margin-top: 16px;
+  margin-top: ${({ theme }) => theme.spacing[4]};
   background: ${semanticColors.background.default};
   border: 1px solid ${semanticColors.brand.border};
-  border-radius: 14px;
-  padding: 12px 12px 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[3]} 10px;
 `;
 
 export const SectionHeader = styled.div`
@@ -70,24 +70,24 @@ export const AddPill = styled.button`
   outline: 0;
   cursor: pointer;
   padding: 6px 10px;
-  border-radius: 999px;
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   background: ${colorScale.orange500};
   color: ${semanticColors.background.default};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.spacing[3]};
   font-weight: 700;
 `;
 
 export const MissionList = styled.ul`
   list-style: none;
   margin: 6px 0 0;
-  padding: 0 2px 8px;
+  padding: 0 2px ${({ theme }) => theme.spacing[2]};
 `;
 
 export const MissionItem = styled.li`
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: 8px 2px;
+  gap: ${({ theme }) => theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[2]} 2px;
   font-size: 14px;
   color: ${semanticColors.text.default};
 
@@ -102,8 +102,8 @@ export const MissionItem = styled.li`
 
 export const CTAWrap = styled.div`
   position: sticky;
-  bottom: 16px;
-  margin-top: 24px;
+  bottom: ${({ theme }) => theme.spacing[4]};
+  margin-top: ${({ theme }) => theme.spacing[6]};
 `;
 
 export const CTAButton = styled.button`
@@ -111,11 +111,11 @@ export const CTAButton = styled.button`
   border: 0;
   outline: 0;
   cursor: pointer;
-  padding: 14px 16px;
-  border-radius: 12px;
+  padding: 14px ${({ theme }) => theme.spacing[4]};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   background: ${colorScale.gray900};
   color: ${semanticColors.background.default};
-  font-size: 16px;
+  font-size: ${({ theme }) => theme.spacing[4]};
   font-weight: 800;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.12);
 `;
@@ -135,9 +135,12 @@ export const Sheet = styled.section`
   max-width: 520px;
   margin: 0 auto;
   background: ${semanticColors.background.default};
-  border-radius: 20px 20px 0 0;
+  border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px 20px;
+  padding: ${({ theme }) => `
+  ${theme.spacing[3]} ${theme.spacing[4]} ${theme.spacing[5]}
+`};
+
   animation: slideUp 180ms ease-out;
 
   @keyframes slideUp {
@@ -153,24 +156,24 @@ export const Sheet = styled.section`
 `;
 
 export const Handle = styled.div`
-  width: 44px;
+  width: ${({ theme }) => theme.spacing[11]};
   height: 5px;
-  border-radius: 999px;
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   background: ${colorScale.gray300};
-  margin: 6px auto 12px;
+  margin: 6px auto ${({ theme }) => theme.spacing[3]};
 `;
 
 export const SheetTitle = styled.h3`
-  margin: 0 0 12px;
-  font-size: 16px;
+  margin: 0 0 ${({ theme }) => theme.spacing[3]};
+  font-size: ${({ theme }) => theme.spacing[4]};
   font-weight: 800;
   color: ${semanticColors.text.default};
 `;
 
 export const Input = styled.input`
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 12px;
+  padding: 10px ${({ theme }) => theme.spacing[3]};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   border: 1px solid ${colorScale.gray300};
   background: ${semanticColors.background.default};
   color: ${semanticColors.text.default};
@@ -180,17 +183,17 @@ export const Input = styled.input`
 export const ChipRow = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 12px 0 14px;
+  gap: ${({ theme }) => theme.spacing[2]};
+  margin: ${({ theme }) => theme.spacing[3]} 0 14px;
 `;
 
 export const Chip = styled.button`
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: ${({ theme }) => theme.spacing[1]};
   justify-content: center;
-  padding: 10px 12px;
-  border-radius: 12px;
+  padding: 10px ${({ theme }) => theme.spacing[3]};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   border: 1px solid ${semanticColors.brand.border};
   background: ${colorScale.brown0};
   color: ${semanticColors.text.default};
@@ -200,9 +203,9 @@ export const Chip = styled.button`
 
 export const Primary = styled.button`
   width: 100%;
-  padding: 12px 16px;
+  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
   border: 0;
-  border-radius: 14px;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   background: ${colorScale.orange500};
   color: ${semanticColors.background.default};
   font-size: 15px;
@@ -212,10 +215,10 @@ export const Primary = styled.button`
 
 export const Danger = styled.button`
   display: block;
-  margin: 12px auto 0;
+  margin: ${({ theme }) => theme.spacing[3]} auto 0;
   background: transparent;
   border: 0;
   color: ${colorScale.red500};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.spacing[3]};
   font-weight: 700;
 `;
