@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AddPill,
   Card,
@@ -25,15 +25,26 @@ import {
 } from './Missions.styles';
 import { MISSION_TAGS } from './constants/icon';
 import { Typography } from '@/components/common/Typography';
-import { missionsMock } from 'mocks/data/missionsMock';
+import mocks from '@/mockSetup';
 
 function Missions() {
   const [openSheet, setOpenSheet] = useState(false);
+  const [missions, setMissions] = useState<any[]>([]);
 
   const onAddMission = () => setOpenSheet(true);
   const onCloseSheet = () => setOpenSheet(false);
-
   const onNext = () => alert('다음');
+
+  useEffect(() => {
+    // 미션 리스트 조회, GET, /api/missions
+    const missionsMock = mocks.data.missionsMock;
+    if (missionsMock) {
+      setMissions([...missionsMock]);
+    } else {
+      setMissions([]); // mock이 비어있으면 빈 배열
+    }
+  }, []);
+
   return (
     <>
       <Screen>
@@ -55,7 +66,7 @@ function Missions() {
             <AddPill onClick={onAddMission}>미션 추가</AddPill>
           </SectionHeader>
           <MissionList>
-            {missionsMock.map((m) => (
+            {missions.map((m) => (
               <MissionItem key={m.id}>{m.text}</MissionItem>
             ))}
           </MissionList>
