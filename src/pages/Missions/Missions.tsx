@@ -32,7 +32,7 @@ const missionsMock: Mission[] = [
   { id: 'm3', text: '1분 자기소개 발표해보기' },
 ];
 
-export default function Missions() {
+function Missions() {
   const [openSheet, setOpenSheet] = useState(false);
 
   const onAddMission = () => setOpenSheet(true);
@@ -101,3 +101,5 @@ export default function Missions() {
     </>
   );
 }
+
+export default Missions;
