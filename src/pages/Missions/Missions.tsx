@@ -23,6 +23,8 @@ import {
   SheetTitle,
   Title,
 } from './Missions.styles';
+import { MISSION_TAGS } from './constants/icon';
+import { Typography } from '@/components/common/Typography';
 
 type Mission = { id: string; text: string };
 
@@ -77,12 +79,17 @@ function Missions() {
             <Handle />
             <SheetTitle>미션 추가</SheetTitle>
 
-            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기 " />
+            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기" />
 
             <ChipRow>
-              <Chip>⟳ 리프레시</Chip>
-              <Chip>📂 취업</Chip>
-              <Chip>☀️ 일상</Chip>
+              {MISSION_TAGS.map(({ key, label, icon }) => (
+                <Chip key={key}>
+                  <span aria-hidden>{icon}</span>
+                  <Typography as="span" variant="body1Regular" color="default">
+                    {label}
+                  </Typography>
+                </Chip>
+              ))}
             </ChipRow>
 
             <Primary
