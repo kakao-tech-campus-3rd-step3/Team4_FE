@@ -77,7 +77,7 @@ function Missions() {
             <Handle />
             <SheetTitle>미션 추가</SheetTitle>
 
-            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기" />
+            <Input placeholder="자기소개서 나의 강점 3가지 정리해보기 " />
 
             <ChipRow>
               <Chip>⟳ 리프레시</Chip>
