@@ -1,5 +1,5 @@
 function Missions() {
-  return <div>missions</div>;
+  return <div>Missions</div>;
 }
 
 export default Missions;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import { ROUTES } from './constants/routes';
 
 const AppViewport = styled.div`
   display: flex;
@@ -19,14 +20,13 @@ const DeviceFrame = styled.div`
   aspect-ratio: ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H};
   height: 100dvh;
 
-  /* usable height 기반 너비 산출도 가능하지만, 여기선 전체 높이 기반 유지 */
   width: clamp(
     ${DESIGN_BASE.MIN_WIDTH}px,
     calc(100dvh * ${DESIGN_RATIO.W} / ${DESIGN_RATIO.H}),
     ${DESIGN_BASE.MAX_WIDTH}px
   );
 
-  background: ${({ theme }) => theme.colors.background.default};
+  background: ${({ theme }) => theme.colors.brand.background};
   overflow-y: auto;
   overflow-x: hidden;
 
@@ -38,7 +38,7 @@ const DeviceFrame = styled.div`
   }
 `;
 
-const Layout = styled.div`
+const AppLayout = styled.div`
   /* ios safari 상하단 안전영역 대응 */
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
@@ -57,15 +57,32 @@ const Layout = styled.div`
   min-height: 100%;
 `;
 
+const mobileBaseLayout = ({ children }: { children: React.ReactNode }) => (
+  <AppViewport>
+    <DeviceFrame>{children}</DeviceFrame>
+  </AppViewport>
+);
+
+const layoutConfig = ({ pathname }: { pathname: string }) => {
+  return [
+    {
+      match: () => pathname === ROUTES.CHARACTER,
+      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: ch }),
+    },
+    {
+      match: () => true,
+      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
+    },
+  ];
+};
+
 // 모바일 퍼스트 디자인
-export default function AppLayout() {
-  return (
-    <AppViewport>
-      <DeviceFrame>
-        <Layout>
-          <Outlet />
-        </Layout>
-      </DeviceFrame>
-    </AppViewport>
-  );
+function Layout() {
+  const location = useLocation();
+
+  const { wrap } = layoutConfig({ pathname: location.pathname }).find((r) => r.match())!;
+
+  return wrap(<Outlet />);
 }
+
+export default Layout;
