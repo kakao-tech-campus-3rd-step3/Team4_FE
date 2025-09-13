@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
-import { default as CharacterIndex } from '@/pages/Character/Character/Character';
+import Character from '@/pages/Character/Character/Character';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
@@ -36,7 +36,7 @@ function App() {
           </Route>
 
           <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
-            <Route index element={<CharacterIndex />} />
+            <Route index element={<Character />} />
             <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
           </Route>
 

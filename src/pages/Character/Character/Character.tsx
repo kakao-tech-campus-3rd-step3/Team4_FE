@@ -26,7 +26,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
   object-fit: contain;
 `;
 
-function Index() {
+function Character() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
   const [storeItems, setStoreItems] = useState<StoreItem[]>(() => {
     const storeItemsMock = mocks.data.characterStoreItemsMock;
@@ -79,4 +79,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Character;
