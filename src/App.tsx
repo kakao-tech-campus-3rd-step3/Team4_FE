@@ -16,7 +16,7 @@ import Login from '@/pages/Login';
 import Missions from '@/pages/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
-import AppLayout from './Layout';
+import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -27,7 +27,7 @@ function App() {
     <BrowserRouter basename={base}>
       <GlobalStyle />
       <Routes>
-        <Route element={<AppLayout />}>
+        <Route element={<Layout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
 
