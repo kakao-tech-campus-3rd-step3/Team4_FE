@@ -10,10 +10,12 @@ export interface StoreItem extends Item {
   isOwned: boolean;
 }
 
-export interface SelectedItem extends Item {
+export interface OwnedItem extends Item {
   offsetX: number;
   offsetY: number;
   isUsed: boolean;
 }
+
+export type SelectedItem = OwnedItem;
 
 type ItemCategory = 'HAT';

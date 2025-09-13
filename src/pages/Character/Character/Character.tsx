@@ -2,7 +2,7 @@ import mocks from '@/mockSetup';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { TABS } from '../constants/tab';
-import type { SelectedItem, StoreItem } from '../types/Item';
+import type { OwnedItem, SelectedItem, StoreItem } from '../types/Item';
 import {
   BackgroundImage,
   CharacterContainer,
@@ -28,7 +28,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
-  const [ownedItems, setOwnedItems] = useState<SelectedItem[]>([]);
+  const [ownedItems, setOwnedItems] = useState<OwnedItem[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
 
