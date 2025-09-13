@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useState } from 'react';
 import { TABS } from '../constants/tab';
 import type { OwnedItem, SelectedItem, StoreItem } from '../types/Item';
+import type { Tab } from '../types/tab';
 import {
   BackgroundImage,
   CharacterContainer,
@@ -27,7 +28,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 `;
 
 function Character() {
-  const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
+  const [tab, setTab] = useState<Tab>(TABS.STORE);
   const [storeItems, setStoreItems] = useState<StoreItem[]>(() => {
     const storeItemsMock = mocks.data.characterStoreItemsMock;
     return [...storeItemsMock];
@@ -36,7 +37,7 @@ function Character() {
 
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
 
-  const handleChangeTab = (nextTab: (typeof TABS)[keyof typeof TABS]) => {
+  const handleChangeTab = (nextTab: Tab) => {
     setTab(nextTab);
 
     if (nextTab === TABS.OWNED) {
