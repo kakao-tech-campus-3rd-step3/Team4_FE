@@ -23,7 +23,7 @@ const TabButton = styled.div<{ isActive: boolean }>`
   cursor: pointer;
 `;
 
-function Tab({
+function Tabs({
   tab,
   setTab,
 }: {
@@ -46,4 +46,4 @@ function Tab({
   );
 }
 
-export default Tab;
+export default Tabs;

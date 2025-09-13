@@ -16,3 +16,5 @@ export const ROUTES = {
   MISSIONS: '/missions',
   NOT_FOUND: '*',
 } as const;
+
+export const BASE_URL = import.meta.env.BASE_URL;
