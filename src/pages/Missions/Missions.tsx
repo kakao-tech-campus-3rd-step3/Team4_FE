@@ -1,24 +1,13 @@
 import { useEffect, useState } from 'react';
 import {
-  AddPill,
-  Card,
-  CardBody,
-  CardHeader,
   Chip,
   ChipRow,
-  CTAButton,
-  CTAWrap,
   Danger,
   Handle,
   Input,
-  MissionItem,
-  MissionList,
   Overlay,
   Primary,
   Screen,
-  Section,
-  SectionHeader,
-  SectionTitle,
   Sheet,
   SheetTitle,
   Title,
@@ -26,6 +15,9 @@ import {
 import { MISSION_TAGS } from './constants/icon';
 import { Typography } from '@/components/common/Typography';
 import mocks from '@/mockSetup';
+import DailyPlanCard from './components/DailyPlanCard';
+import MissionListSection from './components/MissionListSection';
+import CTABar from './components/CTABar';
 
 function Missions() {
   const [openSheet, setOpenSheet] = useState(false);
@@ -51,31 +43,13 @@ function Missions() {
         <Title>missions</Title>
 
         {/* 일일 계획 카드 */}
-        <Card>
-          <CardHeader>
-            <span>일일 계획</span>
-            <span>8월 9일</span>
-          </CardHeader>
-          <CardBody>{/* 일정/메모 입력 영역 */}</CardBody>
-        </Card>
+        <DailyPlanCard />
 
         {/* 미션 리스트 */}
-        <Section>
-          <SectionHeader>
-            <SectionTitle>미션 리스트</SectionTitle>
-            <AddPill onClick={onAddMission}>미션 추가</AddPill>
-          </SectionHeader>
-          <MissionList>
-            {missions.map((m) => (
-              <MissionItem key={m.id}>{m.text}</MissionItem>
-            ))}
-          </MissionList>
-        </Section>
+        <MissionListSection missions={missions} onClickAdd={onAddMission} />
 
         {/* 하단 CTA */}
-        <CTAWrap>
-          <CTAButton onClick={onNext}>다음</CTAButton>
-        </CTAWrap>
+        <CTABar onNext={onNext} />
       </Screen>
       {openSheet && (
         <Overlay onClick={onCloseSheet}>
