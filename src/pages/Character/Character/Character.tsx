@@ -27,7 +27,8 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 
 function Index() {
   const [tab, setTab] = useState<(typeof TABS)[keyof typeof TABS]>(TABS.STORE);
-  const [items, setItems] = useState<StoreItem[] | SelectedItem[]>([]);
+  const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
+  const [ownedItems, setOwnedItems] = useState<SelectedItem[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
 
@@ -35,13 +36,13 @@ function Index() {
     if (tab === TABS.OWNED) {
       // 보유 아이템 목록 조회, GET, /api/me/items
       const ownedItemsMock = mocks.data.isOwnedItemsMock;
-      setItems([...ownedItemsMock]);
+      setOwnedItems([...ownedItemsMock]);
       return;
     }
 
     // 상점 아이템 목록 조회, GET, /api/items?page=Integer&category=ItemCategoryEnum
     const storeItemsMock = mocks.data.characterStoreItemsMock;
-    setItems([...storeItemsMock]);
+    setStoreItems([...storeItemsMock]);
   }, [tab]);
 
   return (
@@ -70,9 +71,9 @@ function Index() {
       <ContentContainer>
         <Tab tab={tab} setTab={setTab} />
         {tab === TABS.STORE ? (
-          <ItemStoreGrid items={items as StoreItem[]} />
+          <ItemStoreGrid items={storeItems} />
         ) : (
-          <ItemOwnedGrid items={items as SelectedItem[]} setSelectedItem={setSelectedItem} />
+          <ItemOwnedGrid items={ownedItems} setSelectedItem={setSelectedItem} />
         )}
       </ContentContainer>
     </Container>
