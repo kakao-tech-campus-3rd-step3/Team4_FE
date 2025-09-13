@@ -1,6 +1,7 @@
 import { Typography } from '@/components/common/Typography';
 import styled from '@emotion/styled';
 import { TABS } from '../constants/tab';
+import type { Tab } from '../types/tab';
 
 const TabContainer = styled.div`
   flex: 1;
@@ -23,13 +24,7 @@ const TabButton = styled.div<{ isActive: boolean }>`
   cursor: pointer;
 `;
 
-function Tab({
-  tab,
-  setTab,
-}: {
-  tab: (typeof TABS)[keyof typeof TABS];
-  setTab: (tab: (typeof TABS)[keyof typeof TABS]) => void;
-}) {
+function Tabs({ tab, setTab }: { tab: Tab; setTab: (tab: Tab) => void }) {
   return (
     <TabContainer>
       <TabButton onClick={() => setTab(TABS.STORE)} isActive={tab === TABS.STORE}>
@@ -46,4 +41,4 @@ function Tab({
   );
 }
 
-export default Tab;
+export default Tabs;

@@ -1,4 +1,5 @@
 import { Typography } from '@/components/common/Typography';
+import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
 import type { StoreItem } from '../types/Item';
 import { Grid, ItemImage, ItemInfo, StoreItemCard } from './ItemGrid.styles';
@@ -24,7 +25,7 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
         <StoreItemCard key={item.id} $isOwned={item.isOwned} onClick={() => purchaseItem(item)}>
           <ItemImage src={item.imageUrl} alt={item.name} />
           <ItemInfo>
-            <ItemHeart src={`${import.meta.env.BASE_URL}assets/character/hearts.png`} alt="heart" />
+            <ItemHeart src={`${BASE_URL}assets/character/hearts.png`} alt="heart" />
             <Typography variant="body2Regular" color="default">
               {item.price}
             </Typography>
