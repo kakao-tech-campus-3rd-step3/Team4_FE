@@ -7,7 +7,7 @@ const DailyPlanCard = () => {
         <span>일일 계획</span>
         <span>8월 9일</span>
       </CardHeader>
-      <CardBody>{/* 일정/메모 입력 영역 */}</CardBody>
+      <CardBody>{/*일정/메모 입력 영역*/}</CardBody>
     </Card>
   );
 };
