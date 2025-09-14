@@ -38,7 +38,7 @@ const DeviceFrame = styled.div`
   }
 `;
 
-const Layout = styled.div`
+const AppLayout = styled.div`
   /* ios safari 상하단 안전영역 대응 */
   --safeTop: env(safe-area-inset-top, 0px);
   --safeBottom: env(safe-area-inset-bottom, 0px);
@@ -57,29 +57,32 @@ const Layout = styled.div`
   min-height: 100%;
 `;
 
+const mobileBaseLayout = ({ children }: { children: React.ReactNode }) => (
+  <AppViewport>
+    <DeviceFrame>{children}</DeviceFrame>
+  </AppViewport>
+);
+
+const layoutConfig = ({ pathname }: { pathname: string }) => {
+  return [
+    {
+      match: () => pathname === ROUTES.CHARACTER,
+      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: ch }),
+    },
+    {
+      match: () => true,
+      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
+    },
+  ];
+};
+
 // 모바일 퍼스트 디자인
-function AppLayout() {
+function Layout() {
   const location = useLocation();
 
-  if (location.pathname === ROUTES.CHARACTER) {
-    return (
-      <AppViewport>
-        <DeviceFrame>
-          <Outlet />
-        </DeviceFrame>
-      </AppViewport>
-    );
-  }
+  const { wrap } = layoutConfig({ pathname: location.pathname }).find((r) => r.match())!;
 
-  return (
-    <AppViewport>
-      <DeviceFrame>
-        <Layout>
-          <Outlet />
-        </Layout>
-      </DeviceFrame>
-    </AppViewport>
-  );
+  return wrap(<Outlet />);
 }
 
-export default AppLayout;
+export default Layout;

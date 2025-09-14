@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
-import { default as CharacterIndex } from '@/pages/Character/Character/Character';
+import Character from '@/pages/Character/Character/Character';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
@@ -16,7 +16,7 @@ import Login from '@/pages/Login';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
-import AppLayout from './Layout';
+import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import GlobalStyle from './styles/GlobalStyle';
 
@@ -27,7 +27,7 @@ function App() {
     <BrowserRouter basename={base}>
       <GlobalStyle />
       <Routes>
-        <Route element={<AppLayout />}>
+        <Route element={<Layout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
 
@@ -36,7 +36,7 @@ function App() {
           </Route>
 
           <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
-            <Route index element={<CharacterIndex />} />
+            <Route index element={<Character />} />
             <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
           </Route>
 
