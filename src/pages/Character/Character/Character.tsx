@@ -1,7 +1,6 @@
 import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import mocks from '../../../mockSetup';
 import { TABS } from '../constants/tab';
 import type { OwnedItem, SelectedItem, StoreItem } from '../types/Item';
 import type { Tab } from '../types/tab';
@@ -58,10 +57,32 @@ function Character() {
     }
   };
 
+  const fetchOwnedItems = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        },
+      });
+
+      // fetch 는 4xx, 5xx 에러를 reject 하지 않음
+      if (!res.ok) {
+        throw new Error(`error:  ${res.status}`);
+      }
+
+      const json = (await res.json()) as { content: OwnedItem[] };
+
+      setOwnedItems(json.content);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     if (tab === TABS.OWNED) {
-      const ownedItemsMock = mocks.data.isOwnedItemsMock;
-      setOwnedItems([...ownedItemsMock]);
+      fetchOwnedItems();
       return;
     }
 
