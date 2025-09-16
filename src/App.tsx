@@ -16,44 +16,49 @@ import Login from '@/pages/Login';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import GlobalStyle from './styles/GlobalStyle';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <BrowserRouter basename={base}>
-      <GlobalStyle />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path={ROUTES.HOME} element={<Home />} />
-          <Route path={ROUTES.LOGIN} element={<Login />} />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter basename={base}>
+        <GlobalStyle />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path={ROUTES.HOME} element={<Home />} />
+            <Route path={ROUTES.LOGIN} element={<Login />} />
 
-          <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
-            <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
-          </Route>
-
-          <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
-            <Route index element={<Character />} />
-            <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
-          </Route>
-
-          <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
-            <Route index element={<DiariesList />} />
-            <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
-              <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
+            <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
+              <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
             </Route>
-            <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
-            <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
-          </Route>
 
-          <Route path={ROUTES.MISSIONS} element={<Missions />} />
-          <Route path={ROUTES.NOT_FOUND} element={<Errors />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
+              <Route index element={<Character />} />
+              <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
+            </Route>
+
+            <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
+              <Route index element={<DiariesList />} />
+              <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
+                <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
+              </Route>
+              <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
+              <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
+            </Route>
+
+            <Route path={ROUTES.MISSIONS} element={<Missions />} />
+            <Route path={ROUTES.NOT_FOUND} element={<Errors />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
