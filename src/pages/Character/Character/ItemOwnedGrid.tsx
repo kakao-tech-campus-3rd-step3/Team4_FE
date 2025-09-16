@@ -4,10 +4,10 @@ import { Grid, ItemImage, ItemInfo, OwnedItemCard } from './ItemGrid.styles';
 
 function ItemOwnedGrid({
   items,
-  setSelectedItem,
+  setSelectedItemId,
 }: {
   items: SelectedItem[];
-  setSelectedItem: (item: SelectedItem | null) => void;
+  setSelectedItemId: (itemId: number | null) => void;
 }) {
   const handleItemEquip = (item: SelectedItem) => {
     // 아이템 장착/해제, POST, /api/me/items/{id}
@@ -19,7 +19,7 @@ function ItemOwnedGrid({
         isUsed: false,
       });
 
-      setSelectedItem(null);
+      setSelectedItemId(null);
       return;
     }
 
@@ -28,7 +28,7 @@ function ItemOwnedGrid({
     console.log('body: ', {
       isUsed: true,
     });
-    setSelectedItem(item);
+    setSelectedItemId(item.id);
   };
 
   return (

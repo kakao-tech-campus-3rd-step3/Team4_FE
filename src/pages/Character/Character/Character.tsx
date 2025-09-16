@@ -2,7 +2,7 @@ import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { TABS } from '../constants/tab';
-import type { OwnedItem, SelectedItem, StoreItem } from '../types/Item';
+import type { OwnedItem, StoreItem } from '../types/Item';
 import type { Tab } from '../types/tab';
 import {
   BackgroundImage,
@@ -30,7 +30,9 @@ function Character() {
   const [tab, setTab] = useState<Tab>(TABS.STORE);
   const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
   const [ownedItems, setOwnedItems] = useState<OwnedItem[]>([]);
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
+  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+
+  const selectedItem = ownedItems.find((item) => item.id === selectedItemId);
 
   const fetchStoreItems = async () => {
     try {
@@ -115,7 +117,7 @@ function Character() {
         {tab === TABS.STORE ? (
           <ItemStoreGrid items={storeItems} />
         ) : (
-          <ItemOwnedGrid items={ownedItems} setSelectedItem={setSelectedItem} />
+          <ItemOwnedGrid items={ownedItems} setSelectedItemId={setSelectedItemId} />
         )}
       </ContentContainer>
     </Container>
