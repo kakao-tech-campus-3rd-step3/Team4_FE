@@ -75,6 +75,10 @@ function Character() {
 
       const json = (await res.json()) as OwnedItem[];
 
+      const equippedItemId = json.find((item) => item.isUsed)?.id;
+
+      setSelectedItemId(equippedItemId ?? null);
+
       setOwnedItems(json);
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -83,13 +87,13 @@ function Character() {
   };
 
   useEffect(() => {
-    if (tab === TABS.OWNED) {
-      fetchOwnedItems();
-      return;
-    }
+    // if (tab === TABS.OWNED) {
+    fetchOwnedItems();
+    // return;
+    // }
 
     fetchStoreItems();
-  }, [tab]);
+  }, [tab, selectedItemId]);
 
   const handleChangeTab = (nextTab: Tab) => {
     setTab(nextTab);

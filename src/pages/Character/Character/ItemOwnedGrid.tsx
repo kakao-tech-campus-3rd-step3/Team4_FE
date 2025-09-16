@@ -9,26 +9,51 @@ function ItemOwnedGrid({
   items: SelectedItem[];
   setSelectedItemId: (itemId: number | null) => void;
 }) {
-  const handleItemEquip = (item: SelectedItem) => {
-    // 아이템 장착/해제, POST, /api/me/items/{id}
-
+  const handleItemEquip = async (item: SelectedItem) => {
     if (item.isUsed) {
-      // 아이템 해제
-      console.log('아이템 해제: ', item.id);
-      console.log('body: ', {
-        isUsed: false,
-      });
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items/${item.id}`, {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            isUsed: false,
+          }),
+        });
 
-      setSelectedItemId(null);
+        if (!res.ok) {
+          throw new Error(`error:  ${res.status}`);
+        }
+
+        setSelectedItemId(null);
+      } catch (error) {
+        console.error(error);
+      }
       return;
     }
 
-    // 아이템 장착, POST, /api/me/items/{id}
-    console.log('아이템 장착: ', item.id);
-    console.log('body: ', {
-      isUsed: true,
-    });
-    setSelectedItemId(item.id);
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items/${item.id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          isUsed: true,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(`error:  ${res.status}`);
+      }
+
+      setSelectedItemId(item.id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
