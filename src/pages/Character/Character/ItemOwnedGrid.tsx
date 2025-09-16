@@ -29,6 +29,7 @@ function ItemOwnedGrid({
 
         setSelectedItemId(null);
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.error(error);
       }
       return;
@@ -52,6 +53,7 @@ function ItemOwnedGrid({
 
       setSelectedItemId(item.id);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };

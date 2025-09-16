@@ -23,6 +23,7 @@ function ItemModal({ selectedItem }: { selectedItem: StoreItem }) {
         throw new Error(`error:  ${res.status}`);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };

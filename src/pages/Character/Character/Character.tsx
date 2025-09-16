@@ -52,7 +52,17 @@ function Character() {
       }
 
       const json = (await res.json()) as { content: StoreItem[] };
-      setStoreItems(json.content);
+      setStoreItems(
+        json.content.sort((a, b) => {
+          if (a.isOwned && !b.isOwned) {
+            return 1;
+          }
+          if (!a.isOwned && b.isOwned) {
+            return -1;
+          }
+          return 0;
+        }),
+      );
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
@@ -87,13 +97,15 @@ function Character() {
   };
 
   useEffect(() => {
-    // if (tab === TABS.OWNED) {
+    // 원래 의도는 탭별로 api 호출을 다르게 하는것이었음
+    //  캐릭터는 렌더링되자마자 장착된 아이템도 함께 가지고 있어야 함
+    //  문제는 장착된 아이템의 정보가 상점 아이템이 아닌, 보유 아이템 목록에 있음
+    //  즉, 상점 아이템만으로는 캐릭터가 장착하고 있는 아이템을 알 수 없고, 보유 아이템이 장착되어야만 캐릭터가 아이템을 장착할 수 있음
+    //  이는 요구사항과 맞지 않으므로, 결국 두 api 를 동시에 호출하는 방향으로 수정함
+    //  api 명세 변경 필요
     fetchOwnedItems();
-    // return;
-    // }
-
     fetchStoreItems();
-  }, [tab, selectedItemId]);
+  }, [selectedItemId]);
 
   const handleChangeTab = (nextTab: Tab) => {
     setTab(nextTab);
