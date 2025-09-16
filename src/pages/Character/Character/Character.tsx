@@ -1,8 +1,9 @@
 import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { TABS } from '../constants/tab';
-import type { OwnedItem, StoreItem } from '../types/Item';
+import type { SelectedItem, StoreItem } from '../types/Item';
 import type { Tab } from '../types/tab';
 import {
   BackgroundImage,
@@ -28,89 +29,50 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 
 function Character() {
   const [tab, setTab] = useState<Tab>(TABS.STORE);
-  const [storeItems, setStoreItems] = useState<StoreItem[]>([]);
-  const [ownedItems, setOwnedItems] = useState<OwnedItem[]>([]);
-  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
 
-  const selectedItem = ownedItems.find((item) => item.id === selectedItemId);
-
-  const fetchStoreItems = async () => {
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/items?page=1&category=HAT`,
-        {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-          },
-        },
-      );
-
-      // fetch 는 4xx, 5xx 에러를 reject 하지 않음
-      if (!res.ok) {
-        throw new Error(`error:  ${res.status}`);
-      }
-
-      const json = (await res.json()) as { content: StoreItem[] };
-      setStoreItems(
-        json.content.sort((a, b) => {
-          if (a.isOwned && !b.isOwned) {
-            return 1;
-          }
-          if (!a.isOwned && b.isOwned) {
-            return -1;
-          }
-          return 0;
-        }),
-      );
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-    }
-  };
-
-  const fetchOwnedItems = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items`, {
+  const { data: storeItems, isLoading: isStoreItemsLoading } = useQuery({
+    queryKey: ['storeItems'],
+    queryFn: () =>
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items?page=1&category=HAT`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
         },
-      });
+      })
+        .then((res) => res.json())
+        .then((data) =>
+          data.content.sort((a: StoreItem, b: StoreItem) => {
+            if (a.isOwned && !b.isOwned) {
+              return 1;
+            }
+            if (!a.isOwned && b.isOwned) {
+              return -1;
+            }
+            return 0;
+          }),
+        ),
+  });
 
-      // fetch 는 4xx, 5xx 에러를 reject 하지 않음
-      if (!res.ok) {
-        throw new Error(`error:  ${res.status}`);
-      }
+  const { data: ownedItems, isLoading: isOwnedItemsLoading } = useQuery({
+    queryKey: ['ownedItems'],
+    queryFn: () =>
+      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        },
+      }).then((res) => res.json()),
+  });
 
-      const json = (await res.json()) as OwnedItem[];
-
-      const equippedItemId = json.find((item) => item.isUsed)?.id;
-
-      setSelectedItemId(equippedItemId ?? null);
-
-      setOwnedItems(json);
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    // 원래 의도는 탭별로 api 호출을 다르게 하는것이었음
-    //  이때 캐릭터는 렌더링되자마자 장착된 아이템을 보여줘야 함
-    //  문제는 장착된 아이템의 정보가 상점 아이템이 아닌, 보유 아이템 목록에 있음
-    //  즉, 보유 아이템 목록이 있어야 캐릭터가 아이템을 장착할 수 있음
-    //  이렇게 될 경우, 탭을 전환해야 캐릭터의 아이템이 장착되는 문제가 발생
-    //  이는 요구사항과 맞지 않으므로, 결국 두 api 를 동시에 호출하는 방향으로 수정함
-    //  api 명세 변경 필요
-    fetchOwnedItems();
-    fetchStoreItems();
-  }, [selectedItemId]);
+  const selectedItem = ownedItems?.find((item: SelectedItem) => item.isUsed);
 
   const handleChangeTab = (nextTab: Tab) => {
     setTab(nextTab);
   };
+
+  if (isStoreItemsLoading || isOwnedItemsLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container>
@@ -134,7 +96,7 @@ function Character() {
         {tab === TABS.STORE ? (
           <ItemStoreGrid items={storeItems} />
         ) : (
-          <ItemOwnedGrid items={ownedItems} setSelectedItemId={setSelectedItemId} />
+          <ItemOwnedGrid items={ownedItems} />
         )}
       </ContentContainer>
     </Container>

@@ -23,7 +23,7 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
 
   return (
     <>
-      {selectedItem?.isOwned && modalOpen && selectedItem && (
+      {!selectedItem?.isOwned && modalOpen && selectedItem && (
         <ModalBackdrop onClick={() => setModalOpen(false)}>
           <ItemModal selectedItem={selectedItem} />
         </ModalBackdrop>
