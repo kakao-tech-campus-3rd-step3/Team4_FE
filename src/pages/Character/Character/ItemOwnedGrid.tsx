@@ -33,22 +33,23 @@ function ItemOwnedGrid({
 
   return (
     <Grid>
-      {items.map((item) => (
-        <OwnedItemCard
-          key={item.id}
-          onClick={() => {
-            handleItemEquip(item);
-          }}
-          $isSelected={item.isUsed}
-        >
-          <ItemImage src={item.imageUrl} alt={item.name} />
-          <ItemInfo>
-            <Typography variant="body2Regular" color="default">
-              {item.price}
-            </Typography>
-          </ItemInfo>
-        </OwnedItemCard>
-      ))}
+      {items.length &&
+        items.map((item) => (
+          <OwnedItemCard
+            key={item.id}
+            onClick={() => {
+              handleItemEquip(item);
+            }}
+            $isSelected={item.isUsed}
+          >
+            <ItemImage src={item.imageUrl} alt={item.name} />
+            <ItemInfo>
+              <Typography variant="body2Regular" color="default">
+                {item.price}
+              </Typography>
+            </ItemInfo>
+          </OwnedItemCard>
+        ))}
     </Grid>
   );
 }

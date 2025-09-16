@@ -71,9 +71,9 @@ function Character() {
         throw new Error(`error:  ${res.status}`);
       }
 
-      const json = (await res.json()) as { content: OwnedItem[] };
+      const json = (await res.json()) as OwnedItem[];
 
-      setOwnedItems(json.content);
+      setOwnedItems(json);
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error(err);
