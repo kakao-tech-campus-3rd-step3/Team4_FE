@@ -5,13 +5,28 @@ import { ItemImage } from './ItemGrid.styles';
 import { ModalContent, PurchaseButton } from './ItemModal.styles';
 import { ItemHeart } from './ItemStoreGrid';
 
-function ItemModal({
-  selectedItem,
-  purchaseItem,
-}: {
-  selectedItem: StoreItem;
-  purchaseItem: (item: StoreItem) => void;
-}) {
+function ItemModal({ selectedItem }: { selectedItem: StoreItem }) {
+  const purchaseItem = async (item: StoreItem) => {
+    if (item.isOwned) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items/${item.id}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error(`error:  ${res.status}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ModalContent>
       <ItemImage src={selectedItem?.imageUrl} alt={selectedItem?.name} />

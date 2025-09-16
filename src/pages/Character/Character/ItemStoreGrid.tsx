@@ -21,17 +21,11 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
     setModalOpen(true);
   };
 
-  const purchaseItem = (item: StoreItem) => {
-    if (item.isOwned) {
-      return;
-    }
-  };
-
   return (
     <>
       {modalOpen && selectedItem && (
         <ModalBackdrop onClick={() => setModalOpen(false)}>
-          <ItemModal selectedItem={selectedItem} purchaseItem={purchaseItem} />
+          <ItemModal selectedItem={selectedItem} />
         </ModalBackdrop>
       )}
       <Grid>
