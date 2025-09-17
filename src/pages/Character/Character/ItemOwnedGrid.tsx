@@ -1,3 +1,4 @@
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import { Typography } from '@/components/common/Typography';
 import QUERY_KEY from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -7,7 +8,7 @@ import { EmptyItemContainer, Grid, ItemImage, ItemInfo, OwnedItemCard } from './
 function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
   const queryClient = useQueryClient();
 
-  const equipMutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: ({ item, isUsed }: { item: SelectedItem; isUsed: boolean }) =>
       fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items/${item.id}`, {
         method: 'PATCH',
@@ -29,18 +30,20 @@ function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
   });
 
   const handleClick = (item: SelectedItem) => {
-    equipMutation.mutate({ item, isUsed: !item.isUsed });
+    mutate({ item, isUsed: !item.isUsed });
   };
 
-  return <ItemOwnedGridView items={items} handleClick={handleClick} />;
+  return <ItemOwnedGridView items={items} handleClick={handleClick} isPending={isPending} />;
 }
 
 function ItemOwnedGridView({
   items,
   handleClick,
+  isPending,
 }: {
   items: SelectedItem[] | undefined;
   handleClick: (item: SelectedItem) => void;
+  isPending: boolean;
 }) {
   if (items && items.length === 0) {
     return (
@@ -49,6 +52,14 @@ function ItemOwnedGridView({
           보유 중인 아이템이 없습니다
         </Typography>
       </EmptyItemContainer>
+    );
+  }
+
+  if (isPending) {
+    return (
+      <LoadingSpinnerWrapper>
+        <LoadingSpinner />
+      </LoadingSpinnerWrapper>
     );
   }
 

@@ -1,5 +1,13 @@
 import styled from '@emotion/styled';
 
+const LoadingSpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const Spinner = styled.div`
   width: 50px;
   height: 50px;
@@ -19,8 +27,10 @@ const Spinner = styled.div`
   }
 `;
 
-function LoadingSpinner() {
+export function LoadingSpinner() {
   return <Spinner />;
 }
 
-export default LoadingSpinner;
+export function LoadingSpinnerWrapper({ children }: { children: React.ReactNode }) {
+  return <LoadingSpinnerContainer>{children}</LoadingSpinnerContainer>;
+}

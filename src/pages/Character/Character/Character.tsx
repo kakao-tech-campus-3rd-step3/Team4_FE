@@ -1,8 +1,9 @@
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import QUERY_KEY from '@/constants/queryKey';
 import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { Suspense, useState } from 'react';
 import { TABS } from '../constants/tab';
 import type { SelectedItem, StoreItem } from '../types/Item';
 import type { Tab } from '../types/tab';
@@ -29,7 +30,21 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 `;
 
 function CharacterScreen() {
-  const { data: storeItems, isLoading: isStoreItemsLoading } = useQuery({
+  return (
+    <Suspense
+      fallback={
+        <LoadingSpinnerWrapper>
+          <LoadingSpinner />
+        </LoadingSpinnerWrapper>
+      }
+    >
+      <CharacterData />
+    </Suspense>
+  );
+}
+
+function CharacterData() {
+  const { data: storeItems } = useSuspenseQuery({
     queryKey: [QUERY_KEY.STORE_ITEMS],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items?page=1&category=HAT`, {
@@ -52,7 +67,7 @@ function CharacterScreen() {
         ),
   });
 
-  const { data: ownedItems, isLoading: isOwnedItemsLoading } = useQuery({
+  const { data: ownedItems } = useSuspenseQuery({
     queryKey: [QUERY_KEY.OWNED_ITEMS],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items`, {
@@ -62,10 +77,6 @@ function CharacterScreen() {
         },
       }).then((res) => res.json()),
   });
-
-  if (isStoreItemsLoading || isOwnedItemsLoading) {
-    return <div>Loading...</div>;
-  }
 
   return <CharacterView storeItems={storeItems} ownedItems={ownedItems} />;
 }

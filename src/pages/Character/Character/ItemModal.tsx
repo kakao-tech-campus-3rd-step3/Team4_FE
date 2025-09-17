@@ -1,35 +1,19 @@
 import { Typography } from '@/components/common/Typography';
-import QUERY_KEY from '@/constants/queryKey';
 import { BASE_URL } from '@/constants/routes';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { StoreItem } from '../types/Item';
 import { ItemImage } from './ItemGrid.styles';
 import { ModalContent, PurchaseButton } from './ItemModal.styles';
 import { ItemHeart } from './ItemStoreGrid';
 
-function ItemPurchaseModal({ selectedItem }: { selectedItem: StoreItem }) {
-  const queryClient = useQueryClient();
-
-  const purchaseMutation = useMutation({
-    mutationFn: (item: StoreItem) =>
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items/${item.id}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.STORE_ITEMS] });
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
-    },
-    onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    },
-  });
-
-  const handleClick = () => {
-    purchaseMutation.mutate(selectedItem);
+function ItemPurchaseModal({
+  selectedItem,
+  mutate,
+}: {
+  selectedItem: StoreItem;
+  mutate: (item: StoreItem) => void;
+}) {
+  const handleClick = async () => {
+    mutate(selectedItem);
   };
 
   return <ItemPurchaseView selectedItem={selectedItem} handleClick={handleClick} />;
