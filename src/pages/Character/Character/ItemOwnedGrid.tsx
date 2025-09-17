@@ -1,4 +1,5 @@
 import { Typography } from '@/components/common/Typography';
+import QUERY_KEY from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { SelectedItem } from '../types/Item';
 import { EmptyItemContainer, Grid, ItemImage, ItemInfo, OwnedItemCard } from './ItemGrid.styles';
@@ -19,7 +20,7 @@ function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
         }),
       }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['ownedItems'] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
     },
     onError: (error) => {
       // eslint-disable-next-line no-console

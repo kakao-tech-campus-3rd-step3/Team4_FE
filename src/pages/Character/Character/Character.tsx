@@ -1,3 +1,4 @@
+import QUERY_KEY from '@/constants/queryKey';
 import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { useQuery } from '@tanstack/react-query';
@@ -29,7 +30,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
 
 function CharacterScreen() {
   const { data: storeItems, isLoading: isStoreItemsLoading } = useQuery({
-    queryKey: ['storeItems'],
+    queryKey: [QUERY_KEY.STORE_ITEMS],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items?page=1&category=HAT`, {
         method: 'GET',
@@ -52,7 +53,7 @@ function CharacterScreen() {
   });
 
   const { data: ownedItems, isLoading: isOwnedItemsLoading } = useQuery({
-    queryKey: ['ownedItems'],
+    queryKey: [QUERY_KEY.OWNED_ITEMS],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_BASE_URL}/api/me/items`, {
         method: 'GET',
