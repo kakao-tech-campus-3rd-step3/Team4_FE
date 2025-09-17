@@ -1,6 +1,6 @@
 import type { StoreItem } from '../../types/Item';
-import { ModalBackdrop } from '../ItemModal.styles';
 import ItemModal from './ItemModal';
+import { ModalBackdrop } from './ItemModal.styles';
 
 function PurchaseItemModal({
   selectedItem,
