@@ -8,6 +8,12 @@ export type Mission = {
   category: CategoryEnum;
 };
 
+export type Plan = {
+  id: number;
+  content: string;
+  category: CategoryEnum;
+};
+
 export type Diary = {
   emotion: EmotionEnum;
   content: string;
@@ -42,3 +48,5 @@ export type Cat = {
     offsetY: number;
   };
 };
+
+export type LoginRes = { accessToken: string; refreshToken?: string };
