@@ -3,7 +3,7 @@ import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import type { StoreItem } from '../types/Item';
-import { Grid, ItemImage, ItemInfo, StoreItemCard } from './ItemGrid.styles';
+import { EmptyItemContainer, Grid, ItemImage, ItemInfo, StoreItemCard } from './ItemGrid.styles';
 import ItemModal from './ItemModal';
 import { ModalBackdrop } from './ItemModal.styles';
 
@@ -20,6 +20,16 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
     setSelectedItem(item);
     setModalOpen(true);
   };
+
+  if (items && items.length === 0) {
+    return (
+      <EmptyItemContainer>
+        <Typography variant="body2Regular" color="default">
+          아이템이 없습니다
+        </Typography>
+      </EmptyItemContainer>
+    );
+  }
 
   return (
     <>

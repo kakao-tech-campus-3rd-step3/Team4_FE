@@ -47,3 +47,12 @@ export const ItemInfo = styled.div`
   justify-content: center;
   gap: ${({ theme }) => theme.spacing[1]};
 `;
+
+export const EmptyItemContainer = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: ${({ theme }) => theme.spacing[8]};
+`;

@@ -1,7 +1,7 @@
 import { Typography } from '@/components/common/Typography';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { SelectedItem } from '../types/Item';
-import { Grid, ItemImage, ItemInfo, OwnedItemCard } from './ItemGrid.styles';
+import { EmptyItemContainer, Grid, ItemImage, ItemInfo, OwnedItemCard } from './ItemGrid.styles';
 
 function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
   const queryClient = useQueryClient();
@@ -31,9 +31,19 @@ function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
     equipMutation.mutate({ item, isUsed: !item.isUsed });
   };
 
+  if (items && items.length === 0) {
+    return (
+      <EmptyItemContainer>
+        <Typography variant="body2Regular" color="default">
+          보유 중인 아이템이 없습니다
+        </Typography>
+      </EmptyItemContainer>
+    );
+  }
+
   return (
     <Grid>
-      {items ? (
+      {items &&
         items.map((item) => (
           <OwnedItemCard key={item.id} onClick={() => handleClick(item)} $isSelected={item.isUsed}>
             <ItemImage src={item.imageUrl} alt={item.name} />
@@ -43,12 +53,7 @@ function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
               </Typography>
             </ItemInfo>
           </OwnedItemCard>
-        ))
-      ) : (
-        <Typography variant="body2Regular" color="default">
-          보유 중인 아이템이 없습니다
-        </Typography>
-      )}
+        ))}
     </Grid>
   );
 }
