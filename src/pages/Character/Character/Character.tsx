@@ -27,9 +27,7 @@ const SelectedItemImage = styled.img<{ x: number; y: number }>`
   object-fit: contain;
 `;
 
-function Character() {
-  const [tab, setTab] = useState<Tab>(TABS.STORE);
-
+function CharacterScreen() {
   const { data: storeItems, isLoading: isStoreItemsLoading } = useQuery({
     queryKey: ['storeItems'],
     queryFn: () =>
@@ -64,15 +62,27 @@ function Character() {
       }).then((res) => res.json()),
   });
 
+  if (isStoreItemsLoading || isOwnedItemsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return <CharacterView storeItems={storeItems} ownedItems={ownedItems} />;
+}
+
+function CharacterView({
+  storeItems,
+  ownedItems,
+}: {
+  storeItems: StoreItem[];
+  ownedItems: SelectedItem[];
+}) {
+  const [tab, setTab] = useState<Tab>(TABS.STORE);
+
   const selectedItem = ownedItems?.find((item: SelectedItem) => item.isUsed);
 
   const handleChangeTab = (nextTab: Tab) => {
     setTab(nextTab);
   };
-
-  if (isStoreItemsLoading || isOwnedItemsLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <Container>
@@ -103,4 +113,4 @@ function Character() {
   );
 }
 
-export default Character;
+export default CharacterScreen;

@@ -6,7 +6,7 @@ import { ItemImage } from './ItemGrid.styles';
 import { ModalContent, PurchaseButton } from './ItemModal.styles';
 import { ItemHeart } from './ItemStoreGrid';
 
-function ItemModal({ selectedItem }: { selectedItem: StoreItem }) {
+function ItemPurchaseModal({ selectedItem }: { selectedItem: StoreItem }) {
   const queryClient = useQueryClient();
 
   const purchaseMutation = useMutation({
@@ -31,6 +31,16 @@ function ItemModal({ selectedItem }: { selectedItem: StoreItem }) {
     purchaseMutation.mutate(selectedItem);
   };
 
+  return <ItemPurchaseView selectedItem={selectedItem} handleClick={handleClick} />;
+}
+
+function ItemPurchaseView({
+  selectedItem,
+  handleClick,
+}: {
+  selectedItem: StoreItem;
+  handleClick: () => void;
+}) {
   return (
     <ModalContent>
       <ItemImage src={selectedItem?.imageUrl} alt={selectedItem?.name} />
@@ -47,4 +57,4 @@ function ItemModal({ selectedItem }: { selectedItem: StoreItem }) {
   );
 }
 
-export default ItemModal;
+export default ItemPurchaseModal;

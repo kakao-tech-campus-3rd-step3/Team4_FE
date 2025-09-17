@@ -31,6 +31,16 @@ function ItemOwnedGrid({ items }: { items: SelectedItem[] | undefined }) {
     equipMutation.mutate({ item, isUsed: !item.isUsed });
   };
 
+  return <ItemOwnedGridView items={items} handleClick={handleClick} />;
+}
+
+function ItemOwnedGridView({
+  items,
+  handleClick,
+}: {
+  items: SelectedItem[] | undefined;
+  handleClick: (item: SelectedItem) => void;
+}) {
   if (items && items.length === 0) {
     return (
       <EmptyItemContainer>
