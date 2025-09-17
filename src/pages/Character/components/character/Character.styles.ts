@@ -87,3 +87,12 @@ export const TailImage = styled.img`
     left: 81.2%;
   }
 `;
+
+export const SelectedItemImage = styled.img<{ x: number; y: number }>`
+  position: absolute;
+  top: ${({ y }) => `calc(11% + ${y}%)`};
+  left: ${({ x }) => `calc(15.5% + ${x}%)`};
+  width: 65%;
+  height: 65%;
+  object-fit: contain;
+`;
