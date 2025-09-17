@@ -13,12 +13,11 @@ export const ItemHeart = styled.img`
 `;
 
 function ItemStoreGrid({ items }: { items: StoreItem[] }) {
-  const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<StoreItem | null>(null);
+  const isModalOpen = !selectedItem?.isOwned;
 
   const handleSelectItem = (item: StoreItem) => {
     setSelectedItem(item);
-    setModalOpen(true);
   };
 
   if (items && items.length === 0) {
@@ -33,8 +32,8 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
 
   return (
     <>
-      {!selectedItem?.isOwned && modalOpen && selectedItem && (
-        <ModalBackdrop onClick={() => setModalOpen(false)}>
+      {isModalOpen && selectedItem && (
+        <ModalBackdrop onClick={() => setSelectedItem(null)}>
           <ItemModal selectedItem={selectedItem} />
         </ModalBackdrop>
       )}
