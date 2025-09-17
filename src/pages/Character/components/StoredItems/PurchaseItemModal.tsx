@@ -1,6 +1,6 @@
 import type { StoreItem } from '../../types/Item';
-import ItemPurchaseModal from '../ItemModal';
 import { ModalBackdrop } from '../ItemModal.styles';
+import ItemModal from './ItemModal';
 
 function PurchaseItemModal({
   selectedItem,
@@ -19,7 +19,7 @@ function PurchaseItemModal({
 
   return (
     <ModalBackdrop onClick={() => setSelectedItem(null)}>
-      <ItemPurchaseModal selectedItem={selectedItem} handlePurchaseItem={handlePurchaseItem} />
+      <ItemModal selectedItem={selectedItem} handlePurchaseItem={handlePurchaseItem} />
     </ModalBackdrop>
   );
 }

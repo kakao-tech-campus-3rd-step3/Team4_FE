@@ -1,11 +1,11 @@
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
-import type { StoreItem } from '../types/Item';
-import { ItemImage } from './ItemGrid.styles';
-import { ModalContent, PurchaseButton } from './ItemModal.styles';
-import { ItemHeart } from './StoredItems/StoredItems.styles';
+import type { StoreItem } from '../../types/Item';
+import { ItemImage } from '../ItemGrid.styles';
+import { ModalContent, PurchaseButton } from '../ItemModal.styles';
+import { ItemHeart } from './StoredItems.styles';
 
-function ItemPurchaseModal({
+function ItemModal({
   selectedItem,
   handlePurchaseItem,
 }: {
@@ -16,16 +16,6 @@ function ItemPurchaseModal({
     handlePurchaseItem(selectedItem);
   };
 
-  return <ItemPurchaseView selectedItem={selectedItem} handleClick={handleClick} />;
-}
-
-function ItemPurchaseView({
-  selectedItem,
-  handleClick,
-}: {
-  selectedItem: StoreItem;
-  handleClick: () => void;
-}) {
   return (
     <ModalContent>
       <ItemImage src={selectedItem?.imageUrl} alt={selectedItem?.name} />
@@ -42,4 +32,4 @@ function ItemPurchaseView({
   );
 }
 
-export default ItemPurchaseModal;
+export default ItemModal;
