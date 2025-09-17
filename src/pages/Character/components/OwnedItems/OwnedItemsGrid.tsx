@@ -26,8 +26,7 @@ function OwnedItemsGrid({ items }: { items: SelectedItem[] | undefined }) {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
     },
     onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      throw new Error(error.message);
     },
   });
 
