@@ -3,17 +3,17 @@ import { BASE_URL } from '@/constants/routes';
 import type { StoreItem } from '../types/Item';
 import { ItemImage } from './ItemGrid.styles';
 import { ModalContent, PurchaseButton } from './ItemModal.styles';
-import { ItemHeart } from './ItemStoreGrid';
+import { ItemHeart } from './StoredItems/StoredItems.styles';
 
 function ItemPurchaseModal({
   selectedItem,
-  mutate,
+  handlePurchaseItem,
 }: {
   selectedItem: StoreItem;
-  mutate: (item: StoreItem) => void;
+  handlePurchaseItem: (item: StoreItem) => void;
 }) {
-  const handleClick = async () => {
-    mutate(selectedItem);
+  const handleClick = () => {
+    handlePurchaseItem(selectedItem);
   };
 
   return <ItemPurchaseView selectedItem={selectedItem} handleClick={handleClick} />;

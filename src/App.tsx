@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
-import CharacterScreen from '@/pages/Character/components/character/CharacterScreen';
+import CharacterScreen from '@/pages/Character/components/Character/CharacterScreen';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
