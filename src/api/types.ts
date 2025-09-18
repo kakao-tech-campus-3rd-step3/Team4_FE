@@ -37,7 +37,7 @@ export type OwnedItem = {
   imageUrl: string;
   offsetX: number;
   offsetY: number;
-  isUsed: Boolean;
+  isUsed: boolean;
 };
 
 export type Cat = {
