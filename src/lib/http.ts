@@ -9,7 +9,9 @@ export const http = axios.create({
 // 요청 인터셉터: 토큰 주입
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem('access_token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
   return config;
 });
 
