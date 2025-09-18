@@ -18,7 +18,7 @@ export type Diary = {
   emotion: EmotionEnum;
   content: string;
   feedback: string;
-  createdAt: Date;
+  createdAt: string;
 };
 
 export type StoreItem = {
