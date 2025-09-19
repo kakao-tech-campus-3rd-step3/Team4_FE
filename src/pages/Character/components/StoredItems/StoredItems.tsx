@@ -1,3 +1,4 @@
+import { purchaseItem } from '@/api/api';
 import QUERY_KEY from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -14,26 +15,19 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
   };
 
   const handlePurchaseItem = (item: StoreItem) => {
-    mutate(item);
+    mutate(item.id);
   };
 
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (item: StoreItem) =>
-      fetch(`${import.meta.env.VITE_API_BASE_URL}/api/items/${item.id}`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
-        },
-      }),
+    mutationFn: purchaseItem,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.STORE_ITEMS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
     },
     onError: (error) => {
-      // eslint-disable-next-line no-console
-      console.error(error);
+      throw new Error(error.message);
     },
   });
 
