@@ -12,7 +12,7 @@ import DiariesNewLayout from '@/pages/Diaries/New/Layout';
 import DiariesNewMood from '@/pages/Diaries/New/Mood';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home';
-import Login from '@/pages/Login';
+import Login from '@/pages/Login/Login';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
