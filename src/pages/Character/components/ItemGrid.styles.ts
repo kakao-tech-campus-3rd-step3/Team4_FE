@@ -19,7 +19,7 @@ export const OwnedItemCard = styled.div<{ $isSelected?: boolean }>`
   padding: ${({ theme }) => theme.spacing[1]};
   opacity: ${({ $isSelected }) => (!$isSelected ? 1 : 0.5)};
 
-  cursor: ${({ $isSelected }) => (!$isSelected ? 'pointer' : 'default')};
+  cursor: pointer;
 `;
 
 export const ItemImage = styled.img`
