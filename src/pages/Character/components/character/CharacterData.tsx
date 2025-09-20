@@ -1,8 +1,7 @@
 import { fetchOwnedItems, fetchStoreItems } from '@/api/api';
 import QUERY_KEY from '@/constants/queryKey';
 import { useInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
-import mocks from '../../../../mockSetup';
+import { useEffect, useMemo, useRef } from 'react';
 import { Container } from './Character.styles';
 import CharacterContent from './CharacterContent';
 import CharacterTab from './CharacterTab';
@@ -21,10 +20,10 @@ function CharacterData() {
     initialPageParam: 1,
   });
 
-  console.log(storeItemsData);
-  console.log('hasNextPage', hasNextPage);
-
-  const hasNextPageRef = useRef(hasNextPage);
+  const flattenedStoreItems = useMemo(
+    () => storeItemsData?.pages.flatMap((p) => p.content) ?? [],
+    [storeItemsData],
+  );
 
   const { data: ownedItems } = useSuspenseQuery({
     queryKey: [QUERY_KEY.OWNED_ITEMS],
@@ -34,21 +33,18 @@ function CharacterData() {
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    hasNextPageRef.current = hasNextPage;
-    console.log('hasNextPageRef.current', hasNextPageRef.current);
-
-    if (!loadMoreRef.current) {
+    const node = loadMoreRef.current;
+    if (!node) {
       return;
     }
 
     const observer = new IntersectionObserver(
-      async (entries) => {
+      (entries) => {
         const target = entries[0];
-        // 현재 함수 내부의 ref 가 정의될때의 값을 바라보고 있음. 클로저 문제
-        // 이건 왜 다시 실행이 안되냐?
-        console.log('함수 내부: hasNextPageRef.current', hasNextPageRef.current);
-        if (target.isIntersecting && hasNextPageRef.current) {
-          console.log('intersecting');
+        if (target.isIntersecting) {
+          if (!hasNextPage || isFetchingNextPage) {
+            return;
+          }
           fetchNextPage();
         }
       },
@@ -59,19 +55,18 @@ function CharacterData() {
       },
     );
 
-    observer.observe(loadMoreRef.current);
-
+    observer.observe(node);
     return () => {
-      loadMoreRef.current = null;
+      observer.unobserve(node);
       observer.disconnect();
     };
-  }, [hasNextPage]);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   return (
     <Container>
       <CharacterContent ownedItems={ownedItems} />
-      <CharacterTab storeItems={mocks.data.characterStoreItemsMock} ownedItems={ownedItems} />
-      <div style={{ width: '100%', height: '100px', background: 'red' }} ref={loadMoreRef}></div>
+      <CharacterTab storeItems={flattenedStoreItems} ownedItems={ownedItems} />
+      <div ref={loadMoreRef} style={{ height: '200px' }} />
     </Container>
   );
 }

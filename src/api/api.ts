@@ -24,7 +24,7 @@ export const fetchStoreItems = async ({
     headers: getAuthHeaders(),
   });
 
-  console.log(pageParam);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   if (!response.ok) {
     throw new Error('스토어 아이템을 불러오는데 실패했습니다.');
