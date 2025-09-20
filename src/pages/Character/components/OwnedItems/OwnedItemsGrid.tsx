@@ -1,4 +1,4 @@
-import { updateItemUsage } from '@/api/api';
+import { ItemsAPI } from '@/api/items';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   LoadingSpinner,
@@ -13,7 +13,7 @@ function OwnedItemsGrid({ items }: { items: SelectedItem[] | undefined }) {
 
   const { mutate, isPending } = useMutation({
     mutationFn: ({ item, isUsed }: { item: SelectedItem; isUsed: boolean }) =>
-      updateItemUsage(item.id, isUsed),
+      ItemsAPI.equip(item.id, { isUsed }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
     },

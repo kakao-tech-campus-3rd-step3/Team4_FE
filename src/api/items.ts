@@ -1,19 +1,26 @@
 import { http } from '@/lib/http';
 import type { OwnedItem, StoreItem } from './types';
 
+interface StoreItemsResponse {
+  content: StoreItem[];
+  last: boolean;
+  number: number;
+}
+
 export const ItemsAPI = {
-  listStore(page = 1, size = 20, category?: string) {
-    return http
-      .get<StoreItem>('/api/items', { params: { page, size, category } })
-      .then((r) => r.data);
+  listStore: async ({ pageParam = 1 }: { pageParam?: number }) => {
+    const res = await http.get<StoreItemsResponse>('/api/items', {
+      params: { page: pageParam, category: 'HAT' },
+    });
+    return res.data;
   },
-  buy(itemId: string) {
+  buy: async (itemId: number) => {
     return http.post<StoreItem>(`/api/items/${itemId}`).then((r) => r.data);
   },
-  listOwned(page = 1, size = 20) {
-    return http.get<OwnedItem>('/api/me/items', { params: { page, size } }).then((r) => r.data);
+  listOwned: async () => {
+    return http.get<OwnedItem[]>('/api/me/items').then((r) => r.data);
   },
-  equip(itemId: string, payload: { equipped: boolean }) {
+  equip: async (itemId: number, payload: { isUsed: boolean }) => {
     return http.patch<OwnedItem>(`/api/me/items/${itemId}`, payload).then((r) => r.data);
   },
 };

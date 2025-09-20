@@ -1,17 +1,13 @@
+import type { StoreItem } from '@/api/types';
 import { useSuspenseInfiniteQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef } from 'react';
-import type { StoreItem } from '../types/Item';
 
 export const useStoreItemsInfinite = ({
   queryKey,
   queryFn,
 }: {
   queryKey: string[];
-  queryFn: ({
-    pageParam,
-  }: {
-    pageParam: number;
-  }) => Promise<{ content: StoreItem[]; last: boolean }>;
+  queryFn: (ctx: { pageParam: number }) => Promise<{ content: StoreItem[]; last: boolean }>;
 }) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSuspenseInfiniteQuery({
     queryKey: queryKey,

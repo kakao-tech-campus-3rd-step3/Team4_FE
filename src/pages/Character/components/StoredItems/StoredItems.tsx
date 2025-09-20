@@ -1,4 +1,4 @@
-import { purchaseItem } from '@/api/api';
+import { ItemsAPI } from '@/api/items';
 import QUERY_KEY from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -21,7 +21,7 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: purchaseItem,
+    mutationFn: ItemsAPI.buy,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.STORE_ITEMS] });
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.OWNED_ITEMS] });
