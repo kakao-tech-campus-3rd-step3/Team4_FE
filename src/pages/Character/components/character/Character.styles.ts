@@ -102,5 +102,5 @@ export const LoadingContainer = styled.div`
 `;
 
 export const ObserverContainer = styled.div`
-  height: 200px;
+  height: 10px;
 `;
