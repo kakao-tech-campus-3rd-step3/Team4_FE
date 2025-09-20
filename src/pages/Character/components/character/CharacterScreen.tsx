@@ -15,9 +15,7 @@ export const CenteredFeedback = styled.div`
 function CharacterScreen() {
   return (
     <ErrorBoundary
-      fallbackRender={(e) => {
-        // TODO: 에러 출력 방식 수정
-
+      fallbackRender={() => {
         return (
           <CenteredFeedback>
             <ErrorFallback message={'나중에 다시 시도해주세요.'} />

@@ -96,3 +96,11 @@ export const SelectedItemImage = styled.img<{ x: number; y: number }>`
   height: 65%;
   object-fit: contain;
 `;
+
+export const LoadingContainer = styled.div`
+  margin-top: 20px;
+`;
+
+export const ObserverContainer = styled.div`
+  height: 200px;
+`;

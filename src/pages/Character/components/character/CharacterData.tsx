@@ -1,8 +1,9 @@
 import { fetchOwnedItems, fetchStoreItems } from '@/api/api';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import QUERY_KEY from '@/constants/queryKey';
-import { useInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useRef } from 'react';
-import { Container } from './Character.styles';
+import { Container, LoadingContainer, ObserverContainer } from './Character.styles';
 import CharacterContent from './CharacterContent';
 import CharacterTab from './CharacterTab';
 
@@ -12,7 +13,7 @@ function CharacterData() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery({
+  } = useSuspenseInfiniteQuery({
     queryKey: [QUERY_KEY.STORE_ITEMS],
     queryFn: fetchStoreItems,
     getNextPageParam: (lastPage, _, lastPageParam) =>
@@ -66,7 +67,15 @@ function CharacterData() {
     <Container>
       <CharacterContent ownedItems={ownedItems} />
       <CharacterTab storeItems={flattenedStoreItems} ownedItems={ownedItems} />
-      <div ref={loadMoreRef} style={{ height: '200px' }} />
+      {isFetchingNextPage ? (
+        <LoadingContainer>
+          <LoadingSpinnerWrapper>
+            <LoadingSpinner />
+          </LoadingSpinnerWrapper>
+        </LoadingContainer>
+      ) : (
+        <ObserverContainer ref={loadMoreRef} />
+      )}
     </Container>
   );
 }
