@@ -3,6 +3,7 @@ import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/Loadi
 import styled from '@emotion/styled';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { MESSAGE } from '../../constants/message';
 import CharacterData from './CharacterData';
 
 export const CenteredFeedback = styled.div`
@@ -18,7 +19,7 @@ function CharacterScreen() {
       fallbackRender={() => {
         return (
           <CenteredFeedback>
-            <ErrorFallback message={'나중에 다시 시도해주세요.'} />
+            <ErrorFallback message={MESSAGE.ERROR} />
           </CenteredFeedback>
         );
       }}

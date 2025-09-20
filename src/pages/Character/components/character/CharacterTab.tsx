@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../../../components/common/ErrorFallback';
+import { MESSAGE } from '../../constants/message';
 import { TABS } from '../../constants/tab';
 import type { SelectedItem, StoreItem } from '../../types/Item';
 import type { Tab } from '../../types/tab';
@@ -24,7 +25,7 @@ function CharacterTab({
 
   return (
     <ContentContainer>
-      <ErrorBoundary fallbackRender={() => <ErrorFallback message={'나중에 다시 시도해주세요.'} />}>
+      <ErrorBoundary fallbackRender={() => <ErrorFallback message={MESSAGE.ERROR} />}>
         <Tabs tab={tab} setTab={handleChangeTab} />
         {tab === TABS.STORE ? (
           <ItemStoreGrid items={storeItems} />
