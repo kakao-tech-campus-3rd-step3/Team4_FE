@@ -1,6 +1,6 @@
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
-import type { StoreItem } from '../../types/Item';
+import type { StoreItem } from '@/pages/Character/types/Item';
 import { ItemImage } from '../ItemGrid.styles';
 import { ModalContent, PurchaseButton } from './ItemModal.styles';
 import { ItemHeart } from './StoredItems.styles';

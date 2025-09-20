@@ -1,10 +1,10 @@
+import ErrorFallback from '@/components/common/ErrorFallback';
+import { MESSAGE } from '@/pages/Character/constants/message';
+import { TABS } from '@/pages/Character/constants/tab';
+import type { SelectedItem, StoreItem } from '@/pages/Character/types/Item';
+import type { Tab } from '@/pages/Character/types/tab';
 import { useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import ErrorFallback from '../../../../components/common/ErrorFallback';
-import { MESSAGE } from '../../constants/message';
-import { TABS } from '../../constants/tab';
-import type { SelectedItem, StoreItem } from '../../types/Item';
-import type { Tab } from '../../types/tab';
 import OwnedItemsGrid from '../OwnedItems/OwnedItemsGrid';
 import ItemStoreGrid from '../StoredItems/StoredItems';
 import Tabs from '../Tab';

@@ -1,11 +1,8 @@
 import { ItemsAPI } from '@/api/items';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
+import QUERY_KEY from '@/constants/queryKey';
+import type { SelectedItem } from '@/pages/Character/types/Item';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import {
-  LoadingSpinner,
-  LoadingSpinnerWrapper,
-} from '../../../../components/common/LoadingSpinner';
-import QUERY_KEY from '../../../../constants/queryKey';
-import type { SelectedItem } from '../../types/Item';
 import OwnedItemsGridView from './OwnedItemsView';
 
 function OwnedItemsGrid({ items }: { items: SelectedItem[] | undefined }) {

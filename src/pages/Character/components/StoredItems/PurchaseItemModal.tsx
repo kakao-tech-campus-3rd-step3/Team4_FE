@@ -1,4 +1,4 @@
-import type { StoreItem } from '../../types/Item';
+import type { StoreItem } from '@/pages/Character/types/Item';
 import ItemModal from './ItemModal';
 import { ModalBackdrop } from './ItemModal.styles';
 

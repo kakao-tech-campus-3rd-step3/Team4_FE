@@ -1,7 +1,7 @@
 import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
-import type { StoreItem } from '../../types/Item';
+import type { StoreItem } from '@/pages/Character/types/Item';
 import { EmptyItemContainer, ItemImage, ItemInfo } from '../ItemGrid.styles';
 import { ItemHeart, StoreItemCard } from './StoredItems.styles';
 

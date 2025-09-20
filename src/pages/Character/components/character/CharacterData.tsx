@@ -1,11 +1,8 @@
 import { ItemsAPI } from '@/api/items';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import QUERY_KEY from '@/constants/queryKey';
+import { useStoreItemsInfinite } from '@/pages/Character/hooks/useStoreItemsInfinite';
 import { useSuspenseQuery } from '@tanstack/react-query';
-import {
-  LoadingSpinner,
-  LoadingSpinnerWrapper,
-} from '../../../../components/common/LoadingSpinner';
-import { useStoreItemsInfinite } from '../../hooks/useStoreItemsInfinite';
 import { Container, LoadingContainer, ObserverContainer } from './Character.styles';
 import CharacterContent from './CharacterContent';
 import CharacterTab from './CharacterTab';

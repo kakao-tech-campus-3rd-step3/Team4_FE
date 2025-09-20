@@ -1,7 +1,7 @@
+import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
+import type { SelectedItem } from '@/pages/Character/types/Item';
 import { useNavigate } from 'react-router-dom';
-import { Typography } from '../../../../components/common/Typography';
-import type { SelectedItem } from '../../types/Item';
 import { ChatButton, ChatButtonContainer } from './Button.styles';
 import {
   BackgroundImage,

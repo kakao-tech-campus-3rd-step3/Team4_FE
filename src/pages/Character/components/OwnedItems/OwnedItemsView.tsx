@@ -1,8 +1,6 @@
-import { Grid, ItemImage, ItemInfo, OwnedItemCard } from '../ItemGrid.styles';
-
-import { Typography } from '../../../../components/common/Typography';
-import type { SelectedItem } from '../../types/Item';
-import { EmptyItemContainer } from '../ItemGrid.styles';
+import { Typography } from '@/components/common/Typography';
+import type { SelectedItem } from '@/pages/Character/types/Item';
+import { EmptyItemContainer, Grid, ItemImage, OwnedItemCard } from '../ItemGrid.styles';
 
 function OwnedItemsGridView({
   items,
@@ -27,11 +25,6 @@ function OwnedItemsGridView({
         items.map((item) => (
           <OwnedItemCard key={item.id} onClick={() => handleClick(item)} $isSelected={item.isUsed}>
             <ItemImage src={item.imageUrl} alt={item.name} />
-            <ItemInfo>
-              <Typography variant="body2Regular" color="default">
-                {item.price}
-              </Typography>
-            </ItemInfo>
           </OwnedItemCard>
         ))}
     </Grid>

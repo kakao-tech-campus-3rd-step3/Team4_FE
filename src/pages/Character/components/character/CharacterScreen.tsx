@@ -1,9 +1,9 @@
 import ErrorFallback from '@/components/common/ErrorFallback';
 import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
+import { MESSAGE } from '@/pages/Character/constants/message';
 import styled from '@emotion/styled';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { MESSAGE } from '../../constants/message';
 import CharacterData from './CharacterData';
 
 export const CenteredFeedback = styled.div`

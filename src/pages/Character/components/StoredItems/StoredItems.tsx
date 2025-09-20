@@ -1,8 +1,8 @@
 import { ItemsAPI } from '@/api/items';
 import QUERY_KEY from '@/constants/queryKey';
+import type { StoreItem } from '@/pages/Character/types/Item';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import type { StoreItem } from '../../types/Item';
 import { Grid } from '../ItemGrid.styles';
 import ItemGrid from './ItemGrid';
 import PurchaseItemModal from './PurchaseItemModal';
