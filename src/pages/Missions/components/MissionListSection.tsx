@@ -1,3 +1,4 @@
+import type { Mission } from '@/api/types';
 import {
   AddPill,
   MissionItem,
@@ -8,7 +9,7 @@ import {
 } from '../Missions.styles';
 
 type Props = {
-  missions: Array<{ id: string | number; text: string }>;
+  missions: Mission[];
   onClickAdd: () => void;
 };
 
@@ -21,7 +22,7 @@ const MissionListSection = ({ missions, onClickAdd }: Props) => {
       </SectionHeader>
       <MissionList>
         {missions.map((m) => (
-          <MissionItem key={m.id}>{m.text}</MissionItem>
+          <MissionItem key={m.id}>{m.content}</MissionItem>
         ))}
       </MissionList>
     </Section>
