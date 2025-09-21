@@ -1,6 +1,10 @@
 import { CTAButton, CTAWrap } from '../Missions.styles';
 
-const CTABar = ({ onNext }: { onNext: () => void }) => {
+type CTABarProps = {
+  onNext: () => void;
+};
+
+const CTABar = ({ onNext }: CTABarProps) => {
   return (
     <CTAWrap>
       <CTAButton onClick={onNext}>다음</CTAButton>

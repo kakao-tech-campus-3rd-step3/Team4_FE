@@ -8,12 +8,12 @@ import {
   SectionTitle,
 } from '../Missions.styles';
 
-type Props = {
+type MissionListSectionProps = {
   missions: Mission[];
   onClickAdd: () => void;
 };
 
-const MissionListSection = ({ missions, onClickAdd }: Props) => {
+const MissionListSection = ({ missions, onClickAdd }: MissionListSectionProps) => {
   return (
     <Section>
       <SectionHeader>
