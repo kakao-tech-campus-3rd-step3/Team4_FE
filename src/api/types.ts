@@ -49,4 +49,10 @@ export type Cat = {
   };
 };
 
-export type LoginRes = { accessToken: string; refreshToken?: string };
+export type OnboardingTest = {
+  id: number;
+  question: string;
+  answer: string[];
+};
+
+export type LoginRes = { accessToken: string; refreshToken: string };
