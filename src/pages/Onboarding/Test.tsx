@@ -2,9 +2,21 @@ import { useState } from 'react';
 import type { OnboardingTest } from '../../api/types';
 import { Typography } from '../../components/common/Typography';
 import mocks from '../../mockSetup';
-import { colorScale, semanticColors } from '../../styles/theme/colors';
+import { semanticColors } from '../../styles/theme/colors';
+import {
+  AnswerButton,
+  Answers,
+  Container,
+  Image,
+  ImageBox,
+  NextButton,
+  ProgressBar,
+  ProgressFill,
+  ProgressWrapper,
+  Question,
+} from './Test.styles';
 
-function OnboardingTest() {
+function Test() {
   const tests = mocks.data.onboardingTestMock;
   const totalTests = tests.length;
 
@@ -23,131 +35,48 @@ function OnboardingTest() {
   };
 
   return (
-    <div
-      style={{
-        minHeight: '92vh',
-        backgroundColor: semanticColors.brand.background,
-        display: 'flex',
-        flexDirection: 'column',
-
-        flex: 1,
-        justifyContent: 'space-between',
-      }}
-    >
+    <Container>
       <div>
-        <div
-          style={{
-            display: 'flex',
-            height: '15px',
-            backgroundColor: colorScale.gray950,
-            borderRadius: '8px',
-
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-
-            marginBottom: '30px',
-
-            position: 'relative',
-          }}
-        >
-          <div
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width: `${progressPercent}%`,
-              height: '100%',
-
-              borderRadius: '10px',
-
-              backgroundColor: colorScale.red600,
-
-              zIndex: 2,
-            }}
-          />
-        </div>
+        <ProgressWrapper>
+          <ProgressBar>
+            <ProgressFill percent={progressPercent} />
+          </ProgressBar>
+        </ProgressWrapper>
 
         {/* 질문 텍스트 */}
-        <div
-          style={{
-            textAlign: 'center',
-            marginBottom: '40px',
-          }}
-        >
+        <Question>
           <Typography variant="body1Regular" style={{ color: semanticColors.text.default }}>
             {currentTest.question}
           </Typography>
-        </div>
+        </Question>
 
         {/* 고양이 이미지 */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            marginBottom: '60px',
-          }}
-        >
-          <img
-            src={currentTest.imageUrl}
-            alt="cat"
-            style={{
-              width: '200px',
-              height: '200px',
-              objectFit: 'contain',
-            }}
-          />
-        </div>
+        <ImageBox>
+          <Image src={currentTest.imageUrl} alt="cat" />
+        </ImageBox>
 
         {/* 선택 버튼들 */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-          }}
-        >
+        <Answers>
           {currentTest.answer.map((answer) => (
-            <button
+            <AnswerButton
               key={answer}
+              selected={selectedAnswer === answer}
               onClick={() => setSelectedAnswer(answer)}
-              style={{
-                paddingInline: '10px',
-                paddingBlock: '10px',
-                backgroundColor:
-                  selectedAnswer === answer
-                    ? semanticColors.button.hover
-                    : semanticColors.button.default,
-                border: `2px solid ${selectedAnswer === answer ? semanticColors.button.border : semanticColors.button.hover}`,
-                borderRadius: '8px',
-                color: semanticColors.text.default,
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-              }}
             >
               <Typography variant="label2Regular" style={{ color: semanticColors.text.default }}>
                 {answer}
               </Typography>
-            </button>
+            </AnswerButton>
           ))}
-        </div>
+        </Answers>
       </div>
-      <button
-        onClick={handleNext}
-        style={{
-          padding: '13px',
-          backgroundColor: colorScale.gray950,
-          borderRadius: '8px',
-
-          cursor: 'pointer',
-        }}
-      >
+      <NextButton onClick={handleNext}>
         <Typography variant="label2Regular" style={{ color: semanticColors.background.default }}>
           다음
         </Typography>
-      </button>
-    </div>
+      </NextButton>
+    </Container>
   );
 }
 
-export default OnboardingTest;
+export default Test;

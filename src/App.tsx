@@ -2,7 +2,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
+import Layout from '@/Layout';
 import Character from '@/pages/Character/Character/Character';
+import CharacterChat from '@/pages/Character/Chat';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
@@ -16,10 +18,8 @@ import Login from '@/pages/Login';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
-import Layout from './Layout';
-import CharacterChat from './pages/Character/Chat';
-import OnboardingTest from './pages/Onboarding/Test';
-import GlobalStyle from './styles/GlobalStyle';
+import Test from '@/pages/Onboarding/Test';
+import GlobalStyle from '@/styles/GlobalStyle';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -33,7 +33,7 @@ function App() {
           <Route path={ROUTES.LOGIN} element={<Login />} />
 
           <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
-            <Route path={ROUTES.ONBOARDING_TEST} element={<OnboardingTest />} />
+            <Route path={ROUTES.ONBOARDING_TEST} element={<Test />} />
             <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
           </Route>
 
