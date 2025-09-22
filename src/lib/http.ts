@@ -22,7 +22,7 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (res) => res,
   (err) => {
-    const status = err?.response?.status ?? 0;
+    const status = err?.response?.status;
     const message = err?.response?.data?.message || err?.message || 'Network error';
     // 401 공통 처리 예시
     if (status === HTTP_STATUS.UNAUTHORIZED) {
@@ -30,5 +30,5 @@ http.interceptors.response.use(
       // 위치에 맞게 라우팅 처리: window.location.href = '/login';
     }
     return Promise.reject({ status, message, raw: err });
-  }
+  },
 );

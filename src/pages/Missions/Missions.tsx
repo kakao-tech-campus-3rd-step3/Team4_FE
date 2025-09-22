@@ -1,3 +1,6 @@
+import type { Mission } from '@/api/types';
+import { Typography } from '@/components/common/Typography';
+import mocks from '@/mockSetup';
 import { useEffect, useState } from 'react';
 import {
   Chip,
@@ -12,16 +15,14 @@ import {
   SheetTitle,
   Title,
 } from './Missions.styles';
-import { MISSION_TAGS } from './constants/icon';
-import { Typography } from '@/components/common/Typography';
-import mocks from '@/mockSetup';
+import CTABar from './components/CTABar';
 import DailyPlanCard from './components/DailyPlanCard';
 import MissionListSection from './components/MissionListSection';
-import CTABar from './components/CTABar';
+import { MISSION_TAGS } from './constants/icon';
 
 function Missions() {
   const [openSheet, setOpenSheet] = useState(false);
-  const [missions, setMissions] = useState<any[]>([]);
+  const [missions, setMissions] = useState<Mission[]>([]);
 
   const onAddMission = () => setOpenSheet(true);
   const onCloseSheet = () => setOpenSheet(false);
