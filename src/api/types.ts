@@ -53,6 +53,7 @@ export type OnboardingTest = {
   id: number;
   question: string;
   answer: string[];
+  imageUrl: string;
 };
 
 export type LoginRes = { accessToken: string; refreshToken: string };
