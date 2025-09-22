@@ -56,4 +56,9 @@ export type OnboardingTest = {
   imageUrl: string;
 };
 
+export type AnswerType = {
+  questionId: number;
+  choiceIndex: number;
+};
+
 export type LoginRes = { accessToken: string; refreshToken: string };

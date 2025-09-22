@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { OnboardingTest } from '../../api/types';
+import { useRef, useState } from 'react';
+import { type AnswerType, type OnboardingTest } from '../../api/types';
 import { Typography } from '../../components/common/Typography';
 import mocks from '../../mockSetup';
 import { semanticColors } from '../../styles/theme/colors';
@@ -21,17 +21,28 @@ function Test() {
   const totalTests = tests.length;
 
   const [currentTestIdx, setCurrentTestIdx] = useState<number>(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<string>('');
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(0);
 
   const [progressPercent, setProgressPercent] = useState<number>(0);
 
   const currentTest: OnboardingTest = tests[currentTestIdx];
 
+  const answersRef = useRef<AnswerType[]>([]);
+
   const handleNext = () => {
+    answersRef.current.push({
+      questionId: currentTest.id,
+      choiceIndex: selectedAnswerIndex,
+    });
+    setSelectedAnswerIndex(0);
+
     if (currentTestIdx < totalTests - 1) {
       setCurrentTestIdx(currentTestIdx + 1);
       setProgressPercent(((currentTestIdx + 1) / totalTests) * 100);
+      return;
     }
+
+    console.log(answersRef.current);
   };
 
   return (
@@ -57,11 +68,11 @@ function Test() {
 
         {/* 선택 버튼들 */}
         <Answers>
-          {currentTest.answer.map((answer) => (
+          {currentTest.answer.map((answer, index) => (
             <AnswerButton
               key={answer}
-              selected={selectedAnswer === answer}
-              onClick={() => setSelectedAnswer(answer)}
+              selected={selectedAnswerIndex === index}
+              onClick={() => setSelectedAnswerIndex(index)}
             >
               <Typography variant="label2Regular" style={{ color: semanticColors.text.default }}>
                 {answer}
