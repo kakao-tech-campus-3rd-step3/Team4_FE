@@ -9,6 +9,7 @@ export const colorScale = {
   gray700: '#868b94',
   gray800: '#555d6d',
   gray900: '#2a3038',
+  gray950: '#2C2C2C',
   gray1000: '#1a1c20',
 
   red0: '#fff6f7',
