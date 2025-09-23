@@ -36,6 +36,8 @@ const DeviceFrame = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  position: relative;
 `;
 
 const AppLayout = styled.div`

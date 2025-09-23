@@ -2,12 +2,12 @@ export interface Item {
   id: number;
   category: ItemCategory;
   name: string;
-  price: number;
   imageUrl: string;
 }
 
 export interface StoreItem extends Item {
   isOwned: boolean;
+  price: number;
 }
 
 export interface OwnedItem extends Item {

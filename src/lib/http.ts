@@ -11,7 +11,8 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 // 요청 인터셉터: 토큰 주입
 http.interceptors.request.use((config) => {
-  const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+  // const token = localStorage.getItem(ACCESS_TOKEN_KEY);
+  const token = import.meta.env.VITE_API_TOKEN;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
