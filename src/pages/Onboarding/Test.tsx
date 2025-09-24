@@ -1,9 +1,10 @@
+import { EmotionAPI } from '@/api/emotion';
+import { type AnswerType, type OnboardingTest } from '@/api/types';
+import { Typography } from '@/components/common/Typography';
+import QUERY_KEY from '@/constants/queryKey';
+import { semanticColors } from '@/styles/theme/colors';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
-import { EmotionAPI } from '../../api/emotion';
-import { type AnswerType, type OnboardingTest } from '../../api/types';
-import { Typography } from '../../components/common/Typography';
-import { semanticColors } from '../../styles/theme/colors';
 import {
   AnswerButton,
   Answers,
@@ -19,20 +20,18 @@ import {
 
 function Test() {
   const { data: tests } = useSuspenseQuery<OnboardingTest[]>({
-    queryKey: ['onboardingTest'],
+    queryKey: [QUERY_KEY.ONBOARDING_TEST],
     queryFn: EmotionAPI.getTest,
   });
 
-  const totalTests = tests.length;
-
   const [currentTestIdx, setCurrentTestIdx] = useState<number>(0);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(0);
-
-  const [progressPercent, setProgressPercent] = useState<number>(0);
-
+  const totalTests = tests.length;
   const currentTest: OnboardingTest = tests[currentTestIdx];
 
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(0);
   const answersRef = useRef<AnswerType[]>([]);
+
+  const [progressPercent, setProgressPercent] = useState<number>(0);
 
   const handleNext = () => {
     answersRef.current.push({
@@ -47,7 +46,7 @@ function Test() {
       return;
     }
 
-    console.log(answersRef.current);
+    // post api, 답변 등록
   };
 
   return (
