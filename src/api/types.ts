@@ -52,7 +52,7 @@ export type Cat = {
 export type OnboardingTest = {
   id: number;
   question: string;
-  answer: string[];
+  answers: string[];
   imageUrl: string;
 };
 

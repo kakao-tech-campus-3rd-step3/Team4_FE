@@ -1,7 +1,8 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
+import { EmotionAPI } from '../../api/emotion';
 import { type AnswerType, type OnboardingTest } from '../../api/types';
 import { Typography } from '../../components/common/Typography';
-import mocks from '../../mockSetup';
 import { semanticColors } from '../../styles/theme/colors';
 import {
   AnswerButton,
@@ -17,7 +18,11 @@ import {
 } from './Test.styles';
 
 function Test() {
-  const tests = mocks.data.onboardingTestMock;
+  const { data: tests } = useSuspenseQuery<OnboardingTest[]>({
+    queryKey: ['onboardingTest'],
+    queryFn: EmotionAPI.getTest,
+  });
+
   const totalTests = tests.length;
 
   const [currentTestIdx, setCurrentTestIdx] = useState<number>(0);
@@ -68,7 +73,7 @@ function Test() {
 
         {/* 선택 버튼들 */}
         <Answers>
-          {currentTest.answer.map((answer, index) => (
+          {currentTest.answers.map((answer, index) => (
             <AnswerButton
               key={answer}
               selected={selectedAnswerIndex === index}
