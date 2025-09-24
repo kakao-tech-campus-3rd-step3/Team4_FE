@@ -19,7 +19,7 @@ import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
-import Test from './pages/Onboarding/Test';
+import Test from './pages/Onboarding/Test/Test';
 import GlobalStyle from './styles/GlobalStyle';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');

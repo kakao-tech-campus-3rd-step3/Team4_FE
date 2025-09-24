@@ -1,5 +1,5 @@
+import { colorScale, semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
-import { colorScale, semanticColors } from '../../styles/theme/colors';
 
 export const Container = styled.div`
   min-height: 92vh;
