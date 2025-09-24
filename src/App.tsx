@@ -1,8 +1,9 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
-import CharacterScreen from '@/pages/Character/components/Character/CharacterScreen';
+import CharacterScreen from '@/pages/Character/components/character/CharacterScreen';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
@@ -16,9 +17,9 @@ import Login from '@/pages/Login';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
+import Test from './pages/Onboarding/Test';
 import GlobalStyle from './styles/GlobalStyle';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -37,6 +38,7 @@ function App() {
 
             <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
               <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
+              <Route path={ROUTES.ONBOARDING_TEST} element={<Test />} />
             </Route>
 
             <Route path={ROUTES.CHARACTER} element={<CharacterLayout />}>
