@@ -22,7 +22,7 @@ export type Diary = {
 };
 
 export type StoreItem = {
-  id: string;
+  id: number;
   category: ItemCategoryEnum;
   name: string;
   price: number;
@@ -31,7 +31,7 @@ export type StoreItem = {
 };
 
 export type OwnedItem = {
-  id: string;
+  id: number;
   category: ItemCategoryEnum;
   name: string;
   imageUrl: string;
