@@ -3,7 +3,7 @@ import { type AnswerType, type OnboardingTest } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
 import QUERY_KEY from '@/constants/queryKey';
 import { semanticColors } from '@/styles/theme/colors';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import {
   AnswerButton,
@@ -24,6 +24,13 @@ function Test() {
     queryFn: EmotionAPI.getTest,
   });
 
+  const { mutate: postAnswer } = useMutation({
+    mutationFn: ({ answers }: { answers: AnswerType[] }) => EmotionAPI.submitTest({ answers }),
+    onError: (error) => {
+      throw new Error(error.message);
+    },
+  });
+
   const [currentTestIdx, setCurrentTestIdx] = useState<number>(0);
   const totalTests = tests.length;
   const currentTest: OnboardingTest = tests[currentTestIdx];
@@ -33,7 +40,7 @@ function Test() {
 
   const [progressPercent, setProgressPercent] = useState<number>(0);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     answersRef.current.push({
       questionId: currentTest.id,
       choiceIndex: selectedAnswerIndex,
@@ -46,7 +53,7 @@ function Test() {
       return;
     }
 
-    // post api, 답변 등록
+    postAnswer({ answers: answersRef.current });
   };
 
   return (

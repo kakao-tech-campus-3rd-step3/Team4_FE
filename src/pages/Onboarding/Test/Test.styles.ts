@@ -2,7 +2,7 @@ import { colorScale, semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  min-height: 92vh;
+  min-height: 97vh;
   background-color: ${semanticColors.brand.background};
   display: flex;
   flex-direction: column;
