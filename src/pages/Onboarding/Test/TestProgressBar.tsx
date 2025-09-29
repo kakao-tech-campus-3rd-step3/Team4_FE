@@ -1,6 +1,10 @@
 import { ProgressBar, ProgressFill, ProgressWrapper } from './Test.styles';
 
-function TestProgressBar({ progressPercent }: { progressPercent: number }) {
+type TestProgressBarProps = {
+  progressPercent: number;
+};
+
+function TestProgressBar({ progressPercent }: TestProgressBarProps) {
   return (
     <ProgressWrapper>
       <ProgressBar>

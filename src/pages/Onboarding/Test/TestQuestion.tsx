@@ -3,15 +3,17 @@ import { Typography } from '../../../components/common/Typography';
 import { semanticColors } from '../../../styles/theme/colors';
 import { AnswerButton, Answers, Image, ImageBox, Question } from './Test.styles';
 
+type TestQuestionProps = {
+  currentTest: OnboardingTest;
+  selectedAnswerIndex: number;
+  handleSelecteAnswer: (index: number) => void;
+};
+
 function TestQuestion({
   currentTest,
   selectedAnswerIndex,
   handleSelecteAnswer,
-}: {
-  currentTest: OnboardingTest;
-  selectedAnswerIndex: number;
-  handleSelecteAnswer: (index: number) => void;
-}) {
+}: TestQuestionProps) {
   return (
     <>
       {/* 질문 텍스트 */}

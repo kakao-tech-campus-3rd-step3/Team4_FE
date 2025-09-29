@@ -4,6 +4,17 @@ import { Typography } from '../../../components/common/Typography';
 import { semanticColors } from '../../../styles/theme/colors';
 import { NextButton } from './Test.styles';
 
+type TestNextButtonProps = {
+  totalTests: number;
+  currentTest: OnboardingTest;
+  selectedAnswerIndex: number;
+  setSelectedAnswerIndex: (index: number) => void;
+  currentTestIdx: number;
+  setCurrentTestIdx: (index: number) => void;
+  setProgressPercent: (percent: number) => void;
+  postAnswer: ({ answers }: { answers: AnswerType[] }) => void;
+};
+
 function TestNextButton({
   totalTests,
   currentTest,
@@ -13,16 +24,7 @@ function TestNextButton({
   setCurrentTestIdx,
   setProgressPercent,
   postAnswer,
-}: {
-  totalTests: number;
-  currentTest: OnboardingTest;
-  selectedAnswerIndex: number;
-  setSelectedAnswerIndex: (index: number) => void;
-  currentTestIdx: number;
-  setCurrentTestIdx: (index: number) => void;
-  setProgressPercent: (percent: number) => void;
-  postAnswer: ({ answers }: { answers: AnswerType[] }) => void;
-}) {
+}: TestNextButtonProps) {
   const answersRef = useRef<AnswerType[]>([]);
 
   const handleNext = async () => {

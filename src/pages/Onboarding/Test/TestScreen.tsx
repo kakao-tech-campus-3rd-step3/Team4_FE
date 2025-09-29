@@ -4,13 +4,12 @@ import TestNextButton from './TestNextButton';
 import TestProgressBar from './TestProgressBar';
 import TestQuestion from './TestQuestion';
 
-function TestScreen({
-  tests,
-  postAnswer,
-}: {
+type TestScreenProps = {
   tests: OnboardingTest[];
   postAnswer: ({ answers }: { answers: AnswerType[] }) => void;
-}) {
+};
+
+function TestScreen({ tests, postAnswer }: TestScreenProps) {
   const [currentTestIdx, setCurrentTestIdx] = useState<number>(0);
   const currentTest: OnboardingTest = tests[currentTestIdx];
 
