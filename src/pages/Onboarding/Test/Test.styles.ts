@@ -2,7 +2,7 @@ import { colorScale, semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  min-height: 97vh;
+  min-height: 95vh;
   background-color: ${semanticColors.brand.background};
   display: flex;
   flex-direction: column;
@@ -15,12 +15,12 @@ export const ProgressWrapper = styled.div``;
 export const ProgressBar = styled.div`
   display: flex;
   height: 15px;
-  background-color: ${colorScale.gray950};
+  background-color: ${colorScale.gray900};
   border-radius: 8px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   position: relative;
 `;
 
@@ -44,7 +44,7 @@ export const Question = styled.div`
 export const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 `;
 
 export const Image = styled.img`
