@@ -1,6 +1,6 @@
+import ErrorFallback from '@/components/common/ErrorFallback';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import { useState } from 'react';
-import ErrorFallback from '../../../components/common/ErrorFallback';
 import { Image, ImageBox, LoadingOverlay } from './Test.styles';
 import { ERROR_MESSAGE } from './constants/message';
 

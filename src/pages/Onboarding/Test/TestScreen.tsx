@@ -1,5 +1,5 @@
+import type { AnswerType, OnboardingTest } from '@/api/types';
 import { useMemo, useState } from 'react';
-import type { AnswerType, OnboardingTest } from '../../../api/types';
 import TestNextButton from './TestNextButton';
 import TestProgressBar from './TestProgressBar';
 import TestQuestion from './TestQuestion';

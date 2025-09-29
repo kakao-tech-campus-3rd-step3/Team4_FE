@@ -1,7 +1,7 @@
+import type { AnswerType, OnboardingTest } from '@/api/types';
+import { Typography } from '@/components/common/Typography';
+import { semanticColors } from '@/styles/theme/colors';
 import { useRef } from 'react';
-import type { AnswerType, OnboardingTest } from '../../../api/types';
-import { Typography } from '../../../components/common/Typography';
-import { semanticColors } from '../../../styles/theme/colors';
 import { NextButton } from './Test.styles';
 
 type TestNextButtonProps = {

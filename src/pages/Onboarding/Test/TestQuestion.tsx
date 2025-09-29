@@ -1,6 +1,6 @@
-import type { OnboardingTest } from '../../../api/types';
-import { Typography } from '../../../components/common/Typography';
-import { semanticColors } from '../../../styles/theme/colors';
+import type { OnboardingTest } from '@/api/types';
+import { Typography } from '@/components/common/Typography';
+import { semanticColors } from '@/styles/theme/colors';
 import PreloadedImage from './PreloadedImage';
 import { AnswerButton, Answers, Question } from './Test.styles';
 
