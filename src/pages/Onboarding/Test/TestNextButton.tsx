@@ -13,6 +13,7 @@ type TestNextButtonProps = {
   setCurrentTestIdx: (index: number) => void;
   setProgressPercent: (percent: number) => void;
   postAnswer: ({ answers }: { answers: AnswerType[] }) => void;
+  isImagePreloaded: boolean;
 };
 
 function TestNextButton({
@@ -24,6 +25,7 @@ function TestNextButton({
   setCurrentTestIdx,
   setProgressPercent,
   postAnswer,
+  isImagePreloaded,
 }: TestNextButtonProps) {
   const answersRef = useRef<AnswerType[]>([]);
 
@@ -44,9 +46,16 @@ function TestNextButton({
   };
 
   return (
-    <NextButton onClick={handleNext}>
+    <NextButton
+      onClick={handleNext}
+      disabled={!isImagePreloaded}
+      style={{
+        opacity: isImagePreloaded ? 1 : 0.5,
+        cursor: isImagePreloaded ? 'pointer' : 'not-allowed',
+      }}
+    >
       <Typography variant="label2Regular" style={{ color: semanticColors.background.default }}>
-        다음
+        {isImagePreloaded ? '다음' : '이미지 로딩 중...'}
       </Typography>
     </NextButton>
   );

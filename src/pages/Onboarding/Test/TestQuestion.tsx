@@ -1,18 +1,21 @@
 import type { OnboardingTest } from '../../../api/types';
 import { Typography } from '../../../components/common/Typography';
 import { semanticColors } from '../../../styles/theme/colors';
-import { AnswerButton, Answers, Image, ImageBox, Question } from './Test.styles';
+import PreloadedImage from './PreloadedImage';
+import { AnswerButton, Answers, Question } from './Test.styles';
 
 type TestQuestionProps = {
   currentTest: OnboardingTest;
   selectedAnswerIndex: number;
   handleSelecteAnswer: (index: number) => void;
+  isImagePreloaded: boolean;
 };
 
 function TestQuestion({
   currentTest,
   selectedAnswerIndex,
   handleSelecteAnswer,
+  isImagePreloaded,
 }: TestQuestionProps) {
   return (
     <>
@@ -24,9 +27,7 @@ function TestQuestion({
       </Question>
 
       {/* 고양이 이미지 */}
-      <ImageBox>
-        <Image src={currentTest.imageUrl} alt="cat" />
-      </ImageBox>
+      <PreloadedImage src={currentTest.imageUrl} alt="cat" isPreloaded={isImagePreloaded} />
 
       {/* 선택 버튼들 */}
       <Answers>

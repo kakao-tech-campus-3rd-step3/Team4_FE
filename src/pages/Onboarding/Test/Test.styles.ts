@@ -45,12 +45,21 @@ export const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  position: relative;
 `;
 
 export const Image = styled.img`
   width: 200px;
   height: 200px;
   object-fit: contain;
+`;
+
+export const LoadingOverlay = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
 `;
 
 export const Answers = styled.div`

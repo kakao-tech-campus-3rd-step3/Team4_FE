@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { AnswerType, OnboardingTest } from '../../../api/types';
 import TestNextButton from './TestNextButton';
 import TestProgressBar from './TestProgressBar';
 import TestQuestion from './TestQuestion';
+import { useImagePreloader } from './hooks/useImagePreloader';
 
 type TestScreenProps = {
   tests: OnboardingTest[];
@@ -16,6 +17,9 @@ function TestScreen({ tests, postAnswer }: TestScreenProps) {
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState<number>(0);
   const [progressPercent, setProgressPercent] = useState<number>(0);
 
+  const imageUrls = useMemo(() => tests.map((test) => test.imageUrl), [tests]);
+  const { isImageLoaded } = useImagePreloader(imageUrls);
+
   const handleSelecteAnswer = (index: number) => {
     setSelectedAnswerIndex(index);
   };
@@ -28,6 +32,7 @@ function TestScreen({ tests, postAnswer }: TestScreenProps) {
         currentTest={currentTest}
         selectedAnswerIndex={selectedAnswerIndex}
         handleSelecteAnswer={handleSelecteAnswer}
+        isImagePreloaded={isImageLoaded(currentTest.imageUrl)}
       />
       <TestNextButton
         totalTests={tests.length}
@@ -38,6 +43,7 @@ function TestScreen({ tests, postAnswer }: TestScreenProps) {
         setCurrentTestIdx={setCurrentTestIdx}
         setProgressPercent={setProgressPercent}
         postAnswer={postAnswer}
+        isImagePreloaded={isImageLoaded(currentTest.imageUrl)}
       />
     </>
   );
