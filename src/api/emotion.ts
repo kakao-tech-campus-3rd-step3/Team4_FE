@@ -5,7 +5,7 @@ export const EmotionAPI = {
   getTest() {
     return http.get('/api/emotion-test').then((r) => r.data);
   },
-  async submitTest(payload: { answers: AnswerType[] }) {
-    return http.post('/api/emotion-test', payload).then((r) => r.data);
+  async submitTest(answers: AnswerType[]) {
+    return http.post('/api/emotion-test', answers).then((r) => r.data);
   },
 };

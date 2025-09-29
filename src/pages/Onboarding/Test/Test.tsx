@@ -12,7 +12,7 @@ function Test() {
   });
 
   const { mutate: postAnswer } = useMutation({
-    mutationFn: ({ answers }: { answers: AnswerType[] }) => EmotionAPI.submitTest({ answers }),
+    mutationFn: ({ answers }: { answers: AnswerType[] }) => EmotionAPI.submitTest(answers),
     onError: (error) => {
       throw new Error(error.message);
     },
