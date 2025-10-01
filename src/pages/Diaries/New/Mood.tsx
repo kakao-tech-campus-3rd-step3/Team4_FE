@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import type { EmotionEnum } from '@/api/types';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 
 const Card = styled.div`
   width: 100%;
@@ -79,6 +81,12 @@ const NextButton = styled.button`
 function Mood() {
   const [mood, setMood] = useState<EmotionEnum | null>(null);
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
+  const navigate = useNavigate();
+
+  const goToWrite = () => {
+    alert(`선택한 기분: ${MOOD_LABEL[mood ?? ('' as unknown as EmotionEnum)] ?? '없음'}`);
+    navigate(`/diaries/${ROUTES.DIARIES_NEW}/${ROUTES.DIARIES_NEW_WRITE}`);
+  };
 
   return (
     <Card>
@@ -107,12 +115,7 @@ function Mood() {
         ))}
       </MoodGrid>
 
-      <NextButton
-        disabled={mood === null}
-        onClick={() =>
-          alert(`선택한 기분: ${MOOD_LABEL[mood ?? ('' as unknown as EmotionEnum)] ?? '없음'}`)
-        }
-      >
+      <NextButton disabled={mood === null} onClick={goToWrite}>
         다음
       </NextButton>
     </Card>
