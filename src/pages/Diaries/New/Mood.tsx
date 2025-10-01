@@ -14,7 +14,7 @@ const Card = styled.div`
 const DateText = styled.p`
   text-align: center;
   color: ${({ theme }) => theme.colors.colorScale.gray900};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.spacing[6]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
 `;
 
