@@ -31,7 +31,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path={ROUTES.HOME} element={<Home />} />
           <Route path={ROUTES.LOGIN} element={<Login />} />
-          <Route path={'/oauth-redirect'} element={<OauthRedirect />} />
+          <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} />
 
           <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
             <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />

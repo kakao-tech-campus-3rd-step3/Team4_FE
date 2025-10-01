@@ -1,6 +1,8 @@
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
+  OAUTH_REDIRECT: '/oauth-redirect',
+
   ONBOARDING: '/onboarding',
   ONBOARDING_STEP: ':step',
 
