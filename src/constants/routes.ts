@@ -2,6 +2,7 @@ export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
   ONBOARDING: '/onboarding',
+  ONBOARDING_TEST: 'test',
   ONBOARDING_STEP: ':step',
 
   CHARACTER: '/character',
