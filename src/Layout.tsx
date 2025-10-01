@@ -36,6 +36,8 @@ const DeviceFrame = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  position: relative;
 `;
 
 const AppLayout = styled.div`
@@ -57,6 +59,19 @@ const AppLayout = styled.div`
   min-height: 100%;
 `;
 
+const AppHorizontalLayout = styled.div`
+  /* ios safari 상하단 안전영역 대응 */
+  --safeTop: env(safe-area-inset-top, 0px);
+  --safeBottom: env(safe-area-inset-bottom, 0px);
+
+  padding-inline: ${({ theme }) => theme.spacing[9]};
+
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+`;
+
 const mobileBaseLayout = ({ children }: { children: React.ReactNode }) => (
   <AppViewport>
     <DeviceFrame>{children}</DeviceFrame>
@@ -68,6 +83,11 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
     {
       match: () => pathname === ROUTES.CHARACTER,
       wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: ch }),
+    },
+    {
+      match: () => pathname === `${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_TEST}`,
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
     {
       match: () => true,

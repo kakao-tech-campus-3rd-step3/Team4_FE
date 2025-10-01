@@ -4,6 +4,7 @@ export const ROUTES = {
   OAUTH_REDIRECT: '/oauth-redirect',
 
   ONBOARDING: '/onboarding',
+  ONBOARDING_TEST: 'test',
   ONBOARDING_STEP: ':step',
 
   CHARACTER: '/character',

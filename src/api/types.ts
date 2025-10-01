@@ -22,7 +22,7 @@ export type Diary = {
 };
 
 export type StoreItem = {
-  id: string;
+  id: number;
   category: ItemCategoryEnum;
   name: string;
   price: number;
@@ -31,7 +31,7 @@ export type StoreItem = {
 };
 
 export type OwnedItem = {
-  id: string;
+  id: number;
   category: ItemCategoryEnum;
   name: string;
   imageUrl: string;
@@ -49,4 +49,16 @@ export type Cat = {
   };
 };
 
-export type LoginRes = { accessToken: string; refreshToken?: string };
+export type OnboardingTest = {
+  id: number;
+  question: string;
+  answers: string[];
+  imageUrl: string;
+};
+
+export type AnswerType = {
+  questionId: number;
+  choiceIndex: number;
+};
+
+export type LoginRes = { accessToken: string; refreshToken: string };
