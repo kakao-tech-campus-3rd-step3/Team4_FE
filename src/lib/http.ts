@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '@/constants/http';
+import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
 import axios from 'axios';
 
 export const http = axios.create({
@@ -6,8 +6,6 @@ export const http = axios.create({
   timeout: 10_000,
   withCredentials: false,
 });
-
-const ACCESS_TOKEN_KEY = 'access_token';
 
 // 요청 인터셉터: 토큰 주입
 http.interceptors.request.use((config) => {
@@ -26,7 +24,8 @@ http.interceptors.response.use(
     const message = err?.response?.data?.message || err?.message || 'Network error';
     // 401 공통 처리 예시
     if (status === HTTP_STATUS.UNAUTHORIZED) {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      localStorage.removeItem(REFRESH_TOKEN_KEY);
       // 위치에 맞게 라우팅 처리: window.location.href = '/login';
     }
     return Promise.reject({ status, message, raw: err });
