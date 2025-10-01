@@ -26,7 +26,7 @@ http.interceptors.response.use(
     if (status === HTTP_STATUS.UNAUTHORIZED) {
       sessionStorage.removeItem(ACCESS_TOKEN_KEY);
       sessionStorage.removeItem(REFRESH_TOKEN_KEY);
-      // 위치에 맞게 라우팅 처리: window.location.href = '/login';
+      window.location.href = '/login';
     }
     return Promise.reject({ status, message, raw: err });
   },
