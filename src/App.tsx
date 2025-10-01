@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
-import CharacterScreen from '@/pages/Character/components/Character/CharacterScreen';
+import CharacterScreen from '@/pages/Character/components/character/CharacterScreen';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
@@ -20,6 +20,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import GlobalStyle from './styles/GlobalStyle';
+import DiariesNewWrite from './pages/Diaries/New/Write';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -48,6 +49,7 @@ function App() {
               <Route index element={<DiariesList />} />
               <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
                 <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
+                <Route path={ROUTES.DIARIES_NEW_WRITE} element={<DiariesNewWrite />} />
               </Route>
               <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
               <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
