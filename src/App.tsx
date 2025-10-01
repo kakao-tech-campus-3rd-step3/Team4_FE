@@ -1,8 +1,11 @@
+import GlobalStyle from '@/styles/GlobalStyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
+import Layout from '@/Layout';
+import CharacterChat from '@/pages/Character/Chat';
 import CharacterScreen from '@/pages/Character/components/Character/CharacterScreen';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
@@ -14,14 +17,11 @@ import DiariesNewMood from '@/pages/Diaries/New/Mood';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login/Login';
+import OauthRedirect from '@/pages/Login/OauthRedirect';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
-import Layout from './Layout';
-import CharacterChat from './pages/Character/Chat';
-import OauthRedirect from './pages/Login/OauthRedirect';
-import Test from './pages/Onboarding/Test/Test';
-import GlobalStyle from './styles/GlobalStyle';
+import Test from '@/pages/Onboarding/Test/Test';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 

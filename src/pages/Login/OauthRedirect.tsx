@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../../constants/http';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/constants/http';
 
 function OauthRedirect() {
   const params = new URLSearchParams(window.location.search);
