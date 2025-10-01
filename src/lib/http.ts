@@ -9,8 +9,7 @@ export const http = axios.create({
 
 // 요청 인터셉터: 토큰 주입
 http.interceptors.request.use((config) => {
-  // const token = localStorage.getItem(ACCESS_TOKEN_KEY);
-  const token = import.meta.env.VITE_API_TOKEN;
+  const token = sessionStorage.getItem(ACCESS_TOKEN_KEY);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -25,8 +24,8 @@ http.interceptors.response.use(
     const message = err?.response?.data?.message || err?.message || 'Network error';
     // 401 공통 처리 예시
     if (status === HTTP_STATUS.UNAUTHORIZED) {
-      localStorage.removeItem(ACCESS_TOKEN_KEY);
-      localStorage.removeItem(REFRESH_TOKEN_KEY);
+      sessionStorage.removeItem(ACCESS_TOKEN_KEY);
+      sessionStorage.removeItem(REFRESH_TOKEN_KEY);
       // 위치에 맞게 라우팅 처리: window.location.href = '/login';
     }
     return Promise.reject({ status, message, raw: err });
