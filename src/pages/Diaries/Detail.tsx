@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 import { FiChevronUp } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -57,6 +58,8 @@ const ToggleButton = styled.button`
 `;
 
 function DiariesDetail() {
+  const navigate = useNavigate();
+
   // 예시 데이터
   const [records] = useState<EmotionRecord>({
     '2025-08-01': '😊',
@@ -68,6 +71,10 @@ function DiariesDetail() {
   });
 
   const totalDays = 31; // 8월 기준
+
+  const gotoWeekly = () => {
+    navigate(`/diaries`);
+  };
 
   return (
     <Container>
@@ -83,7 +90,7 @@ function DiariesDetail() {
           );
         })}
       </CalendarGrid>
-      <ToggleButton>
+      <ToggleButton onClick={gotoWeekly}>
         <FiChevronUp size={24} />
       </ToggleButton>
     </Container>
