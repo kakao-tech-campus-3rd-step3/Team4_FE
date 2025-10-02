@@ -1,6 +1,7 @@
 // 주간표정
 import { useState } from 'react';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -50,6 +51,11 @@ const ToggleButton = styled.button`
 `;
 
 function DiariesList() {
+  const navigate = useNavigate();
+
+  const gotoMonthly = () => {
+    navigate(`/diaries/:id`);
+  };
   // 예시 데이터
   const [records] = useState<EmotionRecord>({
     '2025-08-03': '😊',
@@ -85,7 +91,7 @@ function DiariesList() {
           );
         })}
       </WeekRow>
-      <ToggleButton>⬇</ToggleButton>
+      <ToggleButton onClick={gotoMonthly}>⬇</ToggleButton>
     </Container>
   );
 }
