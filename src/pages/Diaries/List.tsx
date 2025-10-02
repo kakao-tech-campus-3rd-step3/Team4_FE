@@ -59,6 +59,15 @@ const ToggleButton = styled.button`
   cursor: pointer;
 `;
 
+const FeedbackDate = styled.p`
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
+`;
+
+const Message = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+  background-color: ${({ theme }) => theme.colors.colorScale.brown400};
+`;
+
 function DiariesList() {
   const navigate = useNavigate();
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
@@ -66,6 +75,7 @@ function DiariesList() {
   const gotoMonthly = () => {
     navigate(`/diaries/:id`);
   };
+
   // 예시 데이터
   const [records] = useState<EmotionRecord>({
     '2025-08-03': '😊',
@@ -106,6 +116,11 @@ function DiariesList() {
         <ToggleButton onClick={gotoMonthly}>
           <FiChevronDown size={24} />
         </ToggleButton>
+      </Container>
+      <br />
+      <Container>
+        <FeedbackDate>{todayKR}</FeedbackDate>
+        <Message>오늘의 피드백 메시지</Message>
       </Container>
     </>
   );
