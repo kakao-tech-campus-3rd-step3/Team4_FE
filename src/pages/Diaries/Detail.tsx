@@ -1,5 +1,5 @@
 // 월간표정
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { FiChevronUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,13 @@ type Emotion = (typeof emotions)[number] | null;
 type EmotionRecord = {
   [date: string]: Emotion;
 };
+
+const DateText = styled.p`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.colorScale.gray900};
+  font-size: ${({ theme }) => theme.spacing[6]};
+  margin-bottom: ${({ theme }) => theme.spacing[4]};
+`;
 
 const Container = styled.div`
   background: #f6ead7;
@@ -59,6 +66,7 @@ const ToggleButton = styled.button`
 
 function DiariesDetail() {
   const navigate = useNavigate();
+  const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
   // 예시 데이터
   const [records] = useState<EmotionRecord>({
@@ -77,24 +85,34 @@ function DiariesDetail() {
   };
 
   return (
-    <Container>
-      <Title>월간 표정</Title>
-      <CalendarGrid>
-        {Array.from({ length: totalDays }, (_, i) => {
-          const date = `2025-08-${String(i + 1).padStart(2, '0')}`;
-          return (
-            <Cell key={date}>
-              <Emoji>{records[date] ?? '⬜'}</Emoji>
-              <DayNumber>{i + 1}</DayNumber>
-            </Cell>
-          );
-        })}
-      </CalendarGrid>
-      <ToggleButton onClick={gotoWeekly}>
-        <FiChevronUp size={24} />
-      </ToggleButton>
-    </Container>
+    <>
+      <DateText>{todayKR}</DateText>
+      <Container>
+        <Title>월간 표정</Title>
+        <CalendarGrid>
+          {Array.from({ length: totalDays }, (_, i) => {
+            const date = `2025-08-${String(i + 1).padStart(2, '0')}`;
+            return (
+              <Cell key={date}>
+                <Emoji>{records[date] ?? '⬜'}</Emoji>
+                <DayNumber>{i + 1}</DayNumber>
+              </Cell>
+            );
+          })}
+        </CalendarGrid>
+        <ToggleButton onClick={gotoWeekly}>
+          <FiChevronUp size={24} />
+        </ToggleButton>
+      </Container>
+    </>
   );
+}
+
+function formatKRDate(d: Date) {
+  const y = d.getFullYear();
+  const m = `${d.getMonth() + 1}`.padStart(2, '0');
+  const day = `${d.getDate()}`.padStart(2, '0');
+  return `${y}년 ${m}월 ${day}일`;
 }
 
 export default DiariesDetail;

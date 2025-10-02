@@ -1,5 +1,5 @@
 // 주간표정
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronDown } from 'react-icons/fi';
@@ -10,6 +10,13 @@ type Emotion = (typeof emotions)[number] | null;
 type EmotionRecord = {
   [date: string]: Emotion;
 };
+
+const DateText = styled.p`
+  text-align: center;
+  color: ${({ theme }) => theme.colors.colorScale.gray900};
+  font-size: ${({ theme }) => theme.spacing[6]};
+  margin-bottom: ${({ theme }) => theme.spacing[4]};
+`;
 
 const Container = styled.div`
   background: #f6ead7;
@@ -53,6 +60,7 @@ const ToggleButton = styled.button`
 
 function DiariesList() {
   const navigate = useNavigate();
+  const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
   const gotoMonthly = () => {
     navigate(`/diaries/:id`);
@@ -78,25 +86,35 @@ function DiariesList() {
   ];
 
   return (
-    <Container>
-      <Title>주간 표정</Title>
-      <WeekRow>
-        {days.map((day, idx) => {
-          const date = dates[idx];
-          return (
-            <Day key={day}>
-              <div>{day}</div>
-              <Emoji>{records[date] ?? '⬜'}</Emoji>
-              <small>{date.slice(-2)}</small>
-            </Day>
-          );
-        })}
-      </WeekRow>
-      <ToggleButton onClick={gotoMonthly}>
-        <FiChevronDown size={24} />
-      </ToggleButton>
-    </Container>
+    <>
+      <DateText>{todayKR}</DateText>
+      <Container>
+        <Title>주간 표정</Title>
+        <WeekRow>
+          {days.map((day, idx) => {
+            const date = dates[idx];
+            return (
+              <Day key={day}>
+                <div>{day}</div>
+                <Emoji>{records[date] ?? '⬜'}</Emoji>
+                <small>{date.slice(-2)}</small>
+              </Day>
+            );
+          })}
+        </WeekRow>
+        <ToggleButton onClick={gotoMonthly}>
+          <FiChevronDown size={24} />
+        </ToggleButton>
+      </Container>
+    </>
   );
+}
+
+function formatKRDate(d: Date) {
+  const y = d.getFullYear();
+  const m = `${d.getMonth() + 1}`.padStart(2, '0');
+  const day = `${d.getDate()}`.padStart(2, '0');
+  return `${y}년 ${m}월 ${day}일`;
 }
 
 export default DiariesList;
