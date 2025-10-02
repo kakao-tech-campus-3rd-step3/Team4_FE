@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 
 const BalloonWrap = styled.div`
   display: flex;
@@ -43,6 +44,11 @@ const NextButton = styled.button`
 `;
 
 function DiariesFeedback() {
+  const navigate = useNavigate();
+  const gotoList = () => {
+    navigate('/diaries');
+  };
+
   return (
     <>
       <BalloonWrap>
@@ -58,7 +64,7 @@ function DiariesFeedback() {
         src="https://github.com/user-attachments/assets/828052b9-a7a3-4b44-89d5-7844218b14ff"
         style={{ maxWidth: '100%', height: 'auto' }}
       />
-      <NextButton>다음</NextButton>
+      <NextButton onClick={gotoList}>다음</NextButton>
     </>
   );
 }

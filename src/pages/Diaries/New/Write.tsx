@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
 import formatKRDate from '../constants/formatKRDate';
+import { useNavigate } from 'react-router-dom';
 
 const DateText = styled.p`
   text-align: center;
@@ -97,7 +98,7 @@ const BottomSheet = styled.div`
 const Handle = styled.div`
   width: ${({ theme }) => theme.spacing[10]};
   height: ${({ theme }) => theme.spacing[1]};
-  background: #aaa;
+  background: ${({ theme }) => theme.colors.colorScale.gray600};
   border-radius: 2px;
   margin: 0 auto ${({ theme }) => theme.spacing[3]};
 `;
@@ -112,19 +113,24 @@ const WeatherSelect = styled.button`
   flex: 1;
   padding: ${({ theme }) => theme.spacing[3]};
   font-size: 18px;
-  background: #f6ead7;
+  background: ${({ theme }) => theme.colors.colorScale.brown100};
   border: none;
   border-radius: ${({ theme }) => theme.spacing[3]};
   cursor: pointer;
 
   &:hover {
-    background: #f0dbb5;
+    background: ${({ theme }) => theme.colors.colorScale.orange100};
   }
 `;
 
 function DiariesNewWrite() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const gotoFeedback = () => {
+    navigate('/diaries/:id/feedback');
+  };
 
   return (
     <>
@@ -138,7 +144,7 @@ function DiariesNewWrite() {
         <MissionButton>오늘 완료한 미션 가져오기</MissionButton>
       </DiaryBox>
 
-      <NextButton>다음</NextButton>
+      <NextButton onClick={gotoFeedback}>다음</NextButton>
       {/* 바텀시트 */}
       {isOpen && (
         <BottomSheetOverlay onClick={() => setIsOpen(false)}>
