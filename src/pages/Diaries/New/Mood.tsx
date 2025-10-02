@@ -47,20 +47,22 @@ const BalloonTail = styled.div`
 `;
 
 const MoodGrid = styled.div`
+  width: 100%;
   margin-top: ${({ theme }) => theme.spacing[4]};
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: ${({ theme }) => theme.spacing[3]};
+  grid-template-columns: repeat(5, max-content);
+  justify-content: space-between;
   place-items: center;
 `;
 
 const MoodButton = styled.button<{ selected: boolean }>`
-  width: ${({ theme }) => theme.spacing[10]};
-  height: ${({ theme }) => theme.spacing[10]};
+  flex: 1;
+  max-width: ${({ theme }) => theme.spacing[8]};
+  height: ${({ theme }) => theme.spacing[8]};
   border-radius: 50%;
   border: 1px solid ${({ selected }) => (selected ? '#000' : 'rgba(0, 0, 0, 0.2)')};
   background: ${({ theme }) => theme.colors.colorScale.brown200};
-  font-size: ${({ theme }) => theme.spacing[5]};
+  font-size: ${({ theme }) => theme.spacing[4]};
   transition: 0.2s;
   ${({ selected }) => selected && `box-shadow: 0 0 0 2px rgba(0,0,0,0.4); border-color:#000;`}
 `;
