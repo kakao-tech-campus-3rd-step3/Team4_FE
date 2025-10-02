@@ -27,9 +27,9 @@ const DiaryBox = styled.div`
   width: 100%;
   height: 300px;
   background: #f7efe4;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 20px;
+  border-radius: ${({ theme }) => theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[3]};
+  margin-bottom: ${({ theme }) => theme.spacing[5]};
 `;
 
 const DiaryText = styled.textarea`
@@ -44,13 +44,13 @@ const DiaryText = styled.textarea`
 
 const MissionButton = styled.button`
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-  font-size: 12px;
-  background: #000;
-  color: #fff;
-  padding: 6px 12px;
-  border-radius: 8px;
+  right: ${({ theme }) => theme.spacing[3]};
+  bottom: ${({ theme }) => theme.spacing[3]};
+  font-size: ${({ theme }) => theme.spacing[3]};
+  background: ${({ theme }) => theme.colors.colorScale.gray1000};
+  color: ${({ theme }) => theme.colors.colorScale.gray0};
+  padding: 6px ${({ theme }) => theme.spacing[3]};
+  border-radius: ${({ theme }) => theme.spacing[2]};
 `;
 
 const NextButton = styled.button`
@@ -80,8 +80,8 @@ const BottomSheet = styled.div`
   bottom: 0;
   width: 100%;
   background: #fffbea;
-  border-radius: 16px 16px 0 0;
-  padding: 16px;
+  border-radius: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]} 0 0;
+  padding: ${({ theme }) => theme.spacing[4]};
   animation: slideUp 0.3s ease-out;
 
   @keyframes slideUp {
@@ -95,26 +95,26 @@ const BottomSheet = styled.div`
 `;
 
 const Handle = styled.div`
-  width: 40px;
-  height: 4px;
+  width: ${({ theme }) => theme.spacing[10]};
+  height: ${({ theme }) => theme.spacing[1]};
   background: #aaa;
   border-radius: 2px;
-  margin: 0 auto 12px;
+  margin: 0 auto ${({ theme }) => theme.spacing[3]};
 `;
 
 const WeatherOptions = styled.div`
   display: flex;
   justify-content: space-around;
-  gap: 8px;
+  gap: ${({ theme }) => theme.spacing[2]};
 `;
 
 const WeatherSelect = styled.button`
   flex: 1;
-  padding: 12px;
+  padding: ${({ theme }) => theme.spacing[3]};
   font-size: 18px;
   background: #f6ead7;
   border: none;
-  border-radius: 12px;
+  border-radius: ${({ theme }) => theme.spacing[3]};
   cursor: pointer;
 
   &:hover {

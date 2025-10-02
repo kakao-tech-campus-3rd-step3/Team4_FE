@@ -20,9 +20,9 @@ const DateText = styled.p`
 `;
 
 const Container = styled.div`
-  background: #f6ead7;
-  padding: 16px;
-  border-radius: 12px;
+  background: ${({ theme }) => theme.colors.colorScale.brown100};
+  padding: ${({ theme }) => theme.spacing[4]};
+  border-radius: ${({ theme }) => theme.spacing[3]};
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
@@ -30,7 +30,7 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
 `;
 
 const WeekRow = styled.div`
@@ -42,20 +42,20 @@ const Day = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: ${({ theme }) => theme.spacing[1]};
 `;
 
 const Emoji = styled.div`
-  font-size: 24px;
+  font-size: ${({ theme }) => theme.spacing[6]};
 `;
 
 const ToggleButton = styled.button`
-  margin-top: 12px;
+  margin-top: ${({ theme }) => theme.spacing[3]};
   width: 100%;
-  padding: 4px;
+  padding: ${({ theme }) => theme.spacing[1]};
   border: none;
   background: none;
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.spacing[5]};
   cursor: pointer;
 `;
 

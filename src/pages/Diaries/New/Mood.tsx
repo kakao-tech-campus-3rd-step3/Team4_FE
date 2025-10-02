@@ -29,7 +29,7 @@ const Balloon = styled.div`
   background: ${({ theme }) => theme.colors.colorScale.brown400};
   color: ${({ theme }) => theme.colors.colorScale.gray900};
   padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.spacing[2]};
   font-size: 13px;
   position: relative;
 `;
@@ -40,9 +40,10 @@ const BalloonTail = styled.div`
   bottom: -8px;
   width: 0;
   height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 8px solid ${({ theme }) => theme.colors.colorScale.brown400};
+  border-left: ${({ theme }) => theme.spacing[2]} solid transparent;
+  border-right: ${({ theme }) => theme.spacing[2]} solid transparent;
+  border-top: ${({ theme }) => theme.spacing[2]} solid
+    ${({ theme }) => theme.colors.colorScale.brown400};
 `;
 
 const MoodGrid = styled.div`
@@ -59,7 +60,7 @@ const MoodButton = styled.button<{ selected: boolean }>`
   border-radius: 50%;
   border: 1px solid ${({ selected }) => (selected ? '#000' : 'rgba(0, 0, 0, 0.2)')};
   background: ${({ theme }) => theme.colors.colorScale.brown200};
-  font-size: 20px;
+  font-size: ${({ theme }) => theme.spacing[5]};
   transition: 0.2s;
   ${({ selected }) => selected && `box-shadow: 0 0 0 2px rgba(0,0,0,0.4); border-color:#000;`}
 `;
