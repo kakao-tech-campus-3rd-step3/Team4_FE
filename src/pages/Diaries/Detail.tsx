@@ -36,7 +36,7 @@ const Title = styled.div`
 const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: ${({ theme }) => theme.spacing[2]};
+  gap: ${({ theme }) => theme.spacing[1]};
 `;
 
 const Cell = styled.div`
