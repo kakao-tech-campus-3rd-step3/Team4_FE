@@ -2,6 +2,13 @@ import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
 import formatKRDate from '../constants/formatKRDate';
 import { useNavigate } from 'react-router-dom';
+import {
+  TiWeatherCloudy,
+  TiWeatherShower,
+  TiWeatherSnow,
+  TiWeatherStormy,
+  TiWeatherSunny,
+} from 'react-icons/ti';
 
 const DateText = styled.p`
   text-align: center;
@@ -115,7 +122,7 @@ const WeatherSelect = styled.button`
   font-size: 18px;
   background: ${({ theme }) => theme.colors.colorScale.brown100};
   border: none;
-  border-radius: ${({ theme }) => theme.spacing[3]};
+  border-radius: ${({ theme }) => theme.borderRadius.xl};
   cursor: pointer;
 
   &:hover {
@@ -151,11 +158,21 @@ function DiariesNewWrite() {
           <BottomSheet onClick={(e) => e.stopPropagation()}>
             <Handle />
             <WeatherOptions>
-              <WeatherSelect>☀️ 맑음</WeatherSelect>
-              <WeatherSelect>☁️ 흐림</WeatherSelect>
-              <WeatherSelect>🌧 비</WeatherSelect>
-              <WeatherSelect>⚡ 번개</WeatherSelect>
-              <WeatherSelect>❄️ 눈</WeatherSelect>
+              <WeatherSelect>
+                <TiWeatherSunny />
+              </WeatherSelect>
+              <WeatherSelect>
+                <TiWeatherCloudy />
+              </WeatherSelect>
+              <WeatherSelect>
+                <TiWeatherShower />
+              </WeatherSelect>
+              <WeatherSelect>
+                <TiWeatherStormy />
+              </WeatherSelect>
+              <WeatherSelect>
+                <TiWeatherSnow />
+              </WeatherSelect>
             </WeatherOptions>
           </BottomSheet>
         </BottomSheetOverlay>
