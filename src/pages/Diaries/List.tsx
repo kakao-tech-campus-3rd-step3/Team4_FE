@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronDown } from 'react-icons/fi';
+import formatKRDate from './constants/formatKRDate';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -108,13 +109,6 @@ function DiariesList() {
       </Container>
     </>
   );
-}
-
-function formatKRDate(d: Date) {
-  const y = d.getFullYear();
-  const m = `${d.getMonth() + 1}`.padStart(2, '0');
-  const day = `${d.getDate()}`.padStart(2, '0');
-  return `${y}년 ${m}월 ${day}일`;
 }
 
 export default DiariesList;

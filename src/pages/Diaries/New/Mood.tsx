@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import type { EmotionEnum } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
+import formatKRDate from '../constants/formatKRDate';
 
 const Card = styled.div`
   width: 100%;
@@ -120,13 +121,6 @@ function Mood() {
       </NextButton>
     </Card>
   );
-}
-
-function formatKRDate(d: Date) {
-  const y = d.getFullYear();
-  const m = `${d.getMonth() + 1}`.padStart(2, '0');
-  const day = `${d.getDate()}`.padStart(2, '0');
-  return `${y}년 ${m}월 ${day}일`;
 }
 
 const MOODS: { key: EmotionEnum; label: string; emoji: string }[] = [
