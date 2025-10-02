@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import formatKRDate from '../constants/formatKRDate';
 
 const DateText = styled.p`
@@ -68,14 +68,69 @@ const NextButton = styled.button`
   }
 `;
 
+// 바텀시트 스타일
+const BottomSheetOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+`;
+
+const BottomSheet = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #fffbea;
+  border-radius: 16px 16px 0 0;
+  padding: 16px;
+  animation: slideUp 0.3s ease-out;
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+`;
+
+const Handle = styled.div`
+  width: 40px;
+  height: 4px;
+  background: #aaa;
+  border-radius: 2px;
+  margin: 0 auto 12px;
+`;
+
+const WeatherOptions = styled.div`
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+`;
+
+const WeatherSelect = styled.button`
+  flex: 1;
+  padding: 12px;
+  font-size: 18px;
+  background: #f6ead7;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f0dbb5;
+  }
+`;
+
 function DiariesNewWrite() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <HeaderContainer>
         <DateText>{todayKR}</DateText>
-        <WeatherButton>+날씨</WeatherButton>
+        <WeatherButton onClick={() => setIsOpen(true)}>+날씨</WeatherButton>
       </HeaderContainer>
 
       <DiaryBox>
@@ -84,6 +139,21 @@ function DiariesNewWrite() {
       </DiaryBox>
 
       <NextButton>다음</NextButton>
+      {/* 바텀시트 */}
+      {isOpen && (
+        <BottomSheetOverlay onClick={() => setIsOpen(false)}>
+          <BottomSheet onClick={(e) => e.stopPropagation()}>
+            <Handle />
+            <WeatherOptions>
+              <WeatherSelect>☀️ 맑음</WeatherSelect>
+              <WeatherSelect>☁️ 흐림</WeatherSelect>
+              <WeatherSelect>🌧 비</WeatherSelect>
+              <WeatherSelect>⚡ 번개</WeatherSelect>
+              <WeatherSelect>❄️ 눈</WeatherSelect>
+            </WeatherOptions>
+          </BottomSheet>
+        </BottomSheetOverlay>
+      )}
     </>
   );
 }
