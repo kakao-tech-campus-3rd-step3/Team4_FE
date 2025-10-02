@@ -66,6 +66,7 @@ const NextButton = styled.button`
     cursor: not-allowed;
   }
 `;
+
 function DiariesNewWrite() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
