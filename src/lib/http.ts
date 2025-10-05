@@ -1,5 +1,6 @@
 import { AuthAPI } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
+import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
 
 export const http = axios.create({
@@ -39,7 +40,7 @@ http.interceptors.response.use(
       const refreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
 
       if (!refreshToken) {
-        window.location.href = '/login';
+        window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });
       }
 
@@ -57,7 +58,7 @@ http.interceptors.response.use(
       } catch {
         sessionStorage.removeItem(ACCESS_TOKEN_KEY);
         sessionStorage.removeItem(REFRESH_TOKEN_KEY);
-        window.location.href = '/login';
+        window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });
       }
     }
