@@ -7,8 +7,6 @@ export const http = axios.create({
   withCredentials: false,
 });
 
-const ACCESS_TOKEN_KEY = 'access_token';
-
 // 요청 인터셉터: 토큰 주입
 http.interceptors.request.use((config) => {
   // const token = localStorage.getItem(ACCESS_TOKEN_KEY);
@@ -31,5 +29,5 @@ http.interceptors.response.use(
       // 위치에 맞게 라우팅 처리: window.location.href = '/login';
     }
     return Promise.reject({ status, message, raw: err });
-  },
+  }
 );
