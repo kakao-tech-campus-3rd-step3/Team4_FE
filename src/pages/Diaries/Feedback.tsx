@@ -28,6 +28,11 @@ const BalloonTail = styled.div`
     ${({ theme }) => theme.colors.colorScale.brown400};
 `;
 
+const CatImg = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
+
 const NextButton = styled.button`
   margin-top: ${({ theme }) => theme.spacing[6]};
   width: 100%;
@@ -59,10 +64,9 @@ function DiariesFeedback() {
         </Balloon>
         <BalloonTail />
       </BalloonWrap>
-      <img
+      <CatImg
         alt="Image"
         src="https://github.com/user-attachments/assets/828052b9-a7a3-4b44-89d5-7844218b14ff"
-        style={{ maxWidth: '100%', height: 'auto' }}
       />
       <NextButton onClick={gotoList}>다음</NextButton>
     </>

@@ -25,6 +25,11 @@ const BalloonWrap = styled.div`
   position: relative;
 `;
 
+const CatImg = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
+
 const Balloon = styled.div`
   background: ${({ theme }) => theme.colors.colorScale.brown400};
   color: ${({ theme }) => theme.colors.colorScale.gray900};
@@ -99,10 +104,9 @@ function Mood() {
         <Balloon>오늘 기분이 어땠는지 말해달라냥!</Balloon>
         <BalloonTail />
       </BalloonWrap>
-      <img
+      <CatImg
         alt="Image"
         src="https://github.com/user-attachments/assets/5450c372-b01a-46a1-b9c5-e1f21bf8257a"
-        style={{ maxWidth: '100%', height: 'auto' }}
       />
       <MoodGrid>
         {MOODS.map((m) => (
