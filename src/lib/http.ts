@@ -2,6 +2,7 @@ import { AuthAPI } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
 import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
+import { removeAccessToken, storeAccessToken } from '../utils/api';
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -50,14 +51,13 @@ http.interceptors.response.use(
             refreshToken,
           });
 
-        sessionStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
-        sessionStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
+        storeAccessToken(newAccessToken, newRefreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return http(originalRequest);
       } catch {
-        sessionStorage.removeItem(ACCESS_TOKEN_KEY);
-        sessionStorage.removeItem(REFRESH_TOKEN_KEY);
+        removeAccessToken();
+
         window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });
       }
