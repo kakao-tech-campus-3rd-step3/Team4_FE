@@ -94,7 +94,8 @@ function Mood() {
   const navigate = useNavigate();
 
   const goToWrite = () => {
-    alert(`선택한 기분: ${MOOD_LABEL[mood ?? ('' as unknown as EmotionEnum)] ?? '없음'}`);
+    const safeMood: EmotionEnum = mood ?? 'NONE';
+    alert(`선택한 기분: ${MOOD_LABEL[safeMood]}`);
     navigate(`/diaries/${ROUTES.DIARIES_NEW}/${ROUTES.DIARIES_NEW_WRITE}`);
   };
 
@@ -141,8 +142,13 @@ const MOODS: { key: EmotionEnum; label: string; emoji: string }[] = [
   { key: 'TERRIBLE', label: '최악이에요', emoji: '😣' },
 ];
 
-const MOOD_LABEL: Record<EmotionEnum, string> = Object.fromEntries(
-  MOODS.map((m) => [m.key, m.label])
-) as Record<EmotionEnum, string>;
+const MOOD_LABEL: Record<EmotionEnum, string> = {
+  EXCELLENT: '아주 좋아요',
+  GOOD: '좋아요',
+  SOSO: '보통이에요',
+  BAD: '별로예요',
+  TERRIBLE: '최악이에요',
+  NONE: '없음',
+};
 
 export default Mood;
