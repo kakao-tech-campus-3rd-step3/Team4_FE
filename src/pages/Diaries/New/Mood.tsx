@@ -4,6 +4,7 @@ import type { EmotionEnum } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import formatKRDate from '../constants/formatKRDate';
+import { Typography } from '@/components/common/Typography';
 
 const Card = styled.div`
   width: 100%;
@@ -124,7 +125,9 @@ function Mood() {
       </MoodGrid>
 
       <NextButton disabled={mood === null} onClick={goToWrite}>
-        다음
+        <Typography variant="label2Regular" color="gray0">
+          다음
+        </Typography>
       </NextButton>
     </Card>
   );

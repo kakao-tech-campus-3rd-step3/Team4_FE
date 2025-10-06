@@ -9,6 +9,7 @@ import {
   TiWeatherStormy,
   TiWeatherSunny,
 } from 'react-icons/ti';
+import { Typography } from '@/components/common/Typography';
 
 const DateText = styled.p`
   text-align: center;
@@ -143,15 +144,27 @@ function DiariesNewWrite() {
     <>
       <HeaderContainer>
         <DateText>{todayKR}</DateText>
-        <WeatherButton onClick={() => setIsOpen(true)}>+날씨</WeatherButton>
+        <WeatherButton onClick={() => setIsOpen(true)}>
+          <Typography variant="label2Regular" style={{ fontSize: '1.2rem' }}>
+            +날씨
+          </Typography>
+        </WeatherButton>
       </HeaderContainer>
 
       <DiaryBox>
         <DiaryText placeholder="오늘의 일기를 자유롭게 적어주세요" />
-        <MissionButton>오늘 완료한 미션 가져오기</MissionButton>
+        <MissionButton>
+          <Typography variant="label2Regular" color="gray0">
+            오늘 완료한 미션 가져오기
+          </Typography>
+        </MissionButton>
       </DiaryBox>
 
-      <NextButton onClick={gotoFeedback}>다음</NextButton>
+      <NextButton onClick={gotoFeedback}>
+        <Typography variant="label2Regular" color="gray0">
+          다음
+        </Typography>
+      </NextButton>
       {/* 바텀시트 */}
       {isOpen && (
         <BottomSheetOverlay onClick={() => setIsOpen(false)}>

@@ -1,3 +1,4 @@
+import { Typography } from '@/components/common/Typography';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,7 +69,11 @@ function DiariesFeedback() {
         alt="Image"
         src="https://github.com/user-attachments/assets/828052b9-a7a3-4b44-89d5-7844218b14ff"
       />
-      <NextButton onClick={gotoList}>다음</NextButton>
+      <NextButton onClick={gotoList}>
+        <Typography variant="label2Regular" color="gray0">
+          다음
+        </Typography>
+      </NextButton>
     </>
   );
 }
