@@ -5,6 +5,7 @@ import { FiChevronUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import formatKRDate from './constants/formatKRDate';
 import { ROUTES } from '@/constants/routes';
+import theme from '@/styles/theme';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -103,7 +104,7 @@ function DiariesDetail() {
           })}
         </CalendarGrid>
         <ToggleButton onClick={gotoWeekly}>
-          <FiChevronUp size={24} />
+          <FiChevronUp size={parseInt(theme.spacing[6])} />
         </ToggleButton>
       </Container>
     </>

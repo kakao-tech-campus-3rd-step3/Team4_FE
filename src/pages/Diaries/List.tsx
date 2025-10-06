@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronDown } from 'react-icons/fi';
 import formatKRDate from './constants/formatKRDate';
+import theme from '@/styles/theme';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -114,7 +115,7 @@ function DiariesList() {
           })}
         </WeekRow>
         <ToggleButton onClick={gotoMonthly}>
-          <FiChevronDown size={24} />
+          <FiChevronDown size={parseInt(theme.spacing[6])} />
         </ToggleButton>
       </Container>
       <br />
