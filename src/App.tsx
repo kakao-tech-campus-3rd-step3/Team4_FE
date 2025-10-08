@@ -14,6 +14,7 @@ import DiariesLayout from '@/pages/Diaries/Layout';
 import DiariesList from '@/pages/Diaries/List';
 import DiariesNewLayout from '@/pages/Diaries/New/Layout';
 import DiariesNewMood from '@/pages/Diaries/New/Mood';
+import DiariesNewWrite from '@/pages/Diaries/New/Write';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home';
 import Login from '@/pages/Login/Login';
@@ -22,11 +23,6 @@ import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import Test from '@/pages/Onboarding/Test/Test';
-import Layout from './Layout';
-import CharacterChat from './pages/Character/Chat';
-import Test from './pages/Onboarding/Test/Test';
-import GlobalStyle from './styles/GlobalStyle';
-import DiariesNewWrite from './pages/Diaries/New/Write';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
