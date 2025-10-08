@@ -104,3 +104,8 @@ export const LoadingContainer = styled.div`
 export const ObserverContainer = styled.div`
   height: 10px;
 `;
+
+export const CharacterScreenContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
+`;
