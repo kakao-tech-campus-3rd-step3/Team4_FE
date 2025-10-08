@@ -98,9 +98,14 @@ export const SelectedItemImage = styled.img<{ x: number; y: number }>`
 `;
 
 export const LoadingContainer = styled.div`
-  margin-top: 20px;
+  margin-top: ${({ theme }) => theme.spacing[9]};
 `;
 
 export const ObserverContainer = styled.div`
   height: 10px;
+`;
+
+export const CharacterScreenContainer = styled.div`
+  width: 100%;
+  min-height: 100vh;
 `;

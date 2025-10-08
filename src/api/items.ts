@@ -10,7 +10,7 @@ interface StoreItemsResponse {
 export const ItemsAPI = {
   listStore: async ({ pageParam = 1 }: { pageParam?: number }) => {
     const res = await http.get<StoreItemsResponse>('/api/items', {
-      params: { page: pageParam, category: 'HAT' },
+      params: { page: pageParam, category: 'HEAD' },
     });
     return res.data;
   },

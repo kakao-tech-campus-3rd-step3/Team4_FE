@@ -18,4 +18,4 @@ export interface OwnedItem extends Item {
 
 export type SelectedItem = OwnedItem;
 
-type ItemCategory = 'HAT';
+type ItemCategory = 'HEAD';

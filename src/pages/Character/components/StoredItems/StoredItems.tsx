@@ -1,4 +1,5 @@
 import { ItemsAPI } from '@/api/items';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import QUERY_KEY from '@/constants/queryKey';
 import type { StoreItem } from '@/pages/Character/types/Item';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -6,6 +7,7 @@ import { useState } from 'react';
 import { Grid } from '../ItemGrid.styles';
 import ItemGrid from './ItemGrid';
 import PurchaseItemModal from './PurchaseItemModal';
+import { LoadingContainer } from './StoredItems.styles';
 
 function ItemStoreGrid({ items }: { items: StoreItem[] }) {
   const [selectedItem, setSelectedItem] = useState<StoreItem | null>(null);
@@ -38,9 +40,17 @@ function ItemStoreGrid({ items }: { items: StoreItem[] }) {
         setSelectedItem={setSelectedItem}
         handlePurchaseItem={handlePurchaseItem}
       />
-      <Grid>
-        <ItemGrid items={items} isPending={isPending} handleSelectItem={handleSelectItem} />
-      </Grid>
+      {isPending ? (
+        <LoadingContainer>
+          <LoadingSpinnerWrapper>
+            <LoadingSpinner />
+          </LoadingSpinnerWrapper>
+        </LoadingContainer>
+      ) : (
+        <Grid>
+          <ItemGrid items={items} handleSelectItem={handleSelectItem} />
+        </Grid>
+      )}
     </>
   );
 }

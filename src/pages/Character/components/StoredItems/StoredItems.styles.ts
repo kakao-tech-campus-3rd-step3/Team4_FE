@@ -17,3 +17,13 @@ export const ItemHeart = styled.img`
   width: 13px;
   height: 13px;
 `;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: ${({ theme }) => theme.spacing[9]};
+`;
