@@ -1,6 +1,6 @@
 export type CategoryEnum = 'REFRESH' | 'EMPLOYMENT' | 'DAILY';
 export type EmotionEnum = 'EXCELLENT' | 'GOOD' | 'SOSO' | 'BAD' | 'TERRIBLE' | 'NONE';
-export type ItemCategoryEnum = 'HAT';
+export type ItemCategoryEnum = 'HEAD';
 
 export type Mission = {
   id: number;
