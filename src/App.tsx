@@ -1,8 +1,11 @@
+import GlobalStyle from '@/styles/GlobalStyle';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ROUTES } from './constants/routes';
 
 // pages
+import Layout from '@/Layout';
+import CharacterChat from '@/pages/Character/Chat';
 import CharacterScreen from '@/pages/Character/components/Character/CharacterScreen';
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
@@ -13,10 +16,12 @@ import DiariesNewLayout from '@/pages/Diaries/New/Layout';
 import DiariesNewMood from '@/pages/Diaries/New/Mood';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home';
-import Login from '@/pages/Login';
+import Login from '@/pages/Login/Login';
+import OauthRedirect from '@/pages/Login/OauthRedirect';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
+import Test from '@/pages/Onboarding/Test/Test';
 import Layout from './Layout';
 import CharacterChat from './pages/Character/Chat';
 import Test from './pages/Onboarding/Test/Test';
@@ -36,6 +41,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
+            <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} />
 
             <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
               <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />

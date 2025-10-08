@@ -13,3 +13,7 @@ export const HTTP_STATUS = {
   BAD_GATEWAY: 502,
   SERVICE_UNAVAILABLE: 503,
 } as const;
+
+export const ACCESS_TOKEN_KEY = 'access_token' as const;
+
+export const REFRESH_TOKEN_KEY = 'refresh_token' as const;
