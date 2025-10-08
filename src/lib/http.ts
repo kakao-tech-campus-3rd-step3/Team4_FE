@@ -64,5 +64,5 @@ http.interceptors.response.use(
     }
 
     return Promise.reject({ status, message, raw: err });
-  },
+  }
 );
