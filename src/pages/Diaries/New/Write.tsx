@@ -10,6 +10,7 @@ import {
   TiWeatherSunny,
 } from 'react-icons/ti';
 import { Typography } from '@/components/common/Typography';
+import { ROUTES } from '@/constants/routes';
 
 const DateText = styled.p`
   text-align: center;
@@ -138,6 +139,7 @@ function DiariesNewWrite() {
 
   const gotoFeedback = () => {
     navigate('/diaries/:id/feedback');
+    navigate(`/${ROUTES.DIARIES}/${ROUTES.DIARIES_FEEDBACK}`);
   };
 
   return (
