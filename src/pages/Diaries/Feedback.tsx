@@ -1,4 +1,5 @@
 import { Typography } from '@/components/common/Typography';
+import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,7 +53,7 @@ const NextButton = styled.button`
 function DiariesFeedback() {
   const navigate = useNavigate();
   const gotoList = () => {
-    navigate('/diaries');
+    navigate(`/${ROUTES.DIARIES}`);
   };
 
   return (
