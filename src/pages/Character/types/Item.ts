@@ -1,3 +1,5 @@
+import type { ITEMS_CATEGORY } from '@/constants/api';
+
 export interface Item {
   id: number;
   category: ItemCategory;
@@ -18,4 +20,4 @@ export interface OwnedItem extends Item {
 
 export type SelectedItem = OwnedItem;
 
-type ItemCategory = 'HEAD';
+type ItemCategory = (typeof ITEMS_CATEGORY)[keyof typeof ITEMS_CATEGORY];
