@@ -1,14 +1,14 @@
-import CenteredFeedback from '@/components/common/CenteredFeedback';
 import ErrorFallback from '@/components/common/ErrorFallback';
 import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
+import { MESSAGE } from '@/pages/Character/constants/message';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Outlet } from 'react-router-dom';
-import { MESSAGE } from '../Character/constants/message';
+import { CharacterScreenContainer } from './Character.styles';
+import CharacterData from './CharacterData';
 
-function OnboardingLayout() {
+function CharacterScreen() {
   return (
-    <CenteredFeedback>
+    <CharacterScreenContainer>
       <ErrorBoundary
         fallbackRender={() => {
           return <ErrorFallback message={MESSAGE.ERROR} />;
@@ -21,11 +21,11 @@ function OnboardingLayout() {
             </LoadingSpinnerWrapper>
           }
         >
-          <Outlet />
+          <CharacterData />
         </Suspense>
       </ErrorBoundary>
-    </CenteredFeedback>
+    </CharacterScreenContainer>
   );
 }
 
-export default OnboardingLayout;
+export default CharacterScreen;

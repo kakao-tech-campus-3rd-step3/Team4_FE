@@ -3,8 +3,8 @@ import path from 'path';
 import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/Team4_FE/',
+export default defineConfig(() => ({
+  base: '/',
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
@@ -18,4 +18,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-});
+}));

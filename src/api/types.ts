@@ -1,6 +1,8 @@
+import type { ITEMS_CATEGORY } from '@/constants/api';
+
 export type CategoryEnum = 'REFRESH' | 'EMPLOYMENT' | 'DAILY';
-export type EmotionEnum = 'EXCELLENT' | 'GOOD' | 'SOSO' | 'BAD' | 'TERRIBLE';
-export type ItemCategoryEnum = 'HAT';
+export type EmotionEnum = 'EXCELLENT' | 'GOOD' | 'SOSO' | 'BAD' | 'TERRIBLE' | 'NONE';
+export type ItemCategoryEnum = (typeof ITEMS_CATEGORY)[keyof typeof ITEMS_CATEGORY];
 
 export type Mission = {
   id: number;
@@ -49,4 +51,16 @@ export type Cat = {
   };
 };
 
-export type LoginRes = { accessToken: string; refreshToken?: string };
+export type OnboardingTest = {
+  id: number;
+  question: string;
+  answers: string[];
+  imageUrl: string;
+};
+
+export type AnswerType = {
+  questionId: number;
+  choiceIndex: number;
+};
+
+export type LoginRes = { accessToken: string; refreshToken: string };
