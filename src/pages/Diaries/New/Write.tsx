@@ -138,7 +138,6 @@ function DiariesNewWrite() {
   const navigate = useNavigate();
 
   const gotoFeedback = () => {
-    navigate('/diaries/:id/feedback');
     navigate(`/${ROUTES.DIARIES}/${ROUTES.DIARIES_FEEDBACK}`);
   };
 
