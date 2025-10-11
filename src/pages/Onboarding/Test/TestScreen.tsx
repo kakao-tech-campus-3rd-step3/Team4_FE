@@ -20,10 +20,6 @@ function TestScreen({ tests, postAnswer }: TestScreenProps) {
   const imageUrls = useMemo(() => tests.map((test) => test.imageUrl), [tests]);
   const { isImageLoaded } = useImagePreloader(imageUrls);
 
-  const handleSelecteAnswer = (index: number) => {
-    setSelectedAnswerIndex(index);
-  };
-
   return (
     <>
       <TestProgressBar progressPercent={progressPercent} />
@@ -31,7 +27,7 @@ function TestScreen({ tests, postAnswer }: TestScreenProps) {
       <TestQuestion
         currentTest={currentTest}
         selectedAnswerIndex={selectedAnswerIndex}
-        handleSelecteAnswer={handleSelecteAnswer}
+        setSelectedAnswerIndex={setSelectedAnswerIndex}
         isImagePreloaded={isImageLoaded(currentTest.imageUrl)}
       />
       <TestNextButton

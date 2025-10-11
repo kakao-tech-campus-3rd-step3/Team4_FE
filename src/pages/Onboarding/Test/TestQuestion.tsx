@@ -7,16 +7,20 @@ import { AnswerButton, Answers, Question } from './Test.styles';
 type TestQuestionProps = {
   currentTest: OnboardingTest;
   selectedAnswerIndex: number;
-  handleSelecteAnswer: (index: number) => void;
+  setSelectedAnswerIndex: (index: number) => void;
   isImagePreloaded: boolean;
 };
 
 function TestQuestion({
   currentTest,
   selectedAnswerIndex,
-  handleSelecteAnswer,
+  setSelectedAnswerIndex,
   isImagePreloaded,
 }: TestQuestionProps) {
+  const handleSelecteAnswer = (index: number) => {
+    setSelectedAnswerIndex(index);
+  };
+
   return (
     <>
       {/* 질문 텍스트 */}
