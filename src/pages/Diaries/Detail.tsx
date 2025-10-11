@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { FiChevronUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import formatKRDate from './constants/formatKRDate';
+import formatKRDate from '../../utils/formatKRDate';
 import { ROUTES } from '@/constants/routes';
 import theme from '@/styles/theme';
 

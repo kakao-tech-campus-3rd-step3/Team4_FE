@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
-import formatKRDate from '../constants/formatKRDate';
+import formatKRDate from '../../../utils/formatKRDate';
 import { useNavigate } from 'react-router-dom';
 import {
   TiWeatherCloudy,

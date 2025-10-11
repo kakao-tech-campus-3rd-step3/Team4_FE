@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import type { EmotionEnum } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
-import formatKRDate from '../constants/formatKRDate';
+import formatKRDate from '../../../utils/formatKRDate';
 import { Typography } from '@/components/common/Typography';
 
 const Card = styled.div`
