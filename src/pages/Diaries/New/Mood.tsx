@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import type { EmotionEnum } from '@/api/types';
+import type { Emotion } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import formatKRDate from '../../../utils/formatKRDate';
@@ -89,13 +89,13 @@ const NextButton = styled.button`
 `;
 
 function Mood() {
-  const [mood, setMood] = useState<EmotionEnum | null>(null);
+  const [mood, setMood] = useState<Emotion | null>(null);
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
   const navigate = useNavigate();
 
   const goToWrite = () => {
-    const safeMood: EmotionEnum = mood ?? 'NONE';
-    alert(`선택한 기분: ${MOOD_LABEL[safeMood]}`);
+    if (!mood) return;
+    alert(`선택한 기분: ${mood.label}`);
     navigate(`/diaries/${ROUTES.DIARIES_NEW}/${ROUTES.DIARIES_NEW_WRITE}`);
   };
 
@@ -115,8 +115,8 @@ function Mood() {
           <MoodButton
             key={m.key}
             aria-label={m.label}
-            onClick={() => setMood(m.key)}
-            selected={mood === m.key}
+            onClick={() => setMood(m)}
+            selected={mood?.key === m.key}
           >
             <span role="img" aria-hidden>
               {m.emoji}
@@ -134,21 +134,12 @@ function Mood() {
   );
 }
 
-const MOODS: { key: EmotionEnum; label: string; emoji: string }[] = [
+const MOODS: Emotion[] = [
   { key: 'EXCELLENT', label: '아주 좋아요', emoji: '😊' },
   { key: 'GOOD', label: '좋아요', emoji: '🙂' },
   { key: 'SOSO', label: '보통이에요', emoji: '😐' },
   { key: 'BAD', label: '별로예요', emoji: '🙁' },
   { key: 'TERRIBLE', label: '최악이에요', emoji: '😣' },
 ];
-
-const MOOD_LABEL: Record<EmotionEnum, string> = {
-  EXCELLENT: '아주 좋아요',
-  GOOD: '좋아요',
-  SOSO: '보통이에요',
-  BAD: '별로예요',
-  TERRIBLE: '최악이에요',
-  NONE: '없음',
-};
 
 export default Mood;
