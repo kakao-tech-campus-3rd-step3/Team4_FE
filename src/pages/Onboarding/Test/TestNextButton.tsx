@@ -29,12 +29,16 @@ function TestNextButton({
 }: TestNextButtonProps) {
   const answersRef = useRef<AnswerType[]>([]);
 
+  const resetAnswerIndex = () => {
+    setSelectedAnswerIndex(0);
+  };
+
   const handleNext = async () => {
     answersRef.current.push({
       questionId: currentTest.id,
       choiceIndex: selectedAnswerIndex,
     });
-    setSelectedAnswerIndex(0);
+    resetAnswerIndex();
 
     if (currentTestIdx < totalTests - 1) {
       setCurrentTestIdx(currentTestIdx + 1);

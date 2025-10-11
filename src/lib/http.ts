@@ -2,7 +2,7 @@ import { AuthAPI } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
 import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
-import { removeAccessToken, storeAccessToken } from '../utils/api';
+import { removeAuthToken, storeAuthToken } from '../utils/api';
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -41,6 +41,7 @@ http.interceptors.response.use(
       const refreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
 
       if (!refreshToken) {
+        alert('로그인이 필요합니다');
         window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });
       }
@@ -51,12 +52,12 @@ http.interceptors.response.use(
             refreshToken,
           });
 
-        storeAccessToken(newAccessToken, newRefreshToken);
+        storeAuthToken(newAccessToken, newRefreshToken);
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return http(originalRequest);
       } catch {
-        removeAccessToken();
+        removeAuthToken();
 
         window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });

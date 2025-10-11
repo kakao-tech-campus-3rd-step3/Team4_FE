@@ -1,6 +1,16 @@
+import type { ITEMS_CATEGORY } from '@/constants/api';
+
 export type CategoryEnum = 'REFRESH' | 'EMPLOYMENT' | 'DAILY';
+
 export type EmotionEnum = 'EXCELLENT' | 'GOOD' | 'SOSO' | 'BAD' | 'TERRIBLE' | 'NONE';
-export type ItemCategoryEnum = 'HEAD';
+
+export type Emotion = {
+  key: EmotionEnum;
+  label: string;
+  emoji: string;
+};
+
+export type ItemCategoryEnum = (typeof ITEMS_CATEGORY)[keyof typeof ITEMS_CATEGORY];
 
 export type Mission = {
   id: number;

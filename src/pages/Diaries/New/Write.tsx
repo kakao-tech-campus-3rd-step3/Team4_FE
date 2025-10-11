@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
-import formatKRDate from '../constants/formatKRDate';
+import formatKRDate from '../../../utils/formatKRDate';
 import { useNavigate } from 'react-router-dom';
 import {
   TiWeatherCloudy,
@@ -10,6 +10,7 @@ import {
   TiWeatherSunny,
 } from 'react-icons/ti';
 import { Typography } from '@/components/common/Typography';
+import { ROUTES } from '@/constants/routes';
 
 const DateText = styled.p`
   text-align: center;
@@ -137,7 +138,7 @@ function DiariesNewWrite() {
   const navigate = useNavigate();
 
   const gotoFeedback = () => {
-    navigate('/diaries/:id/feedback');
+    navigate(`/${ROUTES.DIARIES}/${ROUTES.DIARIES_FEEDBACK}`);
   };
 
   return (

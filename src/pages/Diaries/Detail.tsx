@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { FiChevronUp } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
-import formatKRDate from './constants/formatKRDate';
+import formatKRDate from '../../utils/formatKRDate';
 import { ROUTES } from '@/constants/routes';
 import theme from '@/styles/theme';
 
@@ -67,6 +67,8 @@ const ToggleButton = styled.button`
   cursor: pointer;
 `;
 
+const totalDays = 31; // 8월 기준
+
 function DiariesDetail() {
   const navigate = useNavigate();
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
@@ -80,8 +82,6 @@ function DiariesDetail() {
     '2025-08-05': '😢',
     '2025-08-06': '😀',
   });
-
-  const totalDays = 31; // 8월 기준
 
   const gotoWeekly = () => {
     navigate(ROUTES.DIARIES);
