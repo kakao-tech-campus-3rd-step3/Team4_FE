@@ -41,6 +41,7 @@ http.interceptors.response.use(
       const refreshToken = sessionStorage.getItem(REFRESH_TOKEN_KEY);
 
       if (!refreshToken) {
+        alert('로그인이 필요합니다!');
         window.location.href = ROUTES.LOGIN;
         return Promise.reject({ status, message, raw: err });
       }
