@@ -1,7 +1,9 @@
 import type { AnswerType, OnboardingTest } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
+import { ROUTES } from '@/constants/routes';
 import { semanticColors } from '@/styles/theme/colors';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { NextButton } from './Test.styles';
 
 type TestNextButtonProps = {
@@ -27,6 +29,8 @@ function TestNextButton({
   postAnswer,
   isImagePreloaded,
 }: TestNextButtonProps) {
+  const router = useNavigate();
+
   const answersRef = useRef<AnswerType[]>([]);
 
   const resetAnswerIndex = () => {
@@ -34,6 +38,7 @@ function TestNextButton({
   };
 
   const handleNext = async () => {
+    console.log('next');
     answersRef.current.push({
       questionId: currentTest.id,
       choiceIndex: selectedAnswerIndex,
@@ -47,6 +52,8 @@ function TestNextButton({
     }
 
     postAnswer({ answers: answersRef.current });
+
+    router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_RESULT}`);
   };
 
   return (
