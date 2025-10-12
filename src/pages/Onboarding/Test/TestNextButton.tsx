@@ -38,7 +38,6 @@ function TestNextButton({
   };
 
   const handleNext = async () => {
-    console.log('next');
     answersRef.current.push({
       questionId: currentTest.id,
       choiceIndex: selectedAnswerIndex,

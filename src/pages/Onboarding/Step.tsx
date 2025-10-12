@@ -1,4 +1,5 @@
 import { Typography } from '@/components/common/Typography';
+import Result from '@/components/Onboarding/Result';
 import { ROUTES } from '@/constants/routes';
 import { semanticColors } from '@/styles/theme/colors';
 import type { ReactNode } from 'react';
@@ -26,7 +27,7 @@ function OnboardingStepRouter({ step }: { step: string }) {
         onNext={() => router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_INTRO}`)}
         buttonText="다음"
       >
-        <div>result</div>
+        <Result />
       </OnboardingStepLayout>
     );
   }
