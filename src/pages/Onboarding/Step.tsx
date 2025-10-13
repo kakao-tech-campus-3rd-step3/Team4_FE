@@ -4,6 +4,8 @@ import { ROUTES } from '@/constants/routes';
 import { semanticColors } from '@/styles/theme/colors';
 import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Intro from '../../components/Onboarding/Intro';
+import Name from '../../components/Onboarding/Name';
 import { Container, NextButton } from './Test/Test.styles';
 
 function OnboardingStep() {
@@ -38,7 +40,7 @@ function OnboardingStepRouter({ step }: { step: string }) {
         onNext={() => router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_NAME}`)}
         buttonText="다음"
       >
-        <div>intro</div>
+        <Intro />
       </OnboardingStepLayout>
     );
   }
@@ -49,7 +51,7 @@ function OnboardingStepRouter({ step }: { step: string }) {
         onNext={() => router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`)}
         buttonText="다음"
       >
-        <div>name</div>
+        <Name />
       </OnboardingStepLayout>
     );
   }
