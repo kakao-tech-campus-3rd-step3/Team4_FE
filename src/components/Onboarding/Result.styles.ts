@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 40px;
+  gap: 60px;
 `;
 
 export const Title = styled.div`
@@ -16,8 +16,8 @@ export const Title = styled.div`
 
 export const Image = styled.img`
   object-fit: contain;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
 `;
 
 export const ResultContainer = styled.div`
