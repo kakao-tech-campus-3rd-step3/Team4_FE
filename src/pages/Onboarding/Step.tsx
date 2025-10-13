@@ -1,11 +1,12 @@
 import { Typography } from '@/components/common/Typography';
+import Intro from '@/components/Onboarding/Intro';
+import Name from '@/components/Onboarding/Name';
 import Result from '@/components/Onboarding/Result';
+import Start from '@/components/Onboarding/Start';
 import { ROUTES } from '@/constants/routes';
 import { semanticColors } from '@/styles/theme/colors';
 import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Intro from '../../components/Onboarding/Intro';
-import Name from '../../components/Onboarding/Name';
 import { Container, NextButton } from './Test/Test.styles';
 
 function OnboardingStep() {
@@ -59,7 +60,7 @@ function OnboardingStepRouter({ step }: { step: string }) {
   if (step === ROUTES.ONBOARDING_STEP_START) {
     return (
       <OnboardingStepLayout onNext={() => router(ROUTES.HOME)} buttonText="시작하기">
-        <div>start</div>
+        <Start />
       </OnboardingStepLayout>
     );
   }

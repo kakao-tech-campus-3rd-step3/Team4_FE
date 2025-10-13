@@ -105,6 +105,11 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
         mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
     {
+      match: () => pathname === `${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`,
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
+    },
+    {
       match: () => true,
       wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
     },
