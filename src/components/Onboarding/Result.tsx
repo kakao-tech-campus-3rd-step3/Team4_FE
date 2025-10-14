@@ -1,5 +1,5 @@
 import { Typography } from '@/components/common/Typography';
-import happy1 from '../../../public/assets/character/happy1.png';
+import { BASE_URL } from '@/constants/routes';
 import { Container, Image, ResultContainer, Title } from './Result.styles';
 
 function Result() {
@@ -10,7 +10,7 @@ function Result() {
           분석 결과
         </Typography>
       </Title>
-      <Image src={happy1} alt="happy1" />
+      <Image src={`${BASE_URL}assets/character/happy1.png`} alt="happy1" />
       <ResultContainer>
         <Typography variant="label2Regular" color="default">
           최근의 검사 결과를 보면, 마음이 조금 지쳐 있는 모습이 보여요.

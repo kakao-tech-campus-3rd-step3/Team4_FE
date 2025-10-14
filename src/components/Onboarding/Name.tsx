@@ -1,6 +1,6 @@
 import { Typography } from '@/components/common/Typography';
+import { BASE_URL } from '@/constants/routes';
 import styled from '@emotion/styled';
-import happy2 from '../../../public/assets/character/happy2.png';
 import { Container, Image, Title } from './Result.styles';
 
 const Input = styled.input`
@@ -30,7 +30,7 @@ function Name() {
           내 이름을 정해달라냥!
         </Typography>
       </Title>
-      <Image src={happy2} alt="happy1" />
+      <Image src={`${BASE_URL}assets/character/happy2.png`} alt="happy1" />
       <Input type="text" placeholder="고양이 이름을 입력해주세요" />
     </Container>
   );

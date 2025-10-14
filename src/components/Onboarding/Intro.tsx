@@ -1,5 +1,5 @@
 import { Typography } from '@/components/common/Typography';
-import defaultImage from '../../../public/assets/character/default.png';
+import { BASE_URL } from '@/constants/routes';
 import { Container, Image, ResultContainer, Title } from './Result.styles';
 
 function Intro() {
@@ -10,7 +10,7 @@ function Intro() {
           시작하기에 앞서...
         </Typography>
       </Title>
-      <Image src={defaultImage} alt="happy1" />
+      <Image src={`${BASE_URL}assets/character/default.png`} alt="happy1" />
       <ResultContainer>
         <Typography variant="label2Regular" color="default">
           이 앱은, 반복된 실패와 지친 마음 속에서도 다시 일어설 수 있도록 곁에 머무는 작은 쉼표에요.
