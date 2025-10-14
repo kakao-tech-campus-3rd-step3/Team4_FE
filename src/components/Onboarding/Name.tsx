@@ -1,6 +1,9 @@
 import { Typography } from '@/components/common/Typography';
-import { BASE_URL } from '@/constants/routes';
+import { BASE_URL, ROUTES } from '@/constants/routes';
+import { NextButton } from '@/pages/Onboarding/Test/Test.styles';
+import { semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
+import { useNavigate } from 'react-router-dom';
 import { Container, Image, Title } from './Result.styles';
 
 const Input = styled.input`
@@ -20,19 +23,33 @@ const Input = styled.input`
 `;
 
 function Name() {
+  const router = useNavigate();
+
+  const handleNext = () => {
+    router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`);
+  };
+
   return (
-    <Container>
-      <Title>
-        <Typography variant="title1Regular" color="default">
-          반갑다냥!
+    <>
+      <Container>
+        <Title>
+          <Typography variant="title1Regular" color="default">
+            반갑다냥!
+          </Typography>
+          <Typography variant="title1Regular" color="default">
+            내 이름을 정해달라냥!
+          </Typography>
+        </Title>
+        <Image src={`${BASE_URL}assets/character/happy2.png`} alt="happy1" />
+        <Input type="text" placeholder="고양이 이름을 입력해주세요" />
+      </Container>
+
+      <NextButton onClick={handleNext}>
+        <Typography variant="label2Regular" style={{ color: semanticColors.background.default }}>
+          다음
         </Typography>
-        <Typography variant="title1Regular" color="default">
-          내 이름을 정해달라냥!
-        </Typography>
-      </Title>
-      <Image src={`${BASE_URL}assets/character/happy2.png`} alt="happy1" />
-      <Input type="text" placeholder="고양이 이름을 입력해주세요" />
-    </Container>
+      </NextButton>
+    </>
   );
 }
 
