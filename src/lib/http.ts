@@ -2,6 +2,7 @@ import { AuthAPI } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
 import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { removeAuthToken, storeAuthToken } from '../utils/api';
 
 export const http = axios.create({
@@ -64,6 +65,7 @@ http.interceptors.response.use(
       }
     }
 
+    toast.error(message);
     return Promise.reject({ status, message, raw: err });
   },
 );
