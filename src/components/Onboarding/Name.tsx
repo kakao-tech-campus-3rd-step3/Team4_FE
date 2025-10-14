@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { CatsAPI } from '../../api/cats';
 import { Container, Image, Title } from './Result.styles';
 
@@ -37,10 +38,18 @@ function Name() {
   const handleNext = async () => {
     const name = nameRef.current?.value.trim();
 
-    if (name) {
-      await createCat(name);
-      router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`);
+    if (!name) {
+      toast.error('이름을 입력해주세요');
+      return;
     }
+
+    if (name.length > 20) {
+      toast.error('이름은 20자 이하로 입력해주세요');
+      return;
+    }
+
+    await createCat(name);
+    router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`);
   };
 
   return (
