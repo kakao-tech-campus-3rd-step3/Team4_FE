@@ -13,7 +13,8 @@ function OnboardingStep() {
 
   if (!step) {
     alert('오류 발생! 다시 시도해주세요');
-    return router(ROUTES.HOME);
+    router(ROUTES.HOME);
+    return null;
   }
 
   return <OnboardingStepRouter step={step} />;
