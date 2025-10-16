@@ -7,6 +7,7 @@ function OauthRedirect() {
   const refreshToken = params.get('refreshToken');
 
   if (!accessToken || !refreshToken) {
+    alert('로그인 실패! 다시 시도해주세요');
     window.location.href = ROUTES.LOGIN;
     return null;
   }
