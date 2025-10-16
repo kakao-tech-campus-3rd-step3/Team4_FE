@@ -1,6 +1,6 @@
-import { NextButton } from '../../pages/Onboarding/Test/Test.styles';
-import { semanticColors } from '../../styles/theme/colors';
-import { Typography } from '../common/Typography';
+import { Typography } from '@/components/common/Typography';
+import { NextButton } from '@/pages/Onboarding/Test/Test.styles';
+import { semanticColors } from '@/styles/theme/colors';
 
 function NextStepButton({
   handleNext,

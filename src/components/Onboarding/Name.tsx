@@ -1,12 +1,12 @@
+import { CatsAPI } from '@/api/cats';
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL, ROUTES } from '@/constants/routes';
+import { validateCatName } from '@/utils/onboarding/validate';
 import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { CatsAPI } from '../../api/cats';
-import { validateCatName } from '../../utils/onboarding/validate';
 import NextStepButton from './NextButton';
 import { Container, Image, Title } from './Result.styles';
 
