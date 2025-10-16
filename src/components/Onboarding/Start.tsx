@@ -1,9 +1,8 @@
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL, ROUTES } from '@/constants/routes';
-import { NextButton } from '@/pages/Onboarding/Test/Test.styles';
-import { semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
+import NextStepButton from './NextButton';
 
 const Image = styled.img`
   object-fit: contain;
@@ -48,11 +47,7 @@ function Start() {
         </Content>
       </Container>
 
-      <NextButton onClick={handleNext}>
-        <Typography variant="label2Regular" style={{ color: semanticColors.background.default }}>
-          시작하기
-        </Typography>
-      </NextButton>
+      <NextStepButton handleNext={handleNext} last={true} />
     </>
   );
 }

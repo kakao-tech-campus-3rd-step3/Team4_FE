@@ -1,8 +1,7 @@
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL, ROUTES } from '@/constants/routes';
-import { NextButton } from '@/pages/Onboarding/Test/Test.styles';
-import { semanticColors } from '@/styles/theme/colors';
 import { useNavigate } from 'react-router-dom';
+import NextStepButton from './NextButton';
 import { Container, Image, ResultContainer, Title } from './Result.styles';
 
 function Result() {
@@ -34,11 +33,7 @@ function Result() {
         </ResultContainer>
       </Container>
 
-      <NextButton onClick={handleNext}>
-        <Typography variant="label2Regular" style={{ color: semanticColors.background.default }}>
-          다음
-        </Typography>
-      </NextButton>
+      <NextStepButton handleNext={handleNext} />
     </>
   );
 }

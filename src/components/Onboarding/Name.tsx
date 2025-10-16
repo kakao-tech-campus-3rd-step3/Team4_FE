@@ -1,13 +1,12 @@
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL, ROUTES } from '@/constants/routes';
-import { NextButton } from '@/pages/Onboarding/Test/Test.styles';
-import { semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 import { useMutation } from '@tanstack/react-query';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CatsAPI } from '../../api/cats';
+import NextStepButton from './NextButton';
 import { Container, Image, Title } from './Result.styles';
 
 const Input = styled.input`
@@ -67,14 +66,7 @@ function Name() {
         <Input type="text" placeholder="고양이 이름을 입력해주세요" ref={nameRef} />
       </Container>
 
-      <NextButton onClick={handleNext} disabled={isPending}>
-        <Typography
-          variant="label2Regular"
-          style={{ opacity: isPending ? 0.5 : 1, color: semanticColors.background.default }}
-        >
-          {isPending ? '고양이 이름 짓는중...' : '다음'}
-        </Typography>
-      </NextButton>
+      <NextStepButton handleNext={handleNext} isPending={isPending} />
     </>
   );
 }
