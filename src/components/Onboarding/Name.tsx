@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CatsAPI } from '../../api/cats';
+import { validateCatName } from '../../utils/onboarding/validate';
 import NextStepButton from './NextButton';
 import { Container, Image, Title } from './Result.styles';
 
@@ -31,19 +32,15 @@ function Name() {
   });
 
   const router = useNavigate();
-
   const nameRef = useRef<HTMLInputElement>(null);
 
   const handleNext = async () => {
-    const name = nameRef.current?.value.trim();
+    const name = nameRef.current?.value.trim() || '';
 
-    if (!name) {
-      toast.error('이름을 입력해주세요');
-      return;
-    }
+    const validation = validateCatName(name);
 
-    if (name.length > 20) {
-      toast.error('이름은 20자 이하로 입력해주세요');
+    if (!validation.isValid) {
+      toast.error(validation.errorMessage!);
       return;
     }
 
