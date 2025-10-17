@@ -2,7 +2,7 @@ import { http } from '@/lib/http';
 import type { Cat } from './types';
 
 export const CatsAPI = {
-  create(payload: { name: string }) {
+  async create(payload: { name: string }) {
     return http.post<Cat>('/api/cats', payload).then((r) => r.data);
   },
   detail() {

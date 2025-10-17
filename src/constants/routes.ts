@@ -6,6 +6,10 @@ export const ROUTES = {
   ONBOARDING: '/onboarding',
   ONBOARDING_TEST: 'test',
   ONBOARDING_STEP: ':step',
+  ONBOARDING_STEP_RESULT: 'result',
+  ONBOARDING_STEP_INTRO: 'intro',
+  ONBOARDING_STEP_NAME: 'name',
+  ONBOARDING_STEP_START: 'start',
 
   CHARACTER: '/character',
   CHARACTER_CHAT: 'chat',
