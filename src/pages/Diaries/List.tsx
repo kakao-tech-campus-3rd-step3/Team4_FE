@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import { FiChevronDown } from 'react-icons/fi';
-import formatKRDate from './constants/formatKRDate';
+import formatKRDate from '../../utils/formatKRDate';
 import theme from '@/styles/theme';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
