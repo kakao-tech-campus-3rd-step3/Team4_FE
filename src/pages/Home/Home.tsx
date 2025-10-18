@@ -11,9 +11,12 @@ import {
   MissionIcon,
   DiaryCard,
 } from '@/components/Home/Home.styles';
-import { BASE_URL } from '@/constants/routes';
+import { BASE_URL, ROUTES } from '@/constants/routes';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const router = useNavigate();
+
   return (
     <HomeContainer>
       <GreetingSection>
@@ -24,13 +27,13 @@ function Home() {
           오늘 기분은 어떠신가요?
         </Typography>
       </GreetingSection>
-      <CharacterSection>
+      <CharacterSection onClick={() => router(ROUTES.CHARACTER)}>
         <CharacterImage src={`${BASE_URL}assets/character/happy1.png`} alt="character" />
         <BackgroundImage src={`${BASE_URL}assets/character/background.png`} alt="background" />
       </CharacterSection>
       <ActionsSection>
         <div>
-          <MissionCard>
+          <MissionCard onClick={() => router(ROUTES.MISSIONS)}>
             <Typography variant="body2Regular" color="gray900">
               오늘의 미션
             </Typography>
@@ -48,7 +51,7 @@ function Home() {
             </MissionItem>
           </MissionCard>
         </div>
-        <DiaryCard>
+        <DiaryCard onClick={() => router(ROUTES.DIARIES)}>
           <Typography variant="body2Regular" color="gray900">
             일기쓰기
           </Typography>

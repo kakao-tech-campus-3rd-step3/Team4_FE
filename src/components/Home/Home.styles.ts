@@ -20,6 +20,8 @@ export const CharacterSection = styled.div`
   overflow: hidden;
   margin: 0;
   padding: 0;
+
+  cursor: pointer;
 `;
 
 export const CharacterImage = styled.img`
@@ -55,6 +57,8 @@ export const MissionCard = styled.div`
   border-style: solid;
   padding-inline: ${theme.spacing[4]};
   padding-block: ${theme.spacing[3]};
+
+  cursor: pointer;
 `;
 
 export const MissionItem = styled.div`
@@ -78,4 +82,6 @@ export const DiaryCard = styled.div`
   border-radius: ${theme.spacing[2]};
   padding-inline: ${theme.spacing[4]};
   padding-block: ${theme.spacing[3]};
+
+  cursor: pointer;
 `;
