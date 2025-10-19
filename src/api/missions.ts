@@ -12,4 +12,8 @@ export const MissionsAPI = {
   updateCustom(id: string, payload: Partial<{ title: string; category: Mission['category'] }>) {
     return http.patch<Mission>(`/api/custom-missions/${id}`, payload).then((r) => r.data);
   },
+
+  getDailyMissions() {
+    return http.get<Mission[]>('/api/plans').then((r) => r.data);
+  },
 };
