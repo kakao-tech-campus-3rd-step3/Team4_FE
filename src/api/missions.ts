@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { Mission } from './types';
+import type { Mission, Plan } from './types';
 
 export const MissionsAPI = {
   listRecommended() {
@@ -14,6 +14,6 @@ export const MissionsAPI = {
   },
 
   getDailyMissions() {
-    return http.get<Mission[]>('/api/plans').then((r) => r.data);
+    return http.get<{ plans: Plan[] }>('/api/plans').then((r) => r.data.plans);
   },
 };

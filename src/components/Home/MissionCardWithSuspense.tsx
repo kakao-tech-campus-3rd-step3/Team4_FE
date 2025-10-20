@@ -11,10 +11,7 @@ interface MissionCardWithSuspenseProps {
 export function MissionCardWithSuspense({ onClick }: MissionCardWithSuspenseProps) {
   return (
     <ErrorBoundary
-      FallbackComponent={({ error }) => <ErrorFallback message="미션을 불러오는데 실패했습니다." />}
-      onError={(error) => {
-        console.error('MissionCard Error:', error);
-      }}
+      FallbackComponent={() => <ErrorFallback message="미션을 불러오는데 실패했습니다." />}
     >
       <Suspense
         fallback={
