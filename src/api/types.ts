@@ -72,3 +72,16 @@ export type AnswerType = {
 };
 
 export type LoginRes = { accessToken: string; refreshToken: string };
+
+// 이전 채팅 불러오기
+export type ChatLog = {
+  chatId: number;
+  message: string;
+  reply: string;
+  createdAt: string;
+};
+
+// 채팅 응답
+export type ChatResponse = {
+  message: string;
+};
