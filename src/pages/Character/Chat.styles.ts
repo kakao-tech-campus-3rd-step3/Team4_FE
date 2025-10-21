@@ -10,7 +10,7 @@ export const ChatContainer = styled.div`
 export const HeaderSection = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${theme.colors.colorScale.gray300};
+  border-bottom: 1.5px solid ${theme.colors.colorScale.brown100};
   padding-inline: ${theme.spacing[2]};
 `;
 
@@ -67,7 +67,8 @@ export const CharacterAvatar = styled.img`
 export const AssistantBubble = styled.div`
   background-color: ${theme.colors.brand.primary};
   border: 1.5px solid ${theme.colors.brand.border};
-  border-radius: ${theme.borderRadius.lg};
+  border-radius: ${theme.borderRadius.xs} ${theme.borderRadius.lg} ${theme.borderRadius.lg}
+    ${theme.borderRadius.lg};
   padding: ${theme.spacing[3]} ${theme.spacing[4]};
   max-width: 80%;
   width: 60%;
@@ -77,33 +78,35 @@ export const AssistantBubble = styled.div`
 export const UserBubble = styled.div`
   background-color: ${theme.colors.colorScale.orange100};
   border: 1.5px solid ${theme.colors.colorScale.orange200};
-  border-radius: ${theme.borderRadius.lg};
+  border-radius: ${theme.borderRadius.lg} ${theme.borderRadius.xs} ${theme.borderRadius.lg}
+    ${theme.borderRadius.lg};
   padding: ${theme.spacing[3]} ${theme.spacing[4]};
   max-width: 80%;
   word-wrap: break-word;
 `;
 
 export const InputSection = styled.div`
-  /* No additional styles needed for the input section container */
+  border-top: 1.5px solid ${theme.colors.colorScale.brown100};
 `;
 
 export const InputContainer = styled.div`
   display: flex;
   gap: ${theme.spacing[2]};
   align-items: center;
-  margin-bottom: ${theme.spacing[5]};
+  margin-block: ${theme.spacing[3]};
   margin-inline: ${theme.spacing[2]};
 `;
 
 export const MessageInput = styled.input`
   flex: 1;
-  padding: ${theme.spacing[3]} ${theme.spacing[4]};
+  padding: ${theme.spacing[3]} ${theme.spacing[5]};
   border: 1.5px solid ${theme.colors.brand.border};
   border-radius: ${theme.borderRadius.md};
   outline: none;
-  font-size: 14px;
+  font-size: ${theme.typography.label2Regular.fontSize};
   background-color: ${theme.colors.brand.primary};
   transition: border-color 0.2s ease;
+  font-family: 'OngleipEoyeonce';
 
   &:focus {
     border-color: ${theme.colors.colorScale.brown500};
@@ -114,8 +117,8 @@ export const SendButton = styled.button`
   background-color: ${theme.colors.brand.border};
   border: none;
   border-radius: ${theme.borderRadius.md};
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -128,6 +131,6 @@ export const SendButton = styled.button`
 `;
 
 export const SendIcon = styled.span`
-  color: ${theme.colors.colorScale.gray0};
+  color: ${theme.colors.colorScale.brown0};
   font-size: 18px;
 `;
