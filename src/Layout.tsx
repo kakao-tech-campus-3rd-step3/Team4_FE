@@ -110,6 +110,10 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
         mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
     {
+      match: () => pathname === `${ROUTES.CHARACTER}/${ROUTES.CHARACTER_CHAT}`,
+      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: ch }),
+    },
+    {
       match: () => true,
       wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
     },
