@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { Mission } from './types';
+import type { Mission, Plan } from './types';
 
 export const MissionsAPI = {
   listRecommended() {
@@ -11,5 +11,9 @@ export const MissionsAPI = {
   },
   updateCustom(id: string, payload: Partial<{ title: string; category: Mission['category'] }>) {
     return http.patch<Mission>(`/api/custom-missions/${id}`, payload).then((r) => r.data);
+  },
+
+  getDailyMissions() {
+    return http.get<{ plans: Plan[] }>('/api/plans').then((r) => r.data.plans);
   },
 };
