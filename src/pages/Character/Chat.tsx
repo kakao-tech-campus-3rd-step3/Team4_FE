@@ -99,34 +99,47 @@ function CharacterChat() {
 
       {/* 채팅 메시지 영역 (스크롤) */}
       <ChatMessagesArea>
-        {chatLog.map((chat, index) => (
-          <div key={index}>
-            {chat.role === 'assistant' ? (
-              <AssistantMessageContainer>
-                <CharacterAvatar src={`${BASE_URL}assets/character/default.png`} alt="character" />
-                <AssistantBubble>
-                  {typeof chat.message === 'string' ? (
-                    <Typography variant="label2Regular" color="gray900">
-                      {chat.message}
-                    </Typography>
-                  ) : (
-                    chat.message
-                  )}
-                </AssistantBubble>
-              </AssistantMessageContainer>
-            ) : (
-              <UserMessageContainer>
-                <UserBubble>
-                  <Typography variant="label2Regular" color="gray900">
-                    {chat.message}
-                  </Typography>
-                </UserBubble>
-              </UserMessageContainer>
-            )}
+        {chatLog.length > 0 ? (
+          <>
+            {chatLog.map((chat, index) => (
+              <div key={index}>
+                {chat.role === 'assistant' ? (
+                  <AssistantMessageContainer>
+                    <CharacterAvatar
+                      src={`${BASE_URL}assets/character/default.png`}
+                      alt="character"
+                    />
+                    <AssistantBubble>
+                      {typeof chat.message === 'string' ? (
+                        <Typography variant="label2Regular" color="gray900">
+                          {chat.message}
+                        </Typography>
+                      ) : (
+                        chat.message
+                      )}
+                    </AssistantBubble>
+                  </AssistantMessageContainer>
+                ) : (
+                  <UserMessageContainer>
+                    <UserBubble>
+                      <Typography variant="label2Regular" color="gray900">
+                        {chat.message}
+                      </Typography>
+                    </UserBubble>
+                  </UserMessageContainer>
+                )}
+              </div>
+            ))}
+            {/* 스크롤 마커 */}
+            <div ref={messagesEndRef} />
+          </>
+        ) : (
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Typography variant="label2Regular" color="gray800">
+              자유롭게 채팅을 시작해보세요!
+            </Typography>
           </div>
-        ))}
-        {/* 스크롤 마커 */}
-        <div ref={messagesEndRef} />
+        )}
       </ChatMessagesArea>
 
       {/* 하단 입력란 */}
