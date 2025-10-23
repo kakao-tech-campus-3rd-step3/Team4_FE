@@ -1,4 +1,3 @@
-import type { ChatResponse } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
 import { useEffect, useRef, useState } from 'react';
@@ -22,10 +21,12 @@ import {
 } from './Chat.styles';
 import { useMutation } from '@tanstack/react-query';
 import { CatsAPI } from '@/api/cats';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 
 type Chat = {
   role: 'user' | 'assistant';
-} & ChatResponse;
+  message: string | React.ReactNode;
+};
 
 function CharacterChat() {
   const navigate = useNavigate();
@@ -53,15 +54,31 @@ function CharacterChat() {
       return;
     }
 
-    setChatLog([...chatLog, { role: 'user', message }]);
-
     if (inputRef.current) {
       inputRef.current.value = '';
     }
 
-    const response = await send({ message });
+    setChatLog([
+      ...chatLog,
+      { role: 'user', message },
+      {
+        role: 'assistant',
+        message: (
+          <LoadingSpinnerWrapper>
+            <LoadingSpinner />
+          </LoadingSpinnerWrapper>
+        ),
+      },
+    ]);
 
-    setChatLog((prev) => [...prev, { role: 'assistant', message: response.message }]);
+    const response = (await send({ message })).message;
+
+    setChatLog((prev) => {
+      const newChatLog = [...prev];
+      newChatLog.pop();
+      newChatLog.push({ role: 'assistant', message: response });
+      return newChatLog;
+    });
   };
 
   return (
@@ -88,9 +105,13 @@ function CharacterChat() {
               <AssistantMessageContainer>
                 <CharacterAvatar src={`${BASE_URL}assets/character/default.png`} alt="character" />
                 <AssistantBubble>
-                  <Typography variant="label2Regular" color="gray900">
-                    {chat.message}
-                  </Typography>
+                  {typeof chat.message === 'string' ? (
+                    <Typography variant="label2Regular" color="gray900">
+                      {chat.message}
+                    </Typography>
+                  ) : (
+                    chat.message
+                  )}
                 </AssistantBubble>
               </AssistantMessageContainer>
             ) : (
