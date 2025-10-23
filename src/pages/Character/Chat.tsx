@@ -1,7 +1,7 @@
 import type { ChatResponse } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ChatContainer,
@@ -36,6 +36,15 @@ function CharacterChat() {
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatLog]);
 
   const handleSendMessage = async () => {
     const message = inputRef.current?.value;
@@ -95,6 +104,8 @@ function CharacterChat() {
             )}
           </div>
         ))}
+        {/* 스크롤 마커 */}
+        <div ref={messagesEndRef} />
       </ChatMessagesArea>
 
       {/* 하단 입력란 */}
