@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { Cat } from './types';
+import type { Cat, ChatResponse } from './types';
 
 export const CatsAPI = {
   async create(payload: { name: string }) {
@@ -10,5 +10,8 @@ export const CatsAPI = {
   },
   update(payload: Partial<Cat>) {
     return http.put<Cat>('/api/cats', payload).then((r) => r.data);
+  },
+  sendMessage(payload: { message: string }) {
+    return http.post<ChatResponse>('/api/chat', payload).then((r) => r.data);
   },
 };
