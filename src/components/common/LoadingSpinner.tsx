@@ -8,10 +8,10 @@ const LoadingSpinnerContainer = styled.div`
   height: 100%;
 `;
 
-const Spinner = styled.div`
-  width: 50px;
-  height: 50px;
-  border: 6px solid ${({ theme }) => theme.colors.brand.border};
+const Spinner = styled.div<{ size: number }>`
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
+  border: ${({ size }) => size * 0.12}px solid ${({ theme }) => theme.colors.brand.border};
   border-radius: 50%;
   border-top-color: transparent;
   border-bottom-color: transparent;
@@ -27,8 +27,8 @@ const Spinner = styled.div`
   }
 `;
 
-export function LoadingSpinner() {
-  return <Spinner />;
+export function LoadingSpinner({ size = 50 }: { size?: number }) {
+  return <Spinner size={size} />;
 }
 
 export function LoadingSpinnerWrapper({ children }: { children: React.ReactNode }) {
