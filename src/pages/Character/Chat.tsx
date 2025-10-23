@@ -65,7 +65,7 @@ function CharacterChat() {
         role: 'assistant',
         message: (
           <LoadingSpinnerWrapper>
-            <LoadingSpinner />
+            <LoadingSpinner size={30} />
           </LoadingSpinnerWrapper>
         ),
       },
