@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useEffect, useRef, useState, useMemo } from 'react';
+import { useMutation, useInfiniteQuery } from '@tanstack/react-query';
 import { CatsAPI } from '@/api/cats';
 import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import { ChatContainer as StyledChatContainer } from '@/components/Chat/Chat.styles';
@@ -13,9 +13,67 @@ type Chat = {
 };
 
 export const ChatContainer = () => {
-  const [chatLog, setChatLog] = useState<Chat[]>([]);
+  const shouldScrollToBottomRef = useRef(false);
+  const loadRef = useRef<HTMLDivElement>(null);
+  const messagesAreaRef = useRef<HTMLDivElement>(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    queryKey: ['chatHistory'],
+    queryFn: ({ pageParam = 0 }) =>
+      CatsAPI.loadChatHistory({ params: { size: 10, page: pageParam } }),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.number + 1 < lastPage.totalPages) {
+        return lastPage.number + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 0,
+  });
+
+  const chatHistory = useMemo(
+    () =>
+      data?.pages
+        .slice()
+        .reverse()
+        .flatMap((page) =>
+          page.content
+            .sort((a, b) => a.chatId - b.chatId)
+            .flatMap((log) => [
+              { role: 'user' as const, message: log.message },
+              { role: 'assistant' as const, message: log.reply },
+            ]),
+        ) || [],
+    [data],
+  );
+
+  // 이전 채팅 무한 스크롤
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    const currentLoadRef = loadRef.current;
+    if (currentLoadRef) {
+      observer.observe(currentLoadRef);
+    }
+
+    return () => {
+      if (currentLoadRef) {
+        observer.unobserve(currentLoadRef);
+      }
+    };
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const [newMessages, setNewMessages] = useState<Chat[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const allChats = useMemo(() => [...chatHistory, ...newMessages], [chatHistory, newMessages]);
 
   const { mutateAsync: send } = useMutation({
     mutationFn: (payload: { message: string }) => CatsAPI.sendMessage(payload),
@@ -26,8 +84,33 @@ export const ChatContainer = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [chatLog]);
+    if (shouldScrollToBottomRef.current) {
+      scrollToBottom();
+      shouldScrollToBottomRef.current = false;
+    }
+  }, [allChats]);
+
+  // 초기 로드 시 맨 아래로 스크롤 (한 번만)
+  const hasScrolledOnce = useRef(false);
+  useEffect(() => {
+    if (!hasScrolledOnce.current && chatHistory.length > 0) {
+      shouldScrollToBottomRef.current = true;
+      hasScrolledOnce.current = true;
+    }
+  }, [chatHistory.length]);
+
+  // 이전 채팅 로드 후 옵저버 영역에서 벗어나기
+  const previousPagesLength = useRef(0);
+  useEffect(() => {
+    const currentPagesLength = data?.pages.length || 0;
+
+    if (currentPagesLength > 1 && currentPagesLength > previousPagesLength.current) {
+      // 새 페이지가 로드되었을 때만 스크롤
+      messagesAreaRef.current?.scrollBy({ top: 100, behavior: 'auto' });
+    }
+
+    previousPagesLength.current = currentPagesLength;
+  }, [data?.pages.length]);
 
   const handleSendMessage = async () => {
     const message = inputRef.current?.value;
@@ -40,8 +123,10 @@ export const ChatContainer = () => {
       inputRef.current.value = '';
     }
 
-    setChatLog([
-      ...chatLog,
+    shouldScrollToBottomRef.current = true;
+
+    setNewMessages((prev) => [
+      ...prev,
       { role: 'user', message },
       {
         role: 'assistant',
@@ -55,18 +140,26 @@ export const ChatContainer = () => {
 
     const response = (await send({ message })).message;
 
-    setChatLog((prev) => {
-      const newChatLog = [...prev];
-      newChatLog.pop();
-      newChatLog.push({ role: 'assistant', message: response });
-      return newChatLog;
+    shouldScrollToBottomRef.current = true;
+
+    setNewMessages((prev) => {
+      const updated = [...prev];
+      updated.pop();
+      updated.push({ role: 'assistant', message: response });
+      return updated;
     });
   };
 
   return (
     <StyledChatContainer>
       <ChatHeader />
-      <ChatMessages chatLog={chatLog} messagesEndRef={messagesEndRef} />
+      <ChatMessages
+        chatLog={allChats}
+        messagesEndRef={messagesEndRef}
+        loadRef={loadRef}
+        messagesAreaRef={messagesAreaRef}
+        isLoadingHistory={isFetchingNextPage}
+      />
       <ChatInput onSendMessage={handleSendMessage} inputRef={inputRef} />
     </StyledChatContainer>
   );

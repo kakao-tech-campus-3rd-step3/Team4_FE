@@ -1,4 +1,5 @@
 import { Typography } from '@/components/common/Typography';
+import { LoadingSpinner, LoadingSpinnerWrapper } from '@/components/common/LoadingSpinner';
 import { BASE_URL } from '@/constants/routes';
 import {
   ChatMessagesArea,
@@ -17,11 +18,26 @@ type Chat = {
 interface ChatMessagesProps {
   chatLog: Chat[];
   messagesEndRef: React.RefObject<HTMLDivElement | null>;
+  loadRef: React.RefObject<HTMLDivElement | null>;
+  messagesAreaRef: React.RefObject<HTMLDivElement | null>;
+  isLoadingHistory: boolean;
 }
 
-export const ChatMessages = ({ chatLog, messagesEndRef }: ChatMessagesProps) => {
+export const ChatMessages = ({
+  chatLog,
+  messagesEndRef,
+  loadRef,
+  messagesAreaRef,
+  isLoadingHistory,
+}: ChatMessagesProps) => {
   return (
-    <ChatMessagesArea>
+    <ChatMessagesArea ref={messagesAreaRef}>
+      <div ref={loadRef} style={{ height: '200px', width: '100%' }} />
+      {isLoadingHistory && (
+        <LoadingSpinnerWrapper>
+          <LoadingSpinner size={30} />
+        </LoadingSpinnerWrapper>
+      )}
       {chatLog.length > 0 ? (
         <>
           {chatLog.map((chat, index) => (

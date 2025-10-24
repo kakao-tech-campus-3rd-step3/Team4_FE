@@ -1,4 +1,4 @@
-import { ChatContainer } from '@/components/Chat';
+import { ChatContainer } from '@/components/Chat/ChatContainer';
 
 function CharacterChat() {
   return <ChatContainer />;
