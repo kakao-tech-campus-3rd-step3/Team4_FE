@@ -81,6 +81,15 @@ export type ChatLog = {
   createdAt: string;
 };
 
+// 채팅 히스토리 페이지 응답
+export type ChatHistoryPage = {
+  content: ChatLog[];
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+};
+
 // 채팅 응답
 export type ChatResponse = {
   message: string;
