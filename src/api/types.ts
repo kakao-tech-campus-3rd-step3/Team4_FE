@@ -76,6 +76,7 @@ export type LoginRes = { accessToken: string; refreshToken: string };
 // 이전 채팅 불러오기
 export type ChatLog = {
   chatId: number;
+  role: 'user' | 'assistant';
   message: string;
   reply: string;
   createdAt: string;
