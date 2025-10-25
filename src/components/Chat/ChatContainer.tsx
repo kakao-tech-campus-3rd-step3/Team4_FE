@@ -38,10 +38,7 @@ export const ChatContainer = () => {
         .flatMap((page) =>
           page.content
             .sort((a, b) => a.chatId - b.chatId)
-            .flatMap((log) => [
-              { role: 'user' as const, message: log.message },
-              { role: 'assistant' as const, message: log.reply },
-            ]),
+            .flatMap((log) => [{ role: log.role, message: log.message }]),
         ) || [],
     [data],
   );
