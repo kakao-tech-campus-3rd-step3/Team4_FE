@@ -1,5 +1,7 @@
+import { ChatContainer } from '@/components/Chat/ChatContainer';
+
 function CharacterChat() {
-  return <div>character chat</div>;
+  return <ChatContainer />;
 }
 
 export default CharacterChat;
