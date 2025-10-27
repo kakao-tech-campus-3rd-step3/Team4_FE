@@ -4,6 +4,11 @@ import QUERY_KEY from '@/constants/queryKey';
 import type { SelectedItem } from '@/pages/Character/types/Item';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import OwnedItemsGridView from './OwnedItemsView';
+import styled from '@emotion/styled';
+
+const LoadingTopMargin = styled.div`
+  margin-top: ${({ theme }) => theme.spacing[5]};
+`;
 
 function OwnedItemsGrid({ items }: { items: SelectedItem[] | undefined }) {
   const queryClient = useQueryClient();
@@ -25,9 +30,11 @@ function OwnedItemsGrid({ items }: { items: SelectedItem[] | undefined }) {
 
   if (isPending) {
     return (
-      <LoadingSpinnerWrapper>
-        <LoadingSpinner />
-      </LoadingSpinnerWrapper>
+      <LoadingTopMargin>
+        <LoadingSpinnerWrapper>
+          <LoadingSpinner />
+        </LoadingSpinnerWrapper>
+      </LoadingTopMargin>
     );
   }
 
