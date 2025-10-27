@@ -105,6 +105,16 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
         mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
     {
+      match: () => pathname === `${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_1}`,
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
+    },
+    {
+      match: () => pathname === `${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_2}`,
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
+    },
+    {
       match: () => pathname === `${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`,
       wrap: (ch: React.ReactNode) =>
         mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
