@@ -47,7 +47,7 @@ function Missions() {
         <DailyPlanCard />
 
         {/* 미션 리스트 */}
-        <MissionListSection missions={missions} onClickAdd={onAddMission} />
+        <MissionListSection missions={missions} onAddMission={onAddMission} />
 
         {/* 하단 CTA */}
         <CTABar onNext={onNext} />
