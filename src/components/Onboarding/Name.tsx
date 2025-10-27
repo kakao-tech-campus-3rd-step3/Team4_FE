@@ -45,7 +45,7 @@ function Name() {
     }
 
     await createCat(name);
-    router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_START}`);
+    router(`${ROUTES.ONBOARDING}/${ROUTES.ONBOARDING_STEP_1}`);
   };
 
   return (
