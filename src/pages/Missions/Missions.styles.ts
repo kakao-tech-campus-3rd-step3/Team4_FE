@@ -13,7 +13,7 @@ export const Screen = styled.main`
 
 export const Title = styled.h1`
   margin: 0 0 12px 0;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.spacing[6]};
   font-weight: 800;
   color: ${semanticColors.text.default};
 `;

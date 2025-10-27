@@ -1,7 +1,7 @@
 import type { Mission } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
 import mocks from '@/mockSetup';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Chip,
   ChipRow,
@@ -19,6 +19,7 @@ import CTABar from './components/CTABar';
 import DailyPlanCard from './components/DailyPlanCard';
 import MissionListSection from './components/MissionListSection';
 import { MISSION_TAGS } from './constants/icon';
+import formatKRDate from '@/utils/formatKRDate';
 
 function Missions() {
   const [openSheet, setOpenSheet] = useState(false);
@@ -27,6 +28,7 @@ function Missions() {
   const onAddMission = () => setOpenSheet(true);
   const onCloseSheet = () => setOpenSheet(false);
   const onNext = () => alert('다음');
+  const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
   useEffect(() => {
     // 미션 리스트 조회, GET, /api/missions
@@ -41,7 +43,7 @@ function Missions() {
   return (
     <>
       <Screen>
-        <Title>missions</Title>
+        <Title>{todayKR}</Title>
 
         {/* 일일 계획 카드 */}
         <DailyPlanCard dailyMissions={missions} onClickAdd={onAddMission} />
