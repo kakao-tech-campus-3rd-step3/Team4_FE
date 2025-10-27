@@ -48,7 +48,7 @@ function Missions() {
         {/* 일일 계획 카드 */}
         <DailyPlanCard dailyMissions={missions} onClickAdd={onAddMission} />
 
-        {/* 미션 리스트 */}
+        {/* 추천 리스트 */}
         <MissionListSection missions={missions} onAddMission={onAddMission} />
 
         {/* 하단 CTA */}
@@ -76,6 +76,7 @@ function Missions() {
             <Primary
               onClick={() => {
                 // TODO: 실제 추가 로직
+                alert('추가');
                 onCloseSheet();
               }}
             >
