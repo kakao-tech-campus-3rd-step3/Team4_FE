@@ -5,6 +5,14 @@ import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { CharacterScreenContainer } from './Character.styles';
 import CharacterData from './CharacterData';
+import styled from '@emotion/styled';
+
+const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 
 function CharacterScreen() {
   return (
@@ -16,9 +24,11 @@ function CharacterScreen() {
       >
         <Suspense
           fallback={
-            <LoadingSpinnerWrapper>
-              <LoadingSpinner />
-            </LoadingSpinnerWrapper>
+            <LoadingContainer>
+              <LoadingSpinnerWrapper>
+                <LoadingSpinner />
+              </LoadingSpinnerWrapper>
+            </LoadingContainer>
           }
         >
           <CharacterData />
