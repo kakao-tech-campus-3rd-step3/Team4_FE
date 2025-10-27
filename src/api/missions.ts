@@ -1,5 +1,6 @@
 import { http } from '@/lib/http';
 import type { Mission, Plan } from './types';
+import { sleep } from '@/utils/api';
 
 export const MissionsAPI = {
   listRecommended() {
@@ -13,7 +14,8 @@ export const MissionsAPI = {
     return http.patch<Mission>(`/api/custom-missions/${id}`, payload).then((r) => r.data);
   },
 
-  getDailyMissions() {
+  async getDailyMissions() {
+    await sleep(1000);
     return http.get<{ plans: Plan[] }>('/api/plans').then((r) => r.data.plans);
   },
 };
