@@ -65,7 +65,7 @@ http.interceptors.response.use(
       }
     }
 
-    toast.error(message);
+    toast.error(message[0]);
     return Promise.reject({ status, message, raw: err });
   },
 );
