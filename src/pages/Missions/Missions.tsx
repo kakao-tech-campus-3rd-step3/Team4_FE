@@ -44,7 +44,7 @@ function Missions() {
         <Title>missions</Title>
 
         {/* 일일 계획 카드 */}
-        <DailyPlanCard />
+        <DailyPlanCard dailyMissions={missions} onClickAdd={onAddMission} />
 
         {/* 미션 리스트 */}
         <MissionListSection missions={missions} onAddMission={onAddMission} />
