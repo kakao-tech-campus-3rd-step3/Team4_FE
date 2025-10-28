@@ -28,7 +28,15 @@ function Missions() {
   const [missionContent, setMissionContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Mission['category'] | null>(null);
 
-  const onAddMission = () => setOpenSheet(true);
+  const onAddMission = (mission?: Mission) => {
+    -setOpenSheet(true);
+    if (mission) {
+      setMissionContent(mission.content); //  클릭한 미션 내용을 Input에 세팅
+      setSelectedCategory(mission.category); //  카테고리도 같이 선택 (선택사항)
+    }
+    setOpenSheet(true);
+  };
+
   const onCloseSheet = () => setOpenSheet(false);
   const onNext = () => alert('다음');
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
