@@ -187,18 +187,21 @@ export const ChipRow = styled.div`
   margin: ${({ theme }) => theme.spacing[3]} 0 14px;
 `;
 
-export const Chip = styled.button`
-  display: flex;
+export const Chip = styled.button<{ 'data-selected'?: boolean }>`
+  display: inline-flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing[1]};
-  justify-content: center;
-  padding: 10px ${({ theme }) => theme.spacing[3]};
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  border: 1px solid ${semanticColors.brand.border};
-  background: ${colorScale.brown0};
-  color: ${semanticColors.text.default};
-  font-weight: 700;
-  font-size: 13px;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background-color: ${({ 'data-selected': selected }) => (selected ? '#e6f2ff' : '#f9f9f9')};
+  color: ${({ 'data-selected': selected }) => (selected ? '#007aff' : '#333')};
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #eef6ff;
+  }
 `;
 
 export const Primary = styled.button`
