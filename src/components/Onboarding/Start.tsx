@@ -39,10 +39,10 @@ function Start() {
         <Image src={`${BASE_URL}assets/character/happy2.png`} alt="happy1" />
         <Content>
           <Typography variant="title2Regular" color="default">
-            잘했어요!
+            잘했다냥!
           </Typography>
           <Typography variant="title2Regular" color="default">
-            "냥토닥"과 함께 천천히 하나씩 이뤄봐요
+            냥토닥이랑 함께, 천천히 하나씩 이뤄가보자냥!
           </Typography>
         </Content>
       </Container>

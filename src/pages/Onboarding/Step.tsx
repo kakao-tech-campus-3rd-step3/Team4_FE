@@ -6,6 +6,8 @@ import { ROUTES } from '@/constants/routes';
 import type { ReactNode } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Container } from './Test/Test.styles';
+import Step1 from '@/components/Onboarding/Step1';
+import Step2 from '@/components/Onboarding/Step2';
 
 function OnboardingStep() {
   const router = useNavigate();
@@ -41,6 +43,22 @@ function OnboardingStepRouter({ step }: { step: string }) {
     return (
       <OnboardingStepLayout>
         <Name />
+      </OnboardingStepLayout>
+    );
+  }
+
+  if (step === ROUTES.ONBOARDING_STEP_1) {
+    return (
+      <OnboardingStepLayout>
+        <Step1 />
+      </OnboardingStepLayout>
+    );
+  }
+
+  if (step === ROUTES.ONBOARDING_STEP_2) {
+    return (
+      <OnboardingStepLayout>
+        <Step2 />
       </OnboardingStepLayout>
     );
   }

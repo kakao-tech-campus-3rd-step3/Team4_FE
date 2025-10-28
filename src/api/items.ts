@@ -1,6 +1,7 @@
 import { ITEMS_CATEGORY } from '@/constants/api';
 import { http } from '@/lib/http';
 import type { OwnedItem, StoreItem } from './types';
+import { sleep } from '@/utils/api';
 
 interface StoreItemsResponse {
   content: StoreItem[];
@@ -10,6 +11,7 @@ interface StoreItemsResponse {
 
 export const ItemsAPI = {
   listStore: async ({ pageParam = 1 }: { pageParam?: number }) => {
+    await sleep(1000);
     const res = await http.get<StoreItemsResponse>('/api/items', {
       params: { page: pageParam, category: ITEMS_CATEGORY.HEAD },
     });

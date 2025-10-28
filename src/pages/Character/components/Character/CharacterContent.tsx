@@ -2,7 +2,13 @@ import { Typography } from '@/components/common/Typography';
 import { BASE_URL } from '@/constants/routes';
 import type { SelectedItem } from '@/pages/Character/types/Item';
 import { useNavigate } from 'react-router-dom';
-import { ChatButton, ChatButtonContainer } from './Button.styles';
+import {
+  BackArrowIcon,
+  BackButton,
+  BackButtonContainer,
+  ChatButton,
+  ChatButtonContainer,
+} from './Button.styles';
 import {
   BackgroundImage,
   CharacterContainer,
@@ -19,6 +25,17 @@ function CharacterContent({ ownedItems }: { ownedItems: SelectedItem[] }) {
 
   return (
     <ImageContainer>
+      <BackButtonContainer>
+        <BackButton
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <BackArrowIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.06">
+            <path d="M63.94,24.28a14.28,14.28,0,0,0-20.36-20L4.1,44.42a14.27,14.27,0,0,0,0,20l38.69,39.35a14.27,14.27,0,0,0,20.35-20L48.06,68.41l60.66-.29a14.27,14.27,0,1,0-.23-28.54l-59.85.28,15.3-15.58Z" />
+          </BackArrowIcon>
+        </BackButton>
+      </BackButtonContainer>
       <CharacterContainer>
         <CharacterImage alt="character" src={`${BASE_URL}assets/character/cat-no-tail.png`} />
         <TailImage alt="tail" src={`${BASE_URL}assets/character/tail.png`} />

@@ -31,6 +31,18 @@ export const BackIcon = styled.span`
   font-size: 20px;
 `;
 
+export const BackArrowIcon = styled.svg`
+  width: 20px;
+  height: 20px;
+  fill: ${theme.colors.colorScale.gray900};
+`;
+
+export const SendArrowIcon = styled.svg`
+  width: 20px;
+  height: 20px;
+  fill: ${theme.colors.colorScale.brown900};
+`;
+
 export const ChatMessagesArea = styled.div`
   flex: 1;
   overflow-y: auto;

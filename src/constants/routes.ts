@@ -9,6 +9,8 @@ export const ROUTES = {
   ONBOARDING_STEP_RESULT: 'result',
   ONBOARDING_STEP_INTRO: 'intro',
   ONBOARDING_STEP_NAME: 'name',
+  ONBOARDING_STEP_1: 'step1',
+  ONBOARDING_STEP_2: 'step2',
   ONBOARDING_STEP_START: 'start',
 
   CHARACTER: '/character',
