@@ -20,7 +20,6 @@ import DiariesNewWrite from '@/pages/Diaries/New/Write';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home/Home';
 import Login from '@/pages/Login/Login';
-import OauthRedirect from '@/pages/Login/OauthRedirect';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
@@ -39,7 +38,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
-            <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} />
+            {/* <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} /> */}
 
             <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
               <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
