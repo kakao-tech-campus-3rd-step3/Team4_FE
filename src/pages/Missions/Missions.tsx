@@ -29,7 +29,6 @@ function Missions() {
   const [selectedCategory, setSelectedCategory] = useState<Mission['category'] | null>(null);
 
   const onAddMission = (mission?: Mission) => {
-    -setOpenSheet(true);
     if (mission) {
       setMissionContent(mission.content); //  클릭한 미션 내용을 Input에 세팅
       setSelectedCategory(mission.category); //  카테고리도 같이 선택 (선택사항)
@@ -49,14 +48,20 @@ function Missions() {
 
     console.log('보내는 데이터:', { content: missionContent, category: selectedCategory });
 
-    try {
-      await MissionsAPI.createCustom({
-        content: missionContent,
-        category: selectedCategory,
-      });
+    const newMission = { content: missionContent, category: selectedCategory };
 
+    try {
+      // 서버에 POST 요청
+      const createdMission = await MissionsAPI.createCustom(newMission);
+
+      // 즉시 반영
+      setDailyMissions((prev) => [...prev, createdMission]);
       alert('일일 계획에 추가되었습니다!');
       onCloseSheet();
+
+      // 입력값 초기화
+      setMissionContent('');
+      setSelectedCategory(null);
     } catch (error) {
       console.error(error);
       alert('추가 중 오류가 발생했습니다.');
@@ -79,7 +84,7 @@ function Missions() {
   }, []);
 
   useEffect(() => {
-    // 일일계획 조회, GET, /api/missions
+    // 일일계획 조회, GET, /api/missions/custom
     const fetchMissions = async () => {
       try {
         const data = await MissionsAPI.getDailyMissions();
