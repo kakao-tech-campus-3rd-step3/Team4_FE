@@ -24,6 +24,7 @@ import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import Test from '@/pages/Onboarding/Test/Test';
+import OauthRedirect from './pages/Login/OauthRedirect';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -38,7 +39,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
-            {/* <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} /> */}
+            <Route path={ROUTES.OAUTH_REDIRECT} element={<OauthRedirect />} />
 
             <Route path={ROUTES.ONBOARDING} element={<OnboardingLayout />}>
               <Route path={ROUTES.ONBOARDING_STEP} element={<OnboardingStep />} />
