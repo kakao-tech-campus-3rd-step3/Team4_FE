@@ -16,4 +16,8 @@ export const MissionsAPI = {
   getDailyMissions() {
     return http.get<{ plans: Plan[] }>('/api/plans').then((r) => r.data.plans);
   },
+
+  deletePlan(id: number) {
+    return http.delete(`/api/plans/${id}`).then(() => true);
+  },
 };

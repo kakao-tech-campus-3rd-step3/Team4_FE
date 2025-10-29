@@ -27,11 +27,17 @@ function Missions() {
   const [dailyMissions, setDailyMissions] = useState<Mission[]>([]);
   const [missionContent, setMissionContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Mission['category'] | null>(null);
+  const [selectedMissionId, setSelectedMissionId] = useState<number | null>(null);
 
   const onAddMission = (mission?: Mission) => {
     if (mission) {
       setMissionContent(mission.content); //  클릭한 미션 내용을 Input에 세팅
       setSelectedCategory(mission.category); //  카테고리도 같이 선택 (선택사항)
+      setSelectedMissionId(mission.id);
+    } else {
+      setMissionContent('');
+      setSelectedCategory(null);
+      setSelectedMissionId(null);
     }
     setOpenSheet(true);
   };
@@ -65,6 +71,32 @@ function Missions() {
     } catch (error) {
       console.error(error);
       alert('추가 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleDeleteMission = async () => {
+    if (!selectedMissionId) {
+      alert('삭제할 미션이 선택되지 않았습니다.');
+      return;
+    }
+
+    if (!confirm('이 미션을 삭제하시겠습니까?')) return;
+
+    try {
+      await MissionsAPI.deletePlan(selectedMissionId);
+
+      // 즉시 반영
+      setDailyMissions((prev) => prev.filter((m) => m.id !== selectedMissionId));
+      alert('미션이 삭제되었습니다.');
+      onCloseSheet();
+
+      // 상태 초기화
+      setSelectedMissionId(null);
+      setMissionContent('');
+      setSelectedCategory(null);
+    } catch (error) {
+      console.error(error);
+      alert('삭제 중 오류가 발생했습니다.');
     }
   };
 
@@ -141,7 +173,7 @@ function Missions() {
 
             <Primary onClick={handleAddToPlan}>일일 계획에 추가</Primary>
 
-            <Danger onClick={onCloseSheet}>삭제하기</Danger>
+            <Danger onClick={handleDeleteMission}>삭제하기</Danger>
           </Sheet>
         </Overlay>
       )}
