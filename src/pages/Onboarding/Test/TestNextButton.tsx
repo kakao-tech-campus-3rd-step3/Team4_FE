@@ -40,7 +40,7 @@ function TestNextButton({
   const handleNext = async () => {
     answersRef.current.push({
       questionId: currentTest.id,
-      choiceIndex: selectedAnswerIndex,
+      choiceIndex: selectedAnswerIndex + 1,
     });
     resetAnswerIndex();
 
