@@ -125,7 +125,8 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
     },
     {
       match: () => true,
-      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
   ];
 };

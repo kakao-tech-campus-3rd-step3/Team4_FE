@@ -3,6 +3,7 @@ import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/ht
 import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
 import { removeAuthToken, storeAuthToken } from '../utils/api';
+import { toast } from 'react-toastify';
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -64,7 +65,7 @@ http.interceptors.response.use(
       }
     }
 
-    // toast.error(message[0]);
+    toast.error(message[0]);
     return Promise.reject({ status, message, raw: err });
   },
 );

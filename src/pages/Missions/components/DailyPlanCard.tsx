@@ -14,7 +14,7 @@ const DailyPlanCard = ({ dailyMissions, onClickAdd }: DailyPlanCardProps) => {
         <Typography variant="label1Regular" color="default">
           일일 계획
         </Typography>
-        <AddPill onClick={() => onClickAdd}>미션 추가</AddPill>
+        <AddPill onClick={() => onClickAdd()}>미션 추가</AddPill>
       </CardHeader>
       <CardBody>
         <MissionList>
