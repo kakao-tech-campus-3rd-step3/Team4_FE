@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { Cat, ChatResponse, ChatHistoryPage } from './types';
+import type { Cat, ChatResponse, ChatHistoryPage, CatExist } from './types';
 import { sleep } from '@/utils/api';
 
 export const CatsAPI = {
@@ -18,5 +18,8 @@ export const CatsAPI = {
   async loadChatHistory({ params }: { params: { size: number; page: number } }) {
     await sleep(1000);
     return http.get<ChatHistoryPage>('/api/chat', { params }).then((r) => r.data);
+  },
+  check() {
+    return http.get<CatExist>('/api/cats/check').then((r) => r.data);
   },
 };
