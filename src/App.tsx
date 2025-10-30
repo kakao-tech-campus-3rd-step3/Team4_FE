@@ -20,11 +20,11 @@ import DiariesNewWrite from '@/pages/Diaries/New/Write';
 import Errors from '@/pages/Errors';
 import Home from '@/pages/Home/Home';
 import Login from '@/pages/Login/Login';
-import OauthRedirect from '@/pages/Login/OauthRedirect';
 import Missions from '@/pages/Missions/Missions';
 import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import Test from '@/pages/Onboarding/Test/Test';
+import OauthRedirect from './pages/Login/OauthRedirect';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
