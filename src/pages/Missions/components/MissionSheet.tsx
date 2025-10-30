@@ -74,4 +74,3 @@ const MissionSheet = ({
 };
 
 export default MissionSheet;
-

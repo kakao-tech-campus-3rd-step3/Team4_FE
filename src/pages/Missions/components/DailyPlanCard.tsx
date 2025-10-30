@@ -1,5 +1,6 @@
 import type { Mission } from '@/api/types';
 import { AddPill, Card, CardBody, CardHeader, MissionItem, MissionList } from '../Missions.styles';
+import { Typography } from '@/components/common/Typography';
 
 type DailyPlanCardProps = {
   dailyMissions: Mission[];
@@ -10,13 +11,17 @@ const DailyPlanCard = ({ dailyMissions, onClickAdd }: DailyPlanCardProps) => {
   return (
     <Card>
       <CardHeader>
-        <span>일일 계획</span>
+        <Typography variant="label1Regular" color="default">
+          일일 계획
+        </Typography>
         <AddPill onClick={() => onClickAdd}>미션 추가</AddPill>
       </CardHeader>
       <CardBody>
         <MissionList>
           {dailyMissions.length === 0 ? (
-            <div>아직 추가된 미션이 없습니다.</div>
+            <Typography variant="label2Regular" color="gray500">
+              아직 추가된 미션이 없습니다.
+            </Typography>
           ) : (
             <ul>
               {dailyMissions.map((m) => (

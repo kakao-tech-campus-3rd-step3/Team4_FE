@@ -73,8 +73,9 @@ export const AddPill = styled.button`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   background: ${colorScale.orange500};
   color: ${semanticColors.background.default};
-  font-size: ${({ theme }) => theme.spacing[3]};
+  font-size: ${({ theme }) => theme.spacing[5]};
   font-weight: 700;
+  font-family: 'OngleipEoyeonce';
 `;
 
 export const MissionList = styled.ul`

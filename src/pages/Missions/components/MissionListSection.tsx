@@ -1,5 +1,6 @@
 import type { Mission } from '@/api/types';
-import { MissionItem, MissionList, Section, SectionHeader, SectionTitle } from '../Missions.styles';
+import { MissionItem, MissionList, Section, SectionHeader } from '../Missions.styles';
+import { Typography } from '@/components/common/Typography';
 
 type MissionListSectionProps = {
   missions: Mission[];
@@ -10,16 +11,22 @@ const MissionListSection = ({ missions, onAddMission }: MissionListSectionProps)
   return (
     <Section>
       <SectionHeader>
-        <SectionTitle>추천 리스트</SectionTitle>
+        <Typography variant="label1Regular" color="default">
+          추천 리스트
+        </Typography>
       </SectionHeader>
       <MissionList>
         {missions.length === 0 ? (
-          <div>오늘은 추천 미션이 없습니다.</div>
+          <Typography variant="label2Regular" color="gray500">
+            오늘은 추천 미션이 없습니다.
+          </Typography>
         ) : (
           <ul>
             {missions.map((m) => (
               <MissionItem key={m.id} onClick={() => onAddMission(m)}>
-                {m.content}
+                <Typography variant="body2Regular" color="default">
+                  {m.content}
+                </Typography>
               </MissionItem>
             ))}
           </ul>

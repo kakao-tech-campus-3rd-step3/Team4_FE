@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Screen, Title } from './Missions.styles';
+import { Screen } from './Missions.styles';
 import CTABar from './components/CTABar';
 import DailyPlanCard from './components/DailyPlanCard';
 import MissionListSection from './components/MissionListSection';
@@ -9,6 +9,7 @@ import { useMissions } from './hooks/useMissions';
 import { useDailyMissions } from './hooks/useDailyMissions';
 import { useMissionMutations } from './hooks/useMissionMutations';
 import { useMissionSheet } from './hooks/useMissionSheet';
+import { Typography } from '@/components/common/Typography';
 
 function Missions() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
@@ -79,7 +80,9 @@ function Missions() {
   return (
     <>
       <Screen>
-        <Title>{todayKR}</Title>
+        <Typography variant="title2Regular" color="default" style={{ marginBottom: '12px' }}>
+          {todayKR}
+        </Typography>
         <DailyPlanCard dailyMissions={dailyMissions} onClickAdd={openSheet} />
         <MissionListSection missions={missions} onAddMission={openSheet} />
         <CTABar onNext={onNext} />
