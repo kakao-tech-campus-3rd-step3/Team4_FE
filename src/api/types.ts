@@ -95,3 +95,7 @@ export type ChatHistoryPage = {
 export type ChatResponse = {
   message: string;
 };
+
+export type CatExist = {
+  exist: boolean;
+};
