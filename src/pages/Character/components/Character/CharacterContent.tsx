@@ -1,5 +1,5 @@
 import { Typography } from '@/components/common/Typography';
-import { BASE_URL } from '@/constants/routes';
+import { BASE_URL, ROUTES } from '@/constants/routes';
 import type { SelectedItem } from '@/pages/Character/types/Item';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -28,7 +28,7 @@ function CharacterContent({ ownedItems }: { ownedItems: SelectedItem[] }) {
       <BackButtonContainer>
         <BackButton
           onClick={() => {
-            navigate(-1);
+            navigate(ROUTES.HOME);
           }}
         >
           <BackArrowIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.06">
