@@ -53,7 +53,6 @@ export const SectionHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing[3]};
-  padding: 0 ${({ theme }) => theme.spacing[2]};
   opacity: 0.7;
 `;
 
@@ -127,6 +126,12 @@ export const MissionItemWithDot = styled.li`
     margin-top: 1px;
     opacity: 0.4;
   }
+`;
+
+export const MissionListDescription = styled.p`
+  font-size: 20px;
+  color: ${semanticColors.text.disabled};
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
 `;
 
 export const CheckboxWrapper = styled.div<{ 'data-done'?: boolean }>`
@@ -223,7 +228,7 @@ export const CTAButton = styled.button`
 export const Overlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.55);
   display: flex;
   justify-content: center;
   align-items: flex-end;
