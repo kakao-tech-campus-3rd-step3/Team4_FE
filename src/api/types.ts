@@ -24,7 +24,7 @@ export type Plan = {
   missionType: 'RECOMMENDED' | 'CUSTOM';
   content: string;
   category: CategoryEnum;
-  isDone: boolean;
+  done: boolean;
 };
 
 export type Diary = {

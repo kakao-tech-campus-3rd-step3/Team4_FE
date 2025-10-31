@@ -1,5 +1,5 @@
 import type { Mission } from '@/api/types';
-import { MissionItem, MissionList, Section, SectionHeader } from '../Missions.styles';
+import { MissionItemWithDot, MissionList, Section, SectionHeader } from '../Missions.styles';
 import { Typography } from '@/components/common/Typography';
 
 type MissionListSectionProps = {
@@ -23,9 +23,9 @@ const MissionListSection = ({ missions, onAddMission }: MissionListSectionProps)
         ) : (
           <ul>
             {missions.map((mission) => (
-              <MissionItem key={mission.id} onClick={() => onAddMission(mission)}>
+              <MissionItemWithDot key={mission.id} onClick={() => onAddMission(mission)}>
                 {mission.content}
-              </MissionItem>
+              </MissionItemWithDot>
             ))}
           </ul>
         )}

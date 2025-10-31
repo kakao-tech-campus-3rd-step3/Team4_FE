@@ -27,6 +27,14 @@ export const useMissionMutations = () => {
     },
   });
 
+  const togglePlan = useMutation({
+    mutationFn: ({ id, isDone }: { id: number; isDone: boolean }) =>
+      MissionsAPI.togglePlan({ id, isDone }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['missions', 'daily'] });
+    },
+  });
+
   const deletePlan = useMutation({
     mutationFn: (id: number) => MissionsAPI.deletePlan(id),
     onSuccess: () => {
@@ -37,6 +45,7 @@ export const useMissionMutations = () => {
   return {
     createCustomAndAddToPlan,
     addToPlan,
+    togglePlan,
     deletePlan,
   };
 };

@@ -19,7 +19,7 @@ function Missions() {
   const { data: dailyPlans = [] } = useDailyMissions();
 
   // Mutations
-  const { createCustomAndAddToPlan, addToPlan, deletePlan } = useMissionMutations();
+  const { createCustomAndAddToPlan, addToPlan, togglePlan, deletePlan } = useMissionMutations();
 
   // Sheet 상태 관리
   const {
@@ -114,6 +114,7 @@ function Missions() {
           dailyPlans={dailyPlans}
           onClickAdd={openForCustom}
           onClickPlan={openForPlan}
+          onTogglePlan={(id, isDone) => togglePlan.mutate({ id, isDone })}
         />
         <MissionListSection missions={missions} onAddMission={openForRecommended} />
         <CTABar onNext={onNext} />

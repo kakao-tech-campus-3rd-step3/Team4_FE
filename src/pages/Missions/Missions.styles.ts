@@ -84,20 +84,103 @@ export const MissionList = styled.ul`
   padding: 0 2px ${({ theme }) => theme.spacing[2]};
 `;
 
-export const MissionItem = styled.li`
+export const MissionItem = styled.li<{ 'data-done'?: boolean }>`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: ${({ theme }) => theme.spacing[2]};
   padding: ${({ theme }) => theme.spacing[2]} 2px;
   font-size: 22px;
   color: ${semanticColors.text.default};
+  text-decoration: ${({ 'data-done': done }) => (done ? 'line-through' : 'none')};
+  opacity: ${({ 'data-done': done }) => (done ? 0.5 : 1)};
+  transition: all 0.2s ease;
+`;
+
+export const MissionItemWithDot = styled.li`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
+  padding: ${({ theme }) => theme.spacing[2]} 2px;
+  font-size: 22px;
+  color: ${semanticColors.text.default};
+  transition: all 0.2s ease;
 
   &::before {
-    content: '📝';
+    content: '●';
     display: inline-block;
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1;
     margin-top: 1px;
+    opacity: 0.5;
+  }
+`;
+
+export const CheckboxWrapper = styled.div<{ 'data-done'?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
+  flex: 1;
+  cursor: pointer;
+
+  text-decoration: ${({ 'data-done': done }) => (done ? 'line-through' : 'none')};
+`;
+
+export const Checkbox = styled.input`
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid ${colorScale.gray600};
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:checked {
+    background: ${colorScale.orange500};
+    border-color: ${colorScale.orange500};
+  }
+
+  &:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: ${semanticColors.background.default};
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &:hover {
+    border-color: ${colorScale.orange500};
+  }
+`;
+
+export const MissionContent = styled.span<{ 'data-done'?: boolean }>`
+  flex: 1;
+  opacity: ${({ 'data-done': done }) => (done ? 0.6 : 1)};
+  transition: all 0.2s ease;
+`;
+
+export const MissionActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[1]};
+  margin-left: auto;
+`;
+
+export const IconButton = styled.button`
+  background: transparent;
+  border: 0;
+  padding: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
   }
 `;
 
