@@ -89,7 +89,7 @@ export const MissionItem = styled.li`
   align-items: flex-start;
   gap: ${({ theme }) => theme.spacing[2]};
   padding: ${({ theme }) => theme.spacing[2]} 2px;
-  font-size: 14px;
+  font-size: 22px;
   color: ${semanticColors.text.default};
 
   &::before {
