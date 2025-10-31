@@ -15,21 +15,19 @@ const MissionListSection = ({ missions, onAddMission }: MissionListSectionProps)
           추천 리스트
         </Typography>
       </SectionHeader>
-      <MissionList>
-        {missions.length === 0 ? (
-          <Typography variant="label2Regular" color="gray500">
-            오늘은 추천 미션이 없습니다.
-          </Typography>
-        ) : (
-          <ul>
-            {missions.map((mission) => (
-              <MissionItemWithDot key={mission.id} onClick={() => onAddMission(mission)}>
-                {mission.content}
-              </MissionItemWithDot>
-            ))}
-          </ul>
-        )}
-      </MissionList>
+      {missions.length === 0 ? (
+        <Typography variant="label2Regular" color="gray500">
+          오늘은 추천 미션이 없습니다.
+        </Typography>
+      ) : (
+        <MissionList>
+          {missions.map((mission) => (
+            <MissionItemWithDot key={mission.id} onClick={() => onAddMission(mission)}>
+              {mission.content}
+            </MissionItemWithDot>
+          ))}
+        </MissionList>
+      )}
     </Section>
   );
 };

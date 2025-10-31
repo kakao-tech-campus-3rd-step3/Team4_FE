@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { Screen } from './Missions.styles';
-import CTABar from './components/CTABar';
 import DailyPlanCard from './components/DailyPlanCard';
 import MissionListSection from './components/MissionListSection';
 import MissionSheet from './components/MissionSheet';
@@ -117,7 +116,7 @@ function Missions() {
           onTogglePlan={(id, isDone) => togglePlan.mutate({ id, isDone })}
         />
         <MissionListSection missions={missions} onAddMission={openForRecommended} />
-        <CTABar onNext={onNext} />
+        {/* <CTABar onNext={onNext} /> */}
       </Screen>
 
       <MissionSheet

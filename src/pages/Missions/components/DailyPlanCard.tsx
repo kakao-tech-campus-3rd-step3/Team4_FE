@@ -46,33 +46,31 @@ const DailyPlanCard = ({
         <AddPill onClick={onClickAdd}>미션 추가</AddPill>
       </CardHeader>
       <CardBody>
-        <MissionList>
-          {dailyPlans.length === 0 ? (
-            <Typography variant="label2Regular" color="gray500">
-              아직 추가된 미션이 없습니다.
-            </Typography>
-          ) : (
-            <ul>
-              {dailyPlans.map((plan) => {
-                return (
-                  <MissionItem key={plan.id}>
-                    <CheckboxWrapper data-done={plan.done}>
-                      <Checkbox
-                        type="checkbox"
-                        checked={plan.done}
-                        onChange={(e) => handleCheckboxChange(e, plan)}
-                      />
-                      <MissionContent data-done={plan.done}>{plan.content}</MissionContent>
-                    </CheckboxWrapper>
-                    <MissionActions>
-                      <IconButton onClick={(e) => handleMissionClick(e, plan)}>⋯</IconButton>
-                    </MissionActions>
-                  </MissionItem>
-                );
-              })}
-            </ul>
-          )}
-        </MissionList>
+        {dailyPlans.length === 0 ? (
+          <Typography variant="label2Regular" color="gray500">
+            아직 추가된 미션이 없습니다.
+          </Typography>
+        ) : (
+          <MissionList>
+            {dailyPlans.map((plan) => {
+              return (
+                <MissionItem key={plan.id}>
+                  <CheckboxWrapper data-done={plan.done}>
+                    <Checkbox
+                      type="checkbox"
+                      checked={plan.done}
+                      onChange={(e) => handleCheckboxChange(e, plan)}
+                    />
+                    <MissionContent data-done={plan.done}>{plan.content}</MissionContent>
+                  </CheckboxWrapper>
+                  <MissionActions>
+                    <IconButton onClick={(e) => handleMissionClick(e, plan)}>⋯</IconButton>
+                  </MissionActions>
+                </MissionItem>
+              );
+            })}
+          </MissionList>
+        )}
       </CardBody>
     </Card>
   );
