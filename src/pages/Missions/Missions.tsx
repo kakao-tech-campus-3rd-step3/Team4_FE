@@ -16,54 +16,81 @@ function Missions() {
 
   // 데이터 조회
   const { data: missions = [] } = useMissions();
-  const { data: dailyMissions = [] } = useDailyMissions();
+  const { data: dailyPlans = [] } = useDailyMissions();
 
   // Mutations
-  const { createMission, deleteMission } = useMissionMutations();
+  const { createCustomAndAddToPlan, addToPlan, deletePlan } = useMissionMutations();
 
   // Sheet 상태 관리
   const {
     isOpen,
+    mode,
     missionContent,
     selectedCategory,
     selectedMissionId,
-    openSheet,
+    selectedPlanId,
+    openForRecommended,
+    openForCustom,
+    openForPlan,
     closeSheet,
     resetSheet,
     setMissionContent,
     setSelectedCategory,
   } = useMissionSheet();
 
-  const handleAddToPlan = () => {
-    if (!missionContent || !selectedCategory) {
-      alert('미션 내용과 카테고리를 모두 입력해주세요!');
-      return;
-    }
+  const handleConfirm = () => {
+    if (mode === 'add-recommended') {
+      // 추천 미션을 일일계획에 추가
+      if (!selectedMissionId) {
+        alert('추가할 미션이 선택되지 않았습니다.');
+        return;
+      }
 
-    createMission.mutate(
-      { content: missionContent, category: selectedCategory },
-      {
-        onSuccess: () => {
-          alert('일일 계획에 추가되었습니다!');
-          closeSheet();
-          resetSheet();
+      addToPlan.mutate(
+        { missionId: selectedMissionId, missionType: 'REGULAR' },
+        {
+          onSuccess: () => {
+            alert('일일 계획에 추가되었습니다!');
+            closeSheet();
+            resetSheet();
+          },
+          onError: () => {
+            alert('추가 중 오류가 발생했습니다.');
+          },
         },
-        onError: () => {
-          alert('추가 중 오류가 발생했습니다.');
+      );
+    } else if (mode === 'create-custom') {
+      // 커스텀 미션 생성 후 일일계획에 추가
+      if (!missionContent || !selectedCategory) {
+        alert('미션 내용과 카테고리를 모두 입력해주세요!');
+        return;
+      }
+
+      createCustomAndAddToPlan.mutate(
+        { content: missionContent, category: selectedCategory },
+        {
+          onSuccess: () => {
+            alert('일일 계획에 추가되었습니다!');
+            closeSheet();
+            resetSheet();
+          },
+          onError: () => {
+            alert('추가 중 오류가 발생했습니다.');
+          },
         },
-      },
-    );
+      );
+    }
   };
 
-  const handleDeleteMission = () => {
-    if (!selectedMissionId) {
+  const handleDelete = () => {
+    if (!selectedPlanId) {
       alert('삭제할 미션이 선택되지 않았습니다.');
       return;
     }
 
     if (!confirm('이 미션을 삭제하시겠습니까?')) return;
 
-    deleteMission.mutate(selectedMissionId, {
+    deletePlan.mutate(selectedPlanId, {
       onSuccess: () => {
         alert('미션이 삭제되었습니다.');
         closeSheet();
@@ -83,21 +110,25 @@ function Missions() {
         <Typography variant="title2Regular" color="default" style={{ marginBottom: '12px' }}>
           {todayKR}
         </Typography>
-        <DailyPlanCard dailyMissions={dailyMissions} onClickAdd={openSheet} />
-        <MissionListSection missions={missions} onAddMission={openSheet} />
+        <DailyPlanCard
+          dailyPlans={dailyPlans}
+          onClickAdd={openForCustom}
+          onClickPlan={openForPlan}
+        />
+        <MissionListSection missions={missions} onAddMission={openForRecommended} />
         <CTABar onNext={onNext} />
       </Screen>
 
       <MissionSheet
         isOpen={isOpen}
+        mode={mode}
         missionContent={missionContent}
         selectedCategory={selectedCategory}
-        selectedMissionId={selectedMissionId}
         onClose={closeSheet}
         onContentChange={setMissionContent}
         onCategoryChange={setSelectedCategory}
-        onAdd={handleAddToPlan}
-        onDelete={handleDeleteMission}
+        onConfirm={handleConfirm}
+        onDelete={handleDelete}
       />
     </>
   );

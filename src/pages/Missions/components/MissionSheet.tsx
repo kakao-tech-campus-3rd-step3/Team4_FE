@@ -13,49 +13,57 @@ import {
 } from '../Missions.styles';
 import { MISSION_TAGS } from '../constants/icon';
 
+type SheetMode = 'add-recommended' | 'create-custom' | 'view-plan';
+
 type MissionSheetProps = {
   isOpen: boolean;
+  mode: SheetMode;
   missionContent: string;
   selectedCategory: Mission['category'] | null;
-  selectedMissionId: number | null;
   onClose: () => void;
   onContentChange: (value: string) => void;
   onCategoryChange: (category: Mission['category']) => void;
-  onAdd: () => void;
+  onConfirm: () => void;
   onDelete: () => void;
 };
 
 const MissionSheet = ({
   isOpen,
+  mode,
   missionContent,
   selectedCategory,
-  selectedMissionId,
   onClose,
   onContentChange,
   onCategoryChange,
-  onAdd,
+  onConfirm,
   onDelete,
 }: MissionSheetProps) => {
   if (!isOpen) return null;
+
+  const isReadonly = mode === 'add-recommended' || mode === 'view-plan';
+  const showDeleteButton = mode === 'view-plan';
+  const showConfirmButton = mode !== 'view-plan';
 
   return (
     <Overlay onClick={onClose}>
       <Sheet onClick={(e) => e.stopPropagation()}>
         <Handle />
-        <SheetTitle>미션 추가</SheetTitle>
+        <SheetTitle>{mode === 'view-plan' ? '일일 계획' : '미션 추가'}</SheetTitle>
 
         <Input
           placeholder="자기소개서 나의 강점 3가지 정리해보기"
           value={missionContent}
           onChange={(e) => onContentChange(e.target.value)}
+          readOnly={isReadonly}
         />
 
         <ChipRow>
           {MISSION_TAGS.map(({ key, label, icon }) => (
             <Chip
               key={key}
-              onClick={() => onCategoryChange(key)}
+              onClick={() => !isReadonly && onCategoryChange(key)}
               data-selected={selectedCategory === key}
+              style={{ cursor: isReadonly ? 'default' : 'pointer' }}
             >
               <span aria-hidden>{icon}</span>
               <Typography as="span" variant="body1Regular" color="default">
@@ -65,9 +73,9 @@ const MissionSheet = ({
           ))}
         </ChipRow>
 
-        <Primary onClick={onAdd}>일일 계획에 추가</Primary>
+        {showConfirmButton && <Primary onClick={onConfirm}>일일 계획에 추가</Primary>}
 
-        {selectedMissionId && <Danger onClick={onDelete}>삭제하기</Danger>}
+        {showDeleteButton && <Danger onClick={onDelete}>삭제하기</Danger>}
       </Sheet>
     </Overlay>
   );

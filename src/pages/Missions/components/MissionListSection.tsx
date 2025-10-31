@@ -22,11 +22,9 @@ const MissionListSection = ({ missions, onAddMission }: MissionListSectionProps)
           </Typography>
         ) : (
           <ul>
-            {missions.map((m) => (
-              <MissionItem key={m.id} onClick={() => onAddMission(m)}>
-                <Typography variant="body2Regular" color="default">
-                  {m.content}
-                </Typography>
+            {missions.map((mission) => (
+              <MissionItem key={mission.id} onClick={() => onAddMission(mission)}>
+                {mission.content}
               </MissionItem>
             ))}
           </ul>

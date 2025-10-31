@@ -5,15 +5,29 @@ import type { Mission } from '@/api/types';
 export const useMissionMutations = () => {
   const queryClient = useQueryClient();
 
-  const createMission = useMutation({
-    mutationFn: (payload: { content: string; category: Mission['category'] }) =>
-      MissionsAPI.createCustom(payload),
+  const createCustomAndAddToPlan = useMutation({
+    mutationFn: async (payload: { content: string; category: Mission['category'] }) => {
+      // 1단계: 커스텀 미션 생성
+      const createdMission = await MissionsAPI.createCustom(payload);
+
+      // 2단계: 생성된 미션을 일일계획에 추가
+      await MissionsAPI.addToPlan({ missionId: createdMission.id, missionType: 'CUSTOM' });
+      return createdMission;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['missions', 'daily'] });
     },
   });
 
-  const deleteMission = useMutation({
+  const addToPlan = useMutation({
+    mutationFn: (payload: { missionId: number; missionType: 'REGULAR' }) =>
+      MissionsAPI.addToPlan(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['missions', 'daily'] });
+    },
+  });
+
+  const deletePlan = useMutation({
     mutationFn: (id: number) => MissionsAPI.deletePlan(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['missions', 'daily'] });
@@ -21,7 +35,8 @@ export const useMissionMutations = () => {
   });
 
   return {
-    createMission,
-    deleteMission,
+    createCustomAndAddToPlan,
+    addToPlan,
+    deletePlan,
   };
 };
