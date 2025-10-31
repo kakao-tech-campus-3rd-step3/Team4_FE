@@ -17,6 +17,10 @@ export const MissionsAPI = {
     return http.get<{ plans: Plan[] }>('/api/plans').then((r) => r.data.plans);
   },
 
+  addToPlan(payload: { missionId: number; missionType: 'REGULAR' | 'CUSTOM' }) {
+    return http.post(`/api/plans`, payload).then((r) => r.data);
+  },
+
   deletePlan(id: number) {
     return http.delete(`/api/plans/${id}`).then(() => true);
   },
