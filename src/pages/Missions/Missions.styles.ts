@@ -1,4 +1,4 @@
-import { DESIGN_BASE, PAGE_PADDING } from '@/constants/layout';
+import { DESIGN_BASE } from '@/constants/layout';
 import { colorScale, semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 
@@ -6,16 +6,32 @@ export const Screen = styled.main`
   max-width: ${DESIGN_BASE.MAX_WIDTH}px;
   margin: 0 auto;
   min-height: 100vh;
-  padding: ${PAGE_PADDING.TOP_EXTRA + 16}px ${PAGE_PADDING.INLINE + 12}px
-    ${PAGE_PADDING.BOTTOM_EXTRA + 24}px;
+  padding-block: ${({ theme }) => theme.spacing[4]};
+  margin-top: ${({ theme }) => theme.spacing[8]};
   box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing[4]};
 `;
 
-export const Title = styled.h1`
-  margin: 0 0 12px 0;
-  font-size: ${({ theme }) => theme.spacing[6]};
-  font-weight: 800;
-  color: ${semanticColors.text.default};
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  // gap: ${({ theme }) => theme.spacing[1]};
+`;
+
+export const BackArrowIcon = styled.svg`
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  fill: ${colorScale.gray800};
+`;
+
+export const Header = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export const Card = styled.section`
