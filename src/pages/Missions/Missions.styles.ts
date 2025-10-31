@@ -243,7 +243,7 @@ export const Sheet = styled.section`
   border-radius: ${({ theme }) => theme.borderRadius.lg} ${({ theme }) => theme.borderRadius.lg} 0 0;
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
   padding: ${({ theme }) => `
-  ${theme.spacing[3]} ${theme.spacing[4]} ${theme.spacing[5]}
+  ${theme.spacing[3]} ${theme.spacing[4]} ${theme.spacing[5]};
 `};
 
   animation: slideUp 180ms ease-out;
@@ -302,7 +302,7 @@ export const ChipRow = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: ${({ theme }) => theme.spacing[2]};
-  margin: ${({ theme }) => theme.spacing[3]} 0 14px;
+  margin: ${({ theme }) => theme.spacing[3]} 0 0;
 `;
 
 export const Chip = styled.button<{ 'data-selected'?: boolean }>`
@@ -341,6 +341,7 @@ export const Primary = styled.button`
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: 0 2px 4px rgba(255, 144, 0, 0.2);
+  margin-top: ${({ theme }) => theme.spacing[3]};
 
   &:hover {
     background: ${colorScale.orange600};
@@ -359,8 +360,8 @@ export const Danger = styled.button`
   margin: ${({ theme }) => theme.spacing[3]} auto 0;
   background: transparent;
   border: 0;
-  color: ${colorScale.red500};
-  font-size: 15px;
+  color: ${colorScale.red700};
+  font-size: 22px;
   font-weight: 700;
   font-family: 'OngleipEoyeonce';
   cursor: pointer;
@@ -371,5 +372,26 @@ export const Danger = styled.button`
   &:hover {
     background: rgba(255, 59, 48, 0.1);
     color: ${colorScale.red600};
+  }
+`;
+
+export const EditButton = styled.button<{ disabled?: boolean }>`
+  width: 100%;
+  padding: 14px ${({ theme }) => theme.spacing[4]};
+  border: 0;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  background: ${({ disabled }) => (disabled ? colorScale.gray400 : colorScale.gray500)};
+  color: ${({ disabled }) => (disabled ? colorScale.gray900 : semanticColors.text.default)};
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'OngleipEoyeonce';
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: all 0.2s;
+  opacity: ${({ disabled }) => (disabled ? 0.6 : 1)};
+  margin-top: ${({ theme }) => theme.spacing[3]};
+  border: 1.5px solid ${({ disabled }) => (disabled ? colorScale.gray600 : colorScale.gray600)};
+
+  &:hover {
+    background: ${({ disabled }) => (disabled ? colorScale.gray400 : colorScale.gray600)};
   }
 `;

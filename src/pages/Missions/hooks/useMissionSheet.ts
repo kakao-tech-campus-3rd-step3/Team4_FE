@@ -10,6 +10,9 @@ export const useMissionSheet = () => {
   const [selectedCategory, setSelectedCategory] = useState<Mission['category'] | null>(null);
   const [selectedMissionId, setSelectedMissionId] = useState<number | null>(null);
   const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+  const [selectedMissionType, setSelectedMissionType] = useState<'RECOMMENDED' | 'CUSTOM' | null>(
+    null,
+  );
 
   const openForRecommended = (mission: Mission) => {
     setMode('add-recommended');
@@ -33,8 +36,9 @@ export const useMissionSheet = () => {
     setMode('view-plan');
     setMissionContent(plan.content);
     setSelectedCategory(plan.category);
-    setSelectedMissionId(null);
+    setSelectedMissionId(plan.missionId);
     setSelectedPlanId(plan.id);
+    setSelectedMissionType(plan.missionType);
     setIsOpen(true);
   };
 
@@ -47,6 +51,7 @@ export const useMissionSheet = () => {
     setSelectedCategory(null);
     setSelectedMissionId(null);
     setSelectedPlanId(null);
+    setSelectedMissionType(null);
   };
 
   return {
@@ -56,6 +61,7 @@ export const useMissionSheet = () => {
     selectedCategory,
     selectedMissionId,
     selectedPlanId,
+    selectedMissionType,
     openForRecommended,
     openForCustom,
     openForPlan,

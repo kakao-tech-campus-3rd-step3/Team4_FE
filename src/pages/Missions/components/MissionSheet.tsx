@@ -1,6 +1,16 @@
 import type { Mission } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
-import { Chip, ChipRow, Danger, Handle, Input, Overlay, Primary, Sheet } from '../Missions.styles';
+import {
+  Chip,
+  ChipRow,
+  Danger,
+  EditButton,
+  Handle,
+  Input,
+  Overlay,
+  Primary,
+  Sheet,
+} from '../Missions.styles';
 import { MISSION_TAGS } from '../constants/icon';
 
 type SheetMode = 'add-recommended' | 'create-custom' | 'view-plan';
@@ -10,10 +20,12 @@ type MissionSheetProps = {
   mode: SheetMode;
   missionContent: string;
   selectedCategory: Mission['category'] | null;
+  missionType: 'RECOMMENDED' | 'CUSTOM' | null;
   onClose: () => void;
   onContentChange: (value: string) => void;
   onCategoryChange: (category: Mission['category']) => void;
   onConfirm: () => void;
+  onEdit: () => void;
   onDelete: () => void;
 };
 
@@ -22,24 +34,28 @@ const MissionSheet = ({
   mode,
   missionContent,
   selectedCategory,
+  missionType,
   onClose,
   onContentChange,
   onCategoryChange,
   onConfirm,
+  onEdit,
   onDelete,
 }: MissionSheetProps) => {
   if (!isOpen) return null;
 
-  const isReadonly = mode === 'add-recommended' || mode === 'view-plan';
-  const showDeleteButton = mode === 'view-plan';
+  const isViewMode = mode === 'view-plan';
+  const isCustomMission = missionType === 'CUSTOM';
+  const isReadonly = mode === 'add-recommended' || (isViewMode && !isCustomMission);
+  const showEditButton = isViewMode;
+  const showDeleteButton = isViewMode;
   const showConfirmButton = mode !== 'view-plan';
 
   return (
     <Overlay onClick={onClose}>
       <Sheet onClick={(e) => e.stopPropagation()}>
         <Handle />
-        {/* <SheetTitle>{mode === 'view-plan' ? '일일 계획' : '미션 추가'}</SheetTitle> */}
-        <Typography variant="body2Regular" color="default" style={{ marginBottom: '5px' }}>
+        <Typography variant="body2Regular" color="default" style={{ marginBottom: '12px' }}>
           {mode === 'view-plan' ? '일일 계획' : '미션 추가'}
         </Typography>
         <Input
@@ -72,6 +88,12 @@ const MissionSheet = ({
         </ChipRow>
 
         {showConfirmButton && <Primary onClick={onConfirm}>일일 계획에 추가</Primary>}
+
+        {showEditButton && (
+          <EditButton disabled={!isCustomMission} onClick={isCustomMission ? onEdit : undefined}>
+            {isCustomMission ? '수정하기' : '추천미션은 수정할 수 없어요'}
+          </EditButton>
+        )}
 
         {showDeleteButton && <Danger onClick={onDelete}>삭제하기</Danger>}
       </Sheet>

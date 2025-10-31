@@ -18,7 +18,8 @@ function Missions() {
   const { data: dailyPlans = [] } = useDailyMissions();
 
   // Mutations
-  const { createCustomAndAddToPlan, addToPlan, togglePlan, deletePlan } = useMissionMutations();
+  const { createCustomAndAddToPlan, addToPlan, togglePlan, deletePlan, editCustom } =
+    useMissionMutations();
 
   // Sheet 상태 관리
   const {
@@ -28,6 +29,7 @@ function Missions() {
     selectedCategory,
     selectedMissionId,
     selectedPlanId,
+    selectedMissionType,
     openForRecommended,
     openForCustom,
     openForPlan,
@@ -81,6 +83,35 @@ function Missions() {
     }
   };
 
+  const handleEdit = () => {
+    if (!selectedMissionId) {
+      alert('수정할 미션이 선택되지 않았습니다.');
+      return;
+    }
+
+    if (!missionContent || !selectedCategory) {
+      alert('미션 내용과 카테고리를 모두 입력해주세요!');
+      return;
+    }
+
+    editCustom.mutate(
+      {
+        id: String(selectedMissionId),
+        payload: { content: missionContent, category: selectedCategory },
+      },
+      {
+        onSuccess: () => {
+          alert('미션이 수정되었습니다!');
+          closeSheet();
+          resetSheet();
+        },
+        onError: () => {
+          alert('수정 중 오류가 발생했습니다.');
+        },
+      },
+    );
+  };
+
   const handleDelete = () => {
     if (!selectedPlanId) {
       alert('삭제할 미션이 선택되지 않았습니다.');
@@ -100,8 +131,6 @@ function Missions() {
       },
     });
   };
-
-  const onNext = () => alert('다음');
 
   return (
     <>
@@ -124,10 +153,12 @@ function Missions() {
         mode={mode}
         missionContent={missionContent}
         selectedCategory={selectedCategory}
+        missionType={selectedMissionType}
         onClose={closeSheet}
         onContentChange={setMissionContent}
         onCategoryChange={setSelectedCategory}
         onConfirm={handleConfirm}
+        onEdit={handleEdit}
         onDelete={handleDelete}
       />
     </>

@@ -27,4 +27,13 @@ export const MissionsAPI = {
   deletePlan(id: number) {
     return http.delete(`/api/plans/${id}`).then(() => true);
   },
+  editCustom({
+    id,
+    payload,
+  }: {
+    id: string;
+    payload: Partial<{ content: string; category: Mission['category'] }>;
+  }) {
+    return http.patch(`/api/missions/custom/${id}`, payload).then((r) => r.data);
+  },
 };
