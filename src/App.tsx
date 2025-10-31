@@ -18,7 +18,7 @@ import DiariesNewLayout from '@/pages/Diaries/New/Layout';
 import DiariesNewMood from '@/pages/Diaries/New/Mood';
 import DiariesNewWrite from '@/pages/Diaries/New/Write';
 import Errors from '@/pages/Errors';
-import Home from '@/pages/Home';
+import Home from '@/pages/Home/Home';
 import Login from '@/pages/Login/Login';
 import OauthRedirect from '@/pages/Login/OauthRedirect';
 import Missions from '@/pages/Missions/Missions';

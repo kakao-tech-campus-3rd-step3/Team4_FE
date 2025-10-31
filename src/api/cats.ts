@@ -1,5 +1,6 @@
 import { http } from '@/lib/http';
-import type { Cat } from './types';
+import type { Cat, ChatResponse, ChatHistoryPage } from './types';
+import { sleep } from '@/utils/api';
 
 export const CatsAPI = {
   async create(payload: { name: string }) {
@@ -10,5 +11,12 @@ export const CatsAPI = {
   },
   update(payload: Partial<Cat>) {
     return http.put<Cat>('/api/cats', payload).then((r) => r.data);
+  },
+  sendMessage(payload: { message: string }) {
+    return http.post<ChatResponse>('/api/chat', payload).then((r) => r.data);
+  },
+  async loadChatHistory({ params }: { params: { size: number; page: number } }) {
+    await sleep(1000);
+    return http.get<ChatHistoryPage>('/api/chat', { params }).then((r) => r.data);
   },
 };
