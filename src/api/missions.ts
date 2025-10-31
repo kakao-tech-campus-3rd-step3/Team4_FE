@@ -21,6 +21,9 @@ export const MissionsAPI = {
     return http.post(`/api/plans`, payload).then((r) => r.data);
   },
 
+  togglePlan({ id, isDone }: { id: number; isDone: boolean }) {
+    return http.patch(`/api/plans/${id}`, { isDone }).then((r) => r.data);
+  },
   deletePlan(id: number) {
     return http.delete(`/api/plans/${id}`).then(() => true);
   },
