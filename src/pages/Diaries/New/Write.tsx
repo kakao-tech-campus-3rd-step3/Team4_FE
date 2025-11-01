@@ -13,12 +13,19 @@ import { Typography } from '@/components/common/Typography';
 import type { EmotionEnum } from '@/api/types';
 import { ROUTES } from '@/constants/routes';
 import { useCreateDiary } from '../hooks/useCreateDiary';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
 
 const DateText = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.colors.colorScale.gray900};
   font-size: ${({ theme }) => theme.spacing[6]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
+`;
+
+const ToMood = styled.button`
+  background-color: transparent;
+  border: none;
+  padding-bottom: ${({ theme }) => theme.spacing[4]};
 `;
 
 const WeatherButton = styled.button`
@@ -30,8 +37,7 @@ const WeatherButton = styled.button`
 
 const HeaderContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: ${({ theme }) => theme.spacing[16]};
+  justify-content: space-between;
 `;
 
 const DiaryBox = styled.div`
@@ -144,6 +150,10 @@ function DiariesNewWrite() {
   const [content, setContent] = useState('');
   const [emotion, setEmotion] = useState<EmotionEnum | null>(state?.emotion ?? null);
 
+  const gotoMood = () => {
+    navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_NEW}/mood`);
+  };
+
   const createDiary = useCreateDiary();
 
   const handleSubmit = () => {
@@ -174,6 +184,10 @@ function DiariesNewWrite() {
   return (
     <>
       <HeaderContainer>
+        <ToMood onClick={gotoMood}>
+          <HiArrowNarrowLeft size={24} />
+        </ToMood>
+
         <DateText>
           <Typography variant="title2Regular">{todayKR}</Typography>
         </DateText>
