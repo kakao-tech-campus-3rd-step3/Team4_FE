@@ -14,6 +14,7 @@ import type { EmotionEnum } from '@/api/types';
 import { ROUTES } from '@/constants/routes';
 import { useCreateDiary } from '../hooks/useCreateDiary';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { toast } from 'react-toastify';
 
 const DateText = styled.div`
   text-align: center;
@@ -158,12 +159,12 @@ function DiariesNewWrite() {
 
   const handleSubmit = () => {
     if (!content.trim()) {
-      alert('일기 내용을 입력해주세요!');
+      toast.warn('일기 내용을 입력해주세요!');
       return;
     }
 
     if (!emotion) {
-      alert('감정을 선택해주세요!');
+      toast.warn('감정을 선택해주세요!');
       return;
     }
 
@@ -171,11 +172,11 @@ function DiariesNewWrite() {
       { content, emotion },
       {
         onSuccess: (data) => {
-          alert('일기가 등록되었습니다!');
+          toast.success('일기가 등록되었습니다!');
           navigate(`${ROUTES.DIARIES}/${data.id}/${ROUTES.DIARIES_FEEDBACK}`);
         },
         onError: () => {
-          alert('일기 작성에 실패했습니다.');
+          toast.error('일기 작성에 실패했습니다.');
         },
       },
     );
