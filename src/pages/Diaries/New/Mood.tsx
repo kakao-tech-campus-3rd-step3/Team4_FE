@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import type { Emotion } from '@/api/types';
+import type { Emotion, EmotionEnum } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import formatKRDate from '../../../utils/formatKRDate';
@@ -89,14 +89,17 @@ const NextButton = styled.button`
 `;
 
 function Mood() {
-  const [mood, setMood] = useState<Emotion | null>(null);
+  const [mood, setMood] = useState<EmotionEnum | null>(null);
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
   const navigate = useNavigate();
 
   const goToWrite = () => {
+    const safeMood: EmotionEnum = mood ?? 'NONE';
+    alert(`선택한 기분: ${safeMood}`);
     if (!mood) return;
-    alert(`선택한 기분: ${mood.label}`);
-    navigate(`/diaries/${ROUTES.DIARIES_NEW}/${ROUTES.DIARIES_NEW_WRITE}`);
+    navigate(`/${ROUTES.DIARIES}/${ROUTES.DIARIES_NEW}/${ROUTES.DIARIES_NEW_WRITE}`, {
+      state: { emotion: mood },
+    });
   };
 
   return (
@@ -115,8 +118,8 @@ function Mood() {
           <MoodButton
             key={m.key}
             aria-label={m.label}
-            onClick={() => setMood(m)}
-            selected={mood?.key === m.key}
+            onClick={() => setMood(m.key)}
+            selected={mood === m.key}
           >
             <span role="img" aria-hidden>
               {m.emoji}
