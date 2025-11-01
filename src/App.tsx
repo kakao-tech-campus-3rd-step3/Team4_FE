@@ -23,6 +23,8 @@ import OnboardingLayout from '@/pages/Onboarding/Layout';
 import OnboardingStep from '@/pages/Onboarding/Step';
 import Test from '@/pages/Onboarding/Test/Test';
 import OauthRedirect from './pages/Login/OauthRedirect';
+import DiariesLayout from './pages/Diaries/Layout';
+import DiariesList from './pages/Diaries/List';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -49,11 +51,13 @@ function App() {
               <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
             </Route>
 
-            <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />}>
+            <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
+              <Route index element={<DiariesList />} />
               <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
                 <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
                 <Route path={ROUTES.DIARIES_NEW_WRITE} element={<DiariesNewWrite />} />
               </Route>
+              <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
               <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
             </Route>
 
