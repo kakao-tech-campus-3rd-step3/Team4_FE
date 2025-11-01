@@ -6,6 +6,7 @@ import { ROUTES } from '@/constants/routes';
 import formatKRDate from '../../../utils/formatKRDate';
 import { Typography } from '@/components/common/Typography';
 import { FaRegAngry, FaRegFrown, FaRegLaughSquint, FaRegMeh, FaRegSmile } from 'react-icons/fa';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
 
 const Card = styled.div`
   width: 100%;
@@ -14,11 +15,26 @@ const Card = styled.div`
   position: relative;
 `;
 
-const DateText = styled.p`
-  text-align: center;
+const DateText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   color: ${({ theme }) => theme.colors.colorScale.gray900};
   font-size: ${({ theme }) => theme.spacing[6]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+`;
+
+const ToDetailButton = styled.button`
+  background-color: transparent;
+  border: none;
 `;
 
 const BalloonWrap = styled.div`
@@ -108,9 +124,16 @@ function Mood() {
     });
   };
 
+  const goToDetail = () => {
+    navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_DETAIL}`);
+  };
+
   return (
     <Card>
       <DateText>
+        <ToDetailButton onClick={goToDetail}>
+          <HiArrowNarrowLeft size={24} />
+        </ToDetailButton>
         <Typography variant="title2Regular">{todayKR}</Typography>
       </DateText>
       <BalloonWrap>
