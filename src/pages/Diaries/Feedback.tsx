@@ -1,7 +1,8 @@
 import { Typography } from '@/components/common/Typography';
 import { ROUTES } from '@/constants/routes';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDiaryDetail } from './hooks/useDiaryDetail';
 
 const BalloonWrap = styled.div`
   display: flex;
@@ -16,6 +17,19 @@ const Balloon = styled.div`
   border-radius: ${({ theme }) => theme.spacing[2]};
   font-size: 13px;
   position: relative;
+  max-height: 180px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: ${({ theme }) => theme.spacing[1]};
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.colors.colorScale.gray600};
+    border-radius: ${({ theme }) => theme.spacing[3]};
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;
 
 const BalloonTail = styled.div`
@@ -24,9 +38,9 @@ const BalloonTail = styled.div`
   bottom: -8px;
   width: 0;
   height: 0;
-  border-left: ${({ theme }) => theme.spacing[2]} solid transparent;
-  border-right: ${({ theme }) => theme.spacing[2]} solid transparent;
-  border-top: ${({ theme }) => theme.spacing[2]} solid
+  border-left: ${({ theme }) => theme.spacing[3]} solid transparent;
+  border-right: ${({ theme }) => theme.spacing[3]} solid transparent;
+  border-top: ${({ theme }) => theme.spacing[4]} solid
     ${({ theme }) => theme.colors.colorScale.brown400};
 `;
 
@@ -51,18 +65,26 @@ const NextButton = styled.button`
 `;
 
 function DiariesFeedback() {
+  const { id } = useParams();
+  const diaryId = Number(id);
+
+  const { data: diary, isLoading, isError } = useDiaryDetail(diaryId);
+
   const navigate = useNavigate();
-  const gotoList = () => {
-    navigate(`/${ROUTES.DIARIES}`);
+  const gotoDetail = () => {
+    navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_DETAIL}`);
   };
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError || !diary) return <div>피드백메시지를 불러올 수 없습니다.</div>;
 
   return (
     <>
       <BalloonWrap>
         <Balloon>
-          오늘 하루도 수고 많았다냥!
-          <br />
-          내일은 산책을 나가보자냥!
+          <Typography variant="label2Regular" style={{ fontSize: '1.2rem' }}>
+            {diary.feedback}
+          </Typography>
         </Balloon>
         <BalloonTail />
       </BalloonWrap>
@@ -70,7 +92,7 @@ function DiariesFeedback() {
         alt="Image"
         src="https://github.com/user-attachments/assets/828052b9-a7a3-4b44-89d5-7844218b14ff"
       />
-      <NextButton onClick={gotoList}>
+      <NextButton onClick={gotoDetail}>
         <Typography variant="label2Regular" color="gray0">
           다음
         </Typography>
