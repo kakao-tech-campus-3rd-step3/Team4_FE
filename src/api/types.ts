@@ -31,6 +31,12 @@ export type Diary = {
   createdAt: string;
 };
 
+export type MonthlyDiary = {
+  id: number;
+  emotion: EmotionEnum;
+  createdAt: string;
+};
+
 export type StoreItem = {
   id: number;
   category: ItemCategoryEnum;

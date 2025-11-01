@@ -1,13 +1,27 @@
-// 월간표정
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import formatKRDate from '../../utils/formatKRDate';
+import dayjs from 'dayjs';
+import {
+  FaRegSmile,
+  FaRegAngry,
+  FaRegMeh,
+  FaRegFrown,
+  FaRegTired,
+  FaChevronLeft,
+  FaChevronRight,
+} from 'react-icons/fa';
+import { useMonthlyDiaries } from './hooks/useMonthlyDiaries';
+import { useDiaryDetail } from './hooks/useDiaryDetail';
 
-const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
-type Emotion = (typeof emotions)[number] | null;
-
-type EmotionRecord = {
-  [date: string]: Emotion;
+// 감정별 색상 + 아이콘 매핑
+const emotionConfig = {
+  HAPPY: { color: '#FFD66B', icon: FaRegSmile },
+  ANGRY: { color: '#F37A7A', icon: FaRegAngry },
+  CALM: { color: '#F2B663', icon: FaRegMeh },
+  SAD: { color: '#A5C7F2', icon: FaRegFrown },
+  TIRED: { color: '#A8E6A3', icon: FaRegTired },
+  DEFAULT: { color: '#EEDDBD', icon: null },
 };
 
 const DateText = styled.p`
@@ -29,12 +43,33 @@ const Container = styled.div`
 const Title = styled.div`
   font-weight: bold;
   margin-bottom: ${({ theme }) => theme.spacing[3]};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const MonthNav = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
+const ArrowButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: ${({ theme }) => theme.colors.colorScale.gray800};
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: ${({ theme }) => theme.spacing[1]};
+  padding: ${({ theme }) => theme.spacing[1]} 0;
 `;
 
 const Cell = styled.div`
@@ -42,10 +77,23 @@ const Cell = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 56px;
 `;
 
-const Emoji = styled.div`
-  font-size: ${({ theme }) => theme.spacing[5]};
+const Circle = styled.div<{ bg: string; selected: boolean }>`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: ${({ bg }) => bg};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: ${({ selected }) => (selected ? '2px solid #8B5E34' : '2px solid transparent')};
+  transition: all 0.15s ease;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const DayNumber = styled.small`
@@ -60,44 +108,123 @@ const FeedbackDate = styled.p`
 const Message = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.xs};
   background-color: ${({ theme }) => theme.colors.colorScale.brown400};
+  padding: ${({ theme }) => theme.spacing[3]};
 `;
-
-const totalDays = 31; // 8월 기준
 
 function DiariesDetail() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
+  const [month, setMonth] = useState(dayjs().format('YYYYMM'));
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  // 예시 데이터
-  const [records] = useState<EmotionRecord>({
-    '2025-08-01': '😊',
-    '2025-08-02': '😀',
-    '2025-08-03': '😐',
-    '2025-08-04': '😡',
-    '2025-08-05': '😢',
-    '2025-08-06': '😀',
-  });
+  // 월간 일기 데이터
+  const { data: diaries, isLoading, isError } = useMonthlyDiaries(month);
+
+  // 선택된 일기 상세 데이터
+  const { data: diaryDetail, isFetching: isDetailLoading } = useDiaryDetail(selectedId);
+
+  const currentMonthLabel = useMemo(() => {
+    const parsed = dayjs(month + '01');
+    return parsed.format('YYYY.MM');
+  }, [month]);
+
+  const handlePrevMonth = () => {
+    const prev = dayjs(month + '01').subtract(1, 'month');
+    setMonth(prev.format('YYYYMM'));
+    setSelectedId(null);
+    setSelectedDate(null);
+  };
+
+  const handleNextMonth = () => {
+    const next = dayjs(month + '01').add(1, 'month');
+    setMonth(next.format('YYYYMM'));
+    setSelectedId(null);
+    setSelectedDate(null);
+  };
+
+  const daysInMonth = dayjs(`${month}01`).daysInMonth();
+
+  // 날짜별 데이터 매핑
+  const diaryByDate = useMemo(() => {
+    if (!diaries) return {};
+    return diaries.reduce<Record<string, { id: number; emotion: string }>>((acc, d) => {
+      const dateKey = dayjs(d.createdAt).format('YYYY-MM-DD');
+      acc[dateKey] = { id: d.id, emotion: d.emotion };
+      return acc;
+    }, {});
+  }, [diaries]);
+
+  if (isLoading) return <div>로딩 중...</div>;
+  if (isError || !diaries) return <div>데이터를 불러오지 못했어요 😭</div>;
 
   return (
     <>
       <DateText>{todayKR}</DateText>
       <Container>
-        <Title>월간 표정</Title>
+        <Title>
+          <span>월간 표정</span>
+          <MonthNav>
+            <ArrowButton onClick={handlePrevMonth}>
+              <FaChevronLeft size={16} />
+            </ArrowButton>
+            <span>{currentMonthLabel}</span>
+            <ArrowButton onClick={handleNextMonth}>
+              <FaChevronRight size={16} />
+            </ArrowButton>
+          </MonthNav>
+        </Title>
+
         <CalendarGrid>
-          {Array.from({ length: totalDays }, (_, i) => {
-            const date = `2025-08-${String(i + 1).padStart(2, '0')}`;
+          {Array.from({ length: daysInMonth }, (_, i) => {
+            const date = dayjs(`${month}${String(i + 1).padStart(2, '0')}`).format('YYYY-MM-DD');
+            const diary = diaryByDate[date];
+            const config = diary
+              ? emotionConfig[diary.emotion as keyof typeof emotionConfig]
+              : emotionConfig.DEFAULT;
+            const Icon = config.icon;
+
             return (
               <Cell key={date}>
-                <Emoji>{records[date] ?? '⬜'}</Emoji>
+                <Circle
+                  bg={config.color}
+                  selected={selectedDate === date}
+                  onClick={() => {
+                    setSelectedDate(date);
+                    setSelectedId(diary?.id ?? null);
+                  }}
+                >
+                  {Icon && <Icon size={16} color="#333" />}
+                </Circle>
                 <DayNumber>{i + 1}</DayNumber>
               </Cell>
             );
           })}
         </CalendarGrid>
       </Container>
+
       <br />
+
       <Container>
-        <FeedbackDate>{todayKR}</FeedbackDate>
-        <Message>오늘의 피드백 메시지</Message>
+        {isDetailLoading && <Message>일기 불러오는 중...</Message>}
+        {!selectedId && !isDetailLoading && (
+          <>
+            <FeedbackDate>
+              {selectedDate ? formatKRDate(new Date(selectedDate)) : todayKR}
+            </FeedbackDate>
+            <Message>날짜를 선택하면 일기와 피드백이 표시됩니다.</Message>
+          </>
+        )}
+
+        {selectedId && diaryDetail && (
+          <>
+            <FeedbackDate>{formatKRDate(new Date(diaryDetail.createdAt))}</FeedbackDate>
+            <Message>
+              <strong>제목:</strong>
+              <br />
+              <strong>내용:</strong> {diaryDetail.content}
+            </Message>
+          </>
+        )}
       </Container>
     </>
   );

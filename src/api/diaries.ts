@@ -1,5 +1,5 @@
 import { http } from '@/lib/http';
-import type { Diary } from './types';
+import type { Diary, MonthlyDiary } from './types';
 
 export const DiariesAPI = {
   create(payload: { title: string; content: string }) {
@@ -13,5 +13,8 @@ export const DiariesAPI = {
   },
   listChats(size: number, page: number) {
     return http.get<any>('/api/chats', { params: { size, page } }).then((r) => r.data);
+  },
+  getMonthlyDiaries(month: string) {
+    return http.get<MonthlyDiary[]>(`/api/diaries`, { params: { month } }).then((r) => r.data);
   },
 };
