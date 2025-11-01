@@ -28,12 +28,12 @@ export const MissionsAPI = {
     return http.delete(`/api/plans/${id}`).then(() => true);
   },
   editCustom({
-    id,
+    planId,
     payload,
   }: {
-    id: string;
+    planId: string;
     payload: Partial<{ content: string; category: Mission['category'] }>;
   }) {
-    return http.patch(`/api/missions/custom/${id}`, payload).then((r) => r.data);
+    return http.put(`/api/plans/${planId}`, payload).then((r) => r.data);
   },
 };

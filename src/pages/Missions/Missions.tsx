@@ -88,7 +88,7 @@ function Missions() {
   };
 
   const handleEdit = () => {
-    if (!selectedMissionId) {
+    if (!selectedPlanId) {
       alert('수정할 미션이 선택되지 않았습니다.');
       return;
     }
@@ -100,7 +100,7 @@ function Missions() {
 
     editCustom.mutate(
       {
-        id: String(selectedMissionId),
+        planId: String(selectedPlanId),
         payload: { content: missionContent, category: selectedCategory },
       },
       {

@@ -44,12 +44,12 @@ export const useMissionMutations = () => {
 
   const editCustom = useMutation({
     mutationFn: ({
-      id,
+      planId,
       payload,
     }: {
-      id: string;
+      planId: string;
       payload: Partial<{ content: string; category: Mission['category'] }>;
-    }) => MissionsAPI.editCustom({ id, payload }),
+    }) => MissionsAPI.editCustom({ planId, payload }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['missions', 'daily'] });
     },
