@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import styled from '@emotion/styled';
 import type { Emotion, EmotionEnum } from '@/api/types';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
@@ -7,108 +6,18 @@ import formatKRDate from '../../../utils/formatKRDate';
 import { Typography } from '@/components/common/Typography';
 import { FaRegAngry, FaRegFrown, FaRegLaughSquint, FaRegMeh, FaRegSmile } from 'react-icons/fa';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
-
-const Card = styled.div`
-  width: 100%;
-  max-width: 380px;
-  padding: ${({ theme }) => theme.spacing[5]};
-  position: relative;
-`;
-
-const DateText = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: ${({ theme }) => theme.colors.colorScale.gray900};
-  font-size: ${({ theme }) => theme.spacing[6]};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-
-  svg {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-`;
-
-const ToDetailButton = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-
-const BalloonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  position: relative;
-`;
-
-const CatImg = styled.img`
-  max-width: 100%;
-  height: auto;
-`;
-
-const Balloon = styled.div`
-  background: ${({ theme }) => theme.colors.colorScale.brown400};
-  color: ${({ theme }) => theme.colors.colorScale.gray900};
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
-  border-radius: ${({ theme }) => theme.spacing[2]};
-  font-size: 13px;
-  position: relative;
-`;
-
-const BalloonTail = styled.div`
-  position: absolute;
-  left: 72px;
-  bottom: -8px;
-  width: 0;
-  height: 0;
-  border-left: ${({ theme }) => theme.spacing[2]} solid transparent;
-  border-right: ${({ theme }) => theme.spacing[2]} solid transparent;
-  border-top: ${({ theme }) => theme.spacing[2]} solid
-    ${({ theme }) => theme.colors.colorScale.brown400};
-`;
-
-const MoodGrid = styled.div`
-  width: 100%;
-  margin-top: ${({ theme }) => theme.spacing[4]};
-  display: grid;
-  grid-template-columns: repeat(5, max-content);
-  justify-content: space-between;
-  place-items: center;
-`;
-
-const MoodButton = styled.button<{ selected: boolean }>`
-  flex: 1;
-  max-width: ${({ theme }) => theme.spacing[9]};
-  height: ${({ theme }) => theme.spacing[9]};
-  border-radius: 50%;
-  border: 1px solid ${({ selected }) => (selected ? '#000' : 'rgba(0, 0, 0, 0.2)')};
-  background: ${({ theme }) => theme.colors.colorScale.brown200};
-  transition: 0.2s;
-  ${({ selected }) => selected && `box-shadow: 0 0 0 2px rgba(0,0,0,0.4); border-color:#000;`}
-
-  .icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-const NextButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  width: 100%;
-  padding: ${({ theme }) => theme.spacing[3]} 0;
-  border-radius: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  font-size: 14px;
-  cursor: pointer;
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-`;
+import {
+  Balloon,
+  BalloonTail,
+  BalloonWrap,
+  Card,
+  CatImg,
+  MoodButton,
+  MoodDateText,
+  MoodGrid,
+  NextButton,
+  ToDetailButton,
+} from './Diaries.New.styles';
 
 function Mood() {
   const [mood, setMood] = useState<EmotionEnum | null>(null);
@@ -130,12 +39,12 @@ function Mood() {
 
   return (
     <Card>
-      <DateText>
+      <MoodDateText>
         <ToDetailButton onClick={goToDetail}>
           <HiArrowNarrowLeft size={24} />
         </ToDetailButton>
         <Typography variant="title2Regular">{todayKR}</Typography>
-      </DateText>
+      </MoodDateText>
       <BalloonWrap>
         <Balloon>
           <Typography variant="body2Regular">오늘 기분이 어땠는지 말해달라냥!</Typography>

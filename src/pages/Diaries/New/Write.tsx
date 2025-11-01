@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
 import formatKRDate from '../../../utils/formatKRDate';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -15,131 +14,21 @@ import { ROUTES } from '@/constants/routes';
 import { useCreateDiary } from '../hooks/useCreateDiary';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import { toast } from 'react-toastify';
-
-const DateText = styled.div`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.colorScale.gray900};
-  font-size: ${({ theme }) => theme.spacing[6]};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-`;
-
-const ToMood = styled.button`
-  background-color: transparent;
-  border: none;
-  padding-bottom: ${({ theme }) => theme.spacing[4]};
-`;
-
-const WeatherButton = styled.button`
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background-color: ${({ theme }) => theme.colors.colorScale.brown400};
-  height: ${({ theme }) => theme.spacing[8]};
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const DiaryBox = styled.div`
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background: #f7efe4;
-  border-radius: ${({ theme }) => theme.spacing[2]};
-  padding: ${({ theme }) => theme.spacing[3]};
-  margin-bottom: ${({ theme }) => theme.spacing[5]};
-`;
-
-const DiaryText = styled.textarea`
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  font-size: 14px;
-  resize: none;
-  outline: none;
-`;
-
-const MissionButton = styled.button`
-  position: absolute;
-  right: ${({ theme }) => theme.spacing[3]};
-  bottom: ${({ theme }) => theme.spacing[3]};
-  font-size: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  padding: 6px ${({ theme }) => theme.spacing[3]};
-  border-radius: ${({ theme }) => theme.spacing[2]};
-`;
-
-const NextButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  width: 100%;
-  padding: ${({ theme }) => theme.spacing[3]} 0;
-  border-radius: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  font-size: 14px;
-  cursor: pointer;
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-`;
-
-// 바텀시트 스타일
-const BottomSheetOverlay = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-`;
-
-const BottomSheet = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: #fffbea;
-  border-radius: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]} 0 0;
-  padding: ${({ theme }) => theme.spacing[4]};
-  animation: slideUp 0.3s ease-out;
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-`;
-
-const Handle = styled.div`
-  width: ${({ theme }) => theme.spacing[10]};
-  height: ${({ theme }) => theme.spacing[1]};
-  background: ${({ theme }) => theme.colors.colorScale.gray600};
-  border-radius: 2px;
-  margin: 0 auto ${({ theme }) => theme.spacing[3]};
-`;
-
-const WeatherOptions = styled.div`
-  display: flex;
-  justify-content: space-around;
-  gap: ${({ theme }) => theme.spacing[2]};
-`;
-
-const WeatherSelect = styled.button`
-  flex: 1;
-  padding: ${({ theme }) => theme.spacing[3]};
-  font-size: 18px;
-  background: ${({ theme }) => theme.colors.colorScale.brown100};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.colorScale.orange100};
-  }
-`;
+import {
+  BottomSheet,
+  BottomSheetOverlay,
+  DiaryBox,
+  DiaryText,
+  Handle,
+  HeaderContainer,
+  MissionButton,
+  NextButton,
+  ToMood,
+  WeatherButton,
+  WeatherOptions,
+  WeatherSelect,
+  WriteDateText,
+} from './Diaries.New.styles';
 
 function DiariesNewWrite() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
@@ -176,7 +65,7 @@ function DiariesNewWrite() {
           navigate(`${ROUTES.DIARIES}/${data.id}/${ROUTES.DIARIES_FEEDBACK}`);
         },
         onError: () => {
-          toast.error('일기 작성에 실패했습니다.');
+          toast('일기 작성에 실패했습니다.');
         },
       },
     );
@@ -189,9 +78,9 @@ function DiariesNewWrite() {
           <HiArrowNarrowLeft size={24} />
         </ToMood>
 
-        <DateText>
+        <WriteDateText>
           <Typography variant="title2Regular">{todayKR}</Typography>
-        </DateText>
+        </WriteDateText>
         <WeatherButton onClick={() => setIsOpen(true)}>
           <Typography variant="body2Regular">+날씨</Typography>
         </WeatherButton>
