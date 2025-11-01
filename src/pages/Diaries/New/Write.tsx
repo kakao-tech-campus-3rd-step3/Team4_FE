@@ -14,7 +14,7 @@ import type { EmotionEnum } from '@/api/types';
 import { ROUTES } from '@/constants/routes';
 import { useCreateDiary } from '../hooks/useCreateDiary';
 
-const DateText = styled.p`
+const DateText = styled.div`
   text-align: center;
   color: ${({ theme }) => theme.colors.colorScale.gray900};
   font-size: ${({ theme }) => theme.spacing[6]};
@@ -174,11 +174,11 @@ function DiariesNewWrite() {
   return (
     <>
       <HeaderContainer>
-        <DateText>{todayKR}</DateText>
+        <DateText>
+          <Typography variant="title2Regular">{todayKR}</Typography>
+        </DateText>
         <WeatherButton onClick={() => setIsOpen(true)}>
-          <Typography variant="label2Regular" style={{ fontSize: '1.2rem' }}>
-            +날씨
-          </Typography>
+          <Typography variant="body2Regular">+날씨</Typography>
         </WeatherButton>
       </HeaderContainer>
 
@@ -189,14 +189,14 @@ function DiariesNewWrite() {
           placeholder="오늘의 일기를 자유롭게 적어주세요"
         />
         <MissionButton>
-          <Typography variant="label2Regular" color="gray0">
+          <Typography variant="body2Regular" color="gray0">
             오늘 완료한 미션 가져오기
           </Typography>
         </MissionButton>
       </DiaryBox>
 
       <NextButton onClick={handleSubmit} disabled={createDiary.isPending}>
-        <Typography variant="label2Regular" color="gray0">
+        <Typography variant="body2Regular" color="gray0">
           {createDiary.isPending ? '등록 중...' : '다음'}
         </Typography>
       </NextButton>

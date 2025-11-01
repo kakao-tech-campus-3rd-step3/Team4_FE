@@ -110,9 +110,13 @@ function Mood() {
 
   return (
     <Card>
-      <DateText>{todayKR}</DateText>
+      <DateText>
+        <Typography variant="title2Regular">{todayKR}</Typography>
+      </DateText>
       <BalloonWrap>
-        <Balloon>오늘 기분이 어땠는지 말해달라냥!</Balloon>
+        <Balloon>
+          <Typography variant="body2Regular">오늘 기분이 어땠는지 말해달라냥!</Typography>
+        </Balloon>
         <BalloonTail />
       </BalloonWrap>
       <CatImg
@@ -139,7 +143,7 @@ function Mood() {
       </MoodGrid>
 
       <NextButton disabled={mood === null} onClick={goToWrite}>
-        <Typography variant="label2Regular" color="gray0">
+        <Typography variant="body2Regular" color="gray0">
           다음
         </Typography>
       </NextButton>
