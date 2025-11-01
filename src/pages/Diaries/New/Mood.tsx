@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
 import formatKRDate from '../../../utils/formatKRDate';
 import { Typography } from '@/components/common/Typography';
+import { FaRegAngry, FaRegFrown, FaRegLaughSquint, FaRegMeh, FaRegSmile } from 'react-icons/fa';
 
 const Card = styled.div`
   width: 100%;
@@ -63,14 +64,19 @@ const MoodGrid = styled.div`
 
 const MoodButton = styled.button<{ selected: boolean }>`
   flex: 1;
-  max-width: ${({ theme }) => theme.spacing[8]};
-  height: ${({ theme }) => theme.spacing[8]};
+  max-width: ${({ theme }) => theme.spacing[9]};
+  height: ${({ theme }) => theme.spacing[9]};
   border-radius: 50%;
   border: 1px solid ${({ selected }) => (selected ? '#000' : 'rgba(0, 0, 0, 0.2)')};
   background: ${({ theme }) => theme.colors.colorScale.brown200};
-  font-size: ${({ theme }) => theme.spacing[4]};
   transition: 0.2s;
   ${({ selected }) => selected && `box-shadow: 0 0 0 2px rgba(0,0,0,0.4); border-color:#000;`}
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const NextButton = styled.button`
@@ -114,18 +120,22 @@ function Mood() {
         src="https://github.com/user-attachments/assets/5450c372-b01a-46a1-b9c5-e1f21bf8257a"
       />
       <MoodGrid>
-        {MOODS.map((m) => (
-          <MoodButton
-            key={m.key}
-            aria-label={m.label}
-            onClick={() => setMood(m.key)}
-            selected={mood === m.key}
-          >
-            <span role="img" aria-hidden>
-              {m.emoji}
-            </span>
-          </MoodButton>
-        ))}
+        {MOODS.map((m) => {
+          const Icon = m.icon;
+
+          return (
+            <MoodButton
+              key={m.key}
+              aria-label={m.label}
+              onClick={() => setMood(m.key)}
+              selected={mood === m.key}
+            >
+              <span>
+                <Icon size={23} style={{ verticalAlign: 'middle' }} />
+              </span>
+            </MoodButton>
+          );
+        })}
       </MoodGrid>
 
       <NextButton disabled={mood === null} onClick={goToWrite}>
@@ -138,11 +148,11 @@ function Mood() {
 }
 
 const MOODS: Emotion[] = [
-  { key: 'EXCELLENT', label: '아주 좋아요', emoji: '😊' },
-  { key: 'GOOD', label: '좋아요', emoji: '🙂' },
-  { key: 'SOSO', label: '보통이에요', emoji: '😐' },
-  { key: 'BAD', label: '별로예요', emoji: '🙁' },
-  { key: 'TERRIBLE', label: '최악이에요', emoji: '😣' },
+  { key: 'EXCELLENT', label: '아주 좋아요', icon: FaRegLaughSquint },
+  { key: 'GOOD', label: '좋아요', icon: FaRegSmile },
+  { key: 'SOSO', label: '보통이에요', icon: FaRegMeh },
+  { key: 'BAD', label: '별로예요', icon: FaRegFrown },
+  { key: 'TERRIBLE', label: '최악이에요', icon: FaRegAngry },
 ];
 
 export default Mood;
