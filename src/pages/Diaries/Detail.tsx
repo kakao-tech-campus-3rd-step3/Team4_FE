@@ -14,6 +14,7 @@ import {
 import { useMonthlyDiaries } from './hooks/useMonthlyDiaries';
 import { useDiaryDetail } from './hooks/useDiaryDetail';
 import type { EmotionEnum } from '@/api/types';
+import { Typography } from '@/components/common/Typography';
 
 // 감정별 색상 + 아이콘 매핑
 export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = {
@@ -25,10 +26,8 @@ export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = 
   NONE: { color: '#EEDDBD', icon: null }, // 미기록 🥱
 };
 
-const DateText = styled.p`
+const DateText = styled.div`
   text-align: center;
-  color: ${({ theme }) => theme.colors.colorScale.gray900};
-  font-size: ${({ theme }) => theme.spacing[6]};
   margin-bottom: ${({ theme }) => theme.spacing[4]};
 `;
 
@@ -78,7 +77,7 @@ const Cell = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  height: 60px;
 `;
 
 const Circle = styled.div<{ bg: string; selected: boolean }>`
@@ -99,14 +98,15 @@ const Circle = styled.div<{ bg: string; selected: boolean }>`
 
 const DayNumber = styled.small`
   margin-top: ${({ theme }) => theme.spacing[1]};
-  font-size: ${({ theme }) => theme.spacing[3]};
+  font-size: ${({ theme }) => theme.spacing[5]};
 `;
 
-const FeedbackDate = styled.p`
-  margin-bottom: ${({ theme }) => theme.spacing[3]};
+const DiaryBox = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+  padding: ${({ theme }) => theme.spacing[2]};
 `;
 
-const Message = styled.div`
+const FeedBackMessage = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.xs};
   background-color: ${({ theme }) => theme.colors.colorScale.brown400};
   padding: ${({ theme }) => theme.spacing[3]};
@@ -156,21 +156,25 @@ function DiariesDetail() {
   }, [diaries]);
 
   if (isLoading) return <div>로딩 중...</div>;
-  if (isError || !diaries) return <div>데이터를 불러오지 못했어요 😭</div>;
+  if (isError || !diaries) return <div>데이터를 불러오지 못했어요 </div>;
 
   return (
     <>
-      <DateText>{todayKR}</DateText>
+      <DateText>
+        <Typography variant="title2Bold" color="gray900">
+          {todayKR}
+        </Typography>
+      </DateText>
       <Container>
         <Title>
-          <span>월간 표정</span>
+          <Typography variant="body2Regular">월간 표정</Typography>
           <MonthNav>
             <ArrowButton onClick={handlePrevMonth}>
-              <FaChevronLeft size={16} />
+              <FaChevronLeft size={18} />
             </ArrowButton>
-            <span>{currentMonthLabel}</span>
+            <Typography variant="body2Regular">{currentMonthLabel}</Typography>
             <ArrowButton onClick={handleNextMonth}>
-              <FaChevronRight size={16} />
+              <FaChevronRight size={18} />
             </ArrowButton>
           </MonthNav>
         </Title>
@@ -205,24 +209,31 @@ function DiariesDetail() {
       <br />
 
       <Container>
-        {isDetailLoading && <Message>일기 불러오는 중...</Message>}
+        {isDetailLoading && <FeedBackMessage>일기 불러오는 중...</FeedBackMessage>}
         {!selectedId && !isDetailLoading && (
           <>
-            <FeedbackDate>
+            <Typography variant="body2Regular">
               {selectedDate ? formatKRDate(new Date(selectedDate)) : todayKR}
-            </FeedbackDate>
-            <Message>날짜를 선택하면 일기와 피드백이 표시됩니다.</Message>
+            </Typography>
+            <DiaryBox>
+              <Typography variant="label2Regular">
+                날짜를 선택하면 일기와 피드백이 표시됩니다.
+              </Typography>
+            </DiaryBox>
           </>
         )}
 
         {selectedId && diaryDetail && (
           <>
-            <FeedbackDate>{formatKRDate(new Date(diaryDetail.createdAt))}</FeedbackDate>
-            <Message>
-              <strong>제목:</strong>
-              <br />
-              <strong>내용:</strong> {diaryDetail.content}
-            </Message>
+            <Typography variant="body2Regular">
+              {formatKRDate(new Date(diaryDetail.createdAt))}
+            </Typography>
+            <DiaryBox>
+              <Typography variant="label2Regular">{diaryDetail.content}</Typography>
+            </DiaryBox>
+            <FeedBackMessage>
+              <Typography variant="label2Regular">{diaryDetail.feedback}</Typography>
+            </FeedBackMessage>
           </>
         )}
       </Container>
