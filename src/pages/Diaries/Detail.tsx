@@ -7,21 +7,22 @@ import {
   FaRegAngry,
   FaRegMeh,
   FaRegFrown,
-  FaRegTired,
   FaChevronLeft,
   FaChevronRight,
+  FaRegLaughSquint,
 } from 'react-icons/fa';
 import { useMonthlyDiaries } from './hooks/useMonthlyDiaries';
 import { useDiaryDetail } from './hooks/useDiaryDetail';
+import type { EmotionEnum } from '@/api/types';
 
 // 감정별 색상 + 아이콘 매핑
-const emotionConfig = {
-  HAPPY: { color: '#FFD66B', icon: FaRegSmile },
-  ANGRY: { color: '#F37A7A', icon: FaRegAngry },
-  CALM: { color: '#F2B663', icon: FaRegMeh },
-  SAD: { color: '#A5C7F2', icon: FaRegFrown },
-  TIRED: { color: '#A8E6A3', icon: FaRegTired },
-  DEFAULT: { color: '#EEDDBD', icon: null },
+export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = {
+  EXCELLENT: { color: '#A8E6A3', icon: FaRegLaughSquint }, // 아주 좋음 😊 (밝은 초록)
+  GOOD: { color: '#FFD66B', icon: FaRegSmile }, // 좋음 🙂
+  SOSO: { color: '#F2B663', icon: FaRegMeh }, // 보통 😐
+  BAD: { color: '#F37A7A', icon: FaRegFrown }, // 나쁨 😢
+  TERRIBLE: { color: '#C77E7E', icon: FaRegAngry }, // 최악 😡
+  NONE: { color: '#EEDDBD', icon: null }, // 미기록 🥱
 };
 
 const DateText = styled.p`
@@ -178,9 +179,8 @@ function DiariesDetail() {
           {Array.from({ length: daysInMonth }, (_, i) => {
             const date = dayjs(`${month}${String(i + 1).padStart(2, '0')}`).format('YYYY-MM-DD');
             const diary = diaryByDate[date];
-            const config = diary
-              ? emotionConfig[diary.emotion as keyof typeof emotionConfig]
-              : emotionConfig.DEFAULT;
+            const diaryEmotion = (diary?.emotion ?? 'NONE') as EmotionEnum;
+            const config = emotionConfig[diaryEmotion];
             const Icon = config.icon;
 
             return (
