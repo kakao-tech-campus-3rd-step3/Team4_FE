@@ -15,6 +15,8 @@ import { useMonthlyDiaries } from './hooks/useMonthlyDiaries';
 import { useDiaryDetail } from './hooks/useDiaryDetail';
 import type { EmotionEnum } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 
 // 감정별 색상 + 아이콘 매핑
 export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = {
@@ -26,9 +28,25 @@ export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = 
   NONE: { color: '#EEDDBD', icon: null }, // 미기록 🥱
 };
 
-const DateText = styled.div`
-  text-align: center;
+const DateContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing[4]};
+`;
+
+const NewDiaryButton = styled.button`
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border: none;
+  background-color: ${({ theme }) => theme.colors.colorScale.brown100};
+  box-shadow: 1px 1px 1px 1px gray;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.colorScale.brown300};
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const Container = styled.div`
@@ -117,6 +135,11 @@ function DiariesDetail() {
   const [month, setMonth] = useState(dayjs().format('YYYYMM'));
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const gotoWrite = () => {
+    navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_NEW}/mood`);
+  };
 
   // 월간 일기 데이터
   const { data: diaries, isLoading, isError } = useMonthlyDiaries(month);
@@ -160,11 +183,14 @@ function DiariesDetail() {
 
   return (
     <>
-      <DateText>
+      <DateContainer>
         <Typography variant="title2Bold" color="gray900">
           {todayKR}
         </Typography>
-      </DateText>
+        <NewDiaryButton onClick={gotoWrite}>
+          <Typography variant="label2Regular">일기쓰기</Typography>
+        </NewDiaryButton>
+      </DateContainer>
       <Container>
         <Title>
           <Typography variant="body2Regular">월간 표정</Typography>
