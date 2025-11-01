@@ -26,6 +26,7 @@ export type Plan = {
 };
 
 export type Diary = {
+  id: number;
   emotion: EmotionEnum;
   content: string;
   feedback: string;

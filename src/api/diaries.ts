@@ -1,8 +1,8 @@
 import { http } from '@/lib/http';
-import type { Diary, MonthlyDiary } from './types';
+import type { Diary, EmotionEnum, MonthlyDiary } from './types';
 
 export const DiariesAPI = {
-  create(payload: { title: string; content: string }) {
+  create(payload: { emotion: EmotionEnum; content: string }) {
     return http.post<Diary>('/api/diaries', payload).then((r) => r.data);
   },
   getFeedbacks(id: string) {
