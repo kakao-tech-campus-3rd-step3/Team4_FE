@@ -162,7 +162,7 @@ function DiariesNewWrite() {
       {
         onSuccess: (data) => {
           alert('일기가 등록되었습니다!');
-          navigate(`/${ROUTES.DIARIES}/${data.id}/${ROUTES.DIARIES_FEEDBACK}`);
+          navigate(`${ROUTES.DIARIES}/${data.id}/${ROUTES.DIARIES_FEEDBACK}`);
         },
         onError: () => {
           alert('일기 작성에 실패했습니다.');
