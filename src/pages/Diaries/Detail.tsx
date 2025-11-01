@@ -137,6 +137,19 @@ const FeedBackMessage = styled.div`
   padding: ${({ theme }) => theme.spacing[3]};
 `;
 
+const WeekHeader = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: ${({ theme }) => theme.spacing[2]};
+  color: ${({ theme }) => theme.colors.colorScale.gray900};
+`;
+
+const EmptyCell = styled.div`
+  height: 60px;
+`;
+
 function DiariesDetail() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
   const [month, setMonth] = useState(dayjs().format('YYYYMM'));
@@ -178,6 +191,10 @@ function DiariesDetail() {
   };
 
   const daysInMonth = dayjs(`${month}01`).daysInMonth();
+  const startDayOfWeek = dayjs(`${month}01`).day(); // 일요일=0, 월요일=1 ...
+  const offset = startDayOfWeek;
+
+  const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
 
   // 날짜별 데이터 매핑
   const diaryByDate = useMemo(() => {
@@ -220,7 +237,20 @@ function DiariesDetail() {
           </MonthNav>
         </Title>
 
+        {/*  요일 헤더 (일요일 시작) */}
+        <WeekHeader>
+          {weekdays.map((day) => (
+            <div key={day}>{day}</div>
+          ))}
+        </WeekHeader>
+
         <CalendarGrid>
+          {/*  1일 시작 요일 전까지 빈 셀 렌더링 */}
+          {Array.from({ length: offset }).map((_, i) => (
+            <EmptyCell key={`empty-${i}`} />
+          ))}
+
+          {/*  실제 날짜 표시 */}
           {Array.from({ length: daysInMonth }, (_, i) => {
             const date = dayjs(`${month}${String(i + 1).padStart(2, '0')}`).format('YYYY-MM-DD');
             const diary = diaryByDate[date];
