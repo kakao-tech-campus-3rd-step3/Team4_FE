@@ -81,8 +81,8 @@ const Cell = styled.div`
 `;
 
 const Circle = styled.div<{ bg: string; selected: boolean }>`
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: ${({ bg }) => bg};
   display: flex;
