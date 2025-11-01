@@ -17,6 +17,7 @@ import type { EmotionEnum } from '@/api/types';
 import { Typography } from '@/components/common/Typography';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/constants/routes';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
 
 // 감정별 색상 + 아이콘 매핑
 export const emotionConfig: Record<EmotionEnum, { color: string; icon: any }> = {
@@ -32,6 +33,12 @@ const DateContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: ${({ theme }) => theme.spacing[4]};
+`;
+
+const ToHome = styled.button`
+  padding-top: 6px;
+  background-color: transparent;
+  border: none;
 `;
 
 const NewDiaryButton = styled.button`
@@ -141,6 +148,10 @@ function DiariesDetail() {
     navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_NEW}/mood`);
   };
 
+  const gotoHome = () => {
+    navigate(`${ROUTES.HOME}`);
+  };
+
   // 월간 일기 데이터
   const { data: diaries, isLoading, isError } = useMonthlyDiaries(month);
 
@@ -184,6 +195,10 @@ function DiariesDetail() {
   return (
     <>
       <DateContainer>
+        <ToHome onClick={gotoHome}>
+          <HiArrowNarrowLeft size={24} />
+        </ToHome>
+
         <Typography variant="title2Bold" color="gray900">
           {todayKR}
         </Typography>
