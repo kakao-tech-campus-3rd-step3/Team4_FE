@@ -29,7 +29,7 @@ function Home() {
         <div>
           <MissionCard />
         </div>
-        <DiaryCard onClick={() => router(ROUTES.DIARIES)} />
+        <DiaryCard onClick={() => router(ROUTES.DIARIES_DETAIL)} />
       </ActionsSection>
     </HomeContainer>
   );

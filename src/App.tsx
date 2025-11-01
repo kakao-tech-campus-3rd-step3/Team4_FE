@@ -12,8 +12,6 @@ import CharacterScreen from '@/pages/Character/components/Character/CharacterScr
 import CharacterLayout from '@/pages/Character/Layout';
 import DiariesDetail from '@/pages/Diaries/Detail';
 import DiariesFeedback from '@/pages/Diaries/Feedback';
-import DiariesLayout from '@/pages/Diaries/Layout';
-import DiariesList from '@/pages/Diaries/List';
 import DiariesNewLayout from '@/pages/Diaries/New/Layout';
 import DiariesNewMood from '@/pages/Diaries/New/Mood';
 import DiariesNewWrite from '@/pages/Diaries/New/Write';
@@ -51,13 +49,11 @@ function App() {
               <Route path={ROUTES.CHARACTER_CHAT} element={<CharacterChat />} />
             </Route>
 
-            <Route path={ROUTES.DIARIES} element={<DiariesLayout />}>
-              <Route index element={<DiariesList />} />
+            <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />}>
               <Route path={ROUTES.DIARIES_NEW} element={<DiariesNewLayout />}>
                 <Route path={ROUTES.DIARIES_NEW_STEP} element={<DiariesNewMood />} />
                 <Route path={ROUTES.DIARIES_NEW_WRITE} element={<DiariesNewWrite />} />
               </Route>
-              <Route path={ROUTES.DIARIES_DETAIL} element={<DiariesDetail />} />
               <Route path={ROUTES.DIARIES_FEEDBACK} element={<DiariesFeedback />} />
             </Route>
 

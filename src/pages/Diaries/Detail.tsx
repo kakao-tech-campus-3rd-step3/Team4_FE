@@ -1,11 +1,7 @@
 // 월간표정
 import { useMemo, useState } from 'react';
 import styled from '@emotion/styled';
-import { FiChevronUp } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
 import formatKRDate from '../../utils/formatKRDate';
-import { ROUTES } from '@/constants/routes';
-import theme from '@/styles/theme';
 
 const emotions = ['😀', '😐', '😡', '😢', '😊'] as const;
 type Emotion = (typeof emotions)[number] | null;
@@ -57,20 +53,18 @@ const DayNumber = styled.small`
   font-size: ${({ theme }) => theme.spacing[3]};
 `;
 
-const ToggleButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing[4]};
-  width: 100%;
-  padding: ${({ theme }) => theme.spacing[1]};
-  border: none;
-  background: none;
-  font-size: ${({ theme }) => theme.spacing[5]};
-  cursor: pointer;
+const FeedbackDate = styled.p`
+  margin-bottom: ${({ theme }) => theme.spacing[3]};
+`;
+
+const Message = styled.div`
+  border-radius: ${({ theme }) => theme.borderRadius.xs};
+  background-color: ${({ theme }) => theme.colors.colorScale.brown400};
 `;
 
 const totalDays = 31; // 8월 기준
 
 function DiariesDetail() {
-  const navigate = useNavigate();
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
   // 예시 데이터
@@ -82,10 +76,6 @@ function DiariesDetail() {
     '2025-08-05': '😢',
     '2025-08-06': '😀',
   });
-
-  const gotoWeekly = () => {
-    navigate(ROUTES.DIARIES);
-  };
 
   return (
     <>
@@ -103,9 +93,11 @@ function DiariesDetail() {
             );
           })}
         </CalendarGrid>
-        <ToggleButton onClick={gotoWeekly}>
-          <FiChevronUp size={parseInt(theme.spacing[6])} />
-        </ToggleButton>
+      </Container>
+      <br />
+      <Container>
+        <FeedbackDate>{todayKR}</FeedbackDate>
+        <Message>오늘의 피드백 메시지</Message>
       </Container>
     </>
   );
