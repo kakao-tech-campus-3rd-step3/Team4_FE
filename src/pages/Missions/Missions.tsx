@@ -1,182 +1,179 @@
-import type { Mission } from '@/api/types';
-import { Typography } from '@/components/common/Typography';
-import { useEffect, useMemo, useState } from 'react';
-import {
-  Chip,
-  ChipRow,
-  Danger,
-  Handle,
-  Input,
-  Overlay,
-  Primary,
-  Screen,
-  Sheet,
-  SheetTitle,
-  Title,
-} from './Missions.styles';
-import CTABar from './components/CTABar';
+import { useMemo } from 'react';
+import { BackArrowIcon, Content, Header, Screen } from './Missions.styles';
 import DailyPlanCard from './components/DailyPlanCard';
 import MissionListSection from './components/MissionListSection';
-import { MISSION_TAGS } from './constants/icon';
+import MissionSheet from './components/MissionSheet';
 import formatKRDate from '@/utils/formatKRDate';
-import { MissionsAPI } from '@/api/missions';
+import { useDailyMissions } from './hooks/useDailyMissions';
+import { useMissionMutations } from './hooks/useMissionMutations';
+import { useMissionSheet } from './hooks/useMissionSheet';
+import { Typography } from '@/components/common/Typography';
+import { useMissions } from './hooks/useMissions';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/constants/routes';
 
 function Missions() {
-  const [openSheet, setOpenSheet] = useState(false);
-  const [missions, setMissions] = useState<Mission[]>([]);
-  const [dailyMissions, setDailyMissions] = useState<Mission[]>([]);
-  const [missionContent, setMissionContent] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<Mission['category'] | null>(null);
-  const [selectedMissionId, setSelectedMissionId] = useState<number | null>(null);
+  const navigate = useNavigate();
 
-  const onAddMission = (mission?: Mission) => {
-    if (mission) {
-      setMissionContent(mission.content); //  클릭한 미션 내용을 Input에 세팅
-      setSelectedCategory(mission.category); //  카테고리도 같이 선택 (선택사항)
-      setSelectedMissionId(mission.id);
-    } else {
-      setMissionContent('');
-      setSelectedCategory(null);
-      setSelectedMissionId(null);
-    }
-    setOpenSheet(true);
-  };
-
-  const onCloseSheet = () => setOpenSheet(false);
-  const onNext = () => alert('다음');
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
 
-  const handleAddToPlan = async () => {
+  // 데이터 조회
+  const { data: missions = [] } = useMissions();
+  const { data: dailyPlans = [] } = useDailyMissions();
+
+  // Mutations
+  const { createCustomAndAddToPlan, addToPlan, togglePlan, deletePlan, editCustom } =
+    useMissionMutations();
+
+  // Sheet 상태 관리
+  const {
+    isOpen,
+    mode,
+    missionContent,
+    selectedCategory,
+    selectedMissionId,
+    selectedPlanId,
+    selectedMissionType,
+    openForRecommended,
+    openForCustom,
+    openForPlan,
+    closeSheet,
+    resetSheet,
+    setMissionContent,
+    setSelectedCategory,
+  } = useMissionSheet();
+
+  const handleConfirm = () => {
+    if (mode === 'add-recommended') {
+      // 추천 미션을 일일계획에 추가
+      if (!selectedMissionId) {
+        alert('추가할 미션이 선택되지 않았습니다.');
+        return;
+      }
+
+      addToPlan.mutate(
+        { missionId: selectedMissionId, missionType: 'REGULAR' },
+        {
+          onSuccess: () => {
+            alert('일일 계획에 추가되었습니다!');
+            closeSheet();
+            resetSheet();
+          },
+          onError: () => {
+            alert('추가 중 오류가 발생했습니다.');
+          },
+        },
+      );
+    } else if (mode === 'create-custom') {
+      // 커스텀 미션 생성 후 일일계획에 추가
+      if (!missionContent || !selectedCategory) {
+        alert('미션 내용과 카테고리를 모두 입력해주세요!');
+        return;
+      }
+
+      createCustomAndAddToPlan.mutate(
+        { content: missionContent, category: selectedCategory },
+        {
+          onSuccess: () => {
+            alert('일일 계획에 추가되었습니다!');
+            closeSheet();
+            resetSheet();
+          },
+          onError: () => {
+            alert('추가 중 오류가 발생했습니다.');
+          },
+        },
+      );
+    }
+  };
+
+  const handleEdit = () => {
+    if (!selectedPlanId) {
+      alert('수정할 미션이 선택되지 않았습니다.');
+      return;
+    }
+
     if (!missionContent || !selectedCategory) {
       alert('미션 내용과 카테고리를 모두 입력해주세요!');
       return;
     }
 
-    console.log('보내는 데이터:', { content: missionContent, category: selectedCategory });
-
-    const newMission = { content: missionContent, category: selectedCategory };
-
-    try {
-      // 서버에 POST 요청
-      const createdMission = await MissionsAPI.createCustom(newMission);
-
-      // 즉시 반영
-      setDailyMissions((prev) => [...prev, createdMission]);
-      alert('일일 계획에 추가되었습니다!');
-      onCloseSheet();
-
-      // 입력값 초기화
-      setMissionContent('');
-      setSelectedCategory(null);
-    } catch (error) {
-      console.error(error);
-      alert('추가 중 오류가 발생했습니다.');
-    }
+    editCustom.mutate(
+      {
+        planId: String(selectedPlanId),
+        payload: { content: missionContent, category: selectedCategory },
+      },
+      {
+        onSuccess: () => {
+          alert('미션이 수정되었습니다!');
+          closeSheet();
+          resetSheet();
+        },
+        onError: () => {
+          alert('수정 중 오류가 발생했습니다.');
+        },
+      },
+    );
   };
 
-  const handleDeleteMission = async () => {
-    if (!selectedMissionId) {
+  const handleDelete = () => {
+    if (!selectedPlanId) {
       alert('삭제할 미션이 선택되지 않았습니다.');
       return;
     }
 
     if (!confirm('이 미션을 삭제하시겠습니까?')) return;
 
-    try {
-      await MissionsAPI.deletePlan(selectedMissionId);
-
-      // 즉시 반영
-      setDailyMissions((prev) => prev.filter((m) => m.id !== selectedMissionId));
-      alert('미션이 삭제되었습니다.');
-      onCloseSheet();
-
-      // 상태 초기화
-      setSelectedMissionId(null);
-      setMissionContent('');
-      setSelectedCategory(null);
-    } catch (error) {
-      console.error(error);
-      alert('삭제 중 오류가 발생했습니다.');
-    }
+    deletePlan.mutate(selectedPlanId, {
+      onSuccess: () => {
+        alert('미션이 삭제되었습니다.');
+        closeSheet();
+        resetSheet();
+      },
+      onError: () => {
+        alert('삭제 중 오류가 발생했습니다.');
+      },
+    });
   };
-
-  useEffect(() => {
-    // 추천 리스트 조회, GET, /api/missions
-    const fetchMissions = async () => {
-      try {
-        const data = await MissionsAPI.listRecommended();
-        setMissions(data);
-      } catch (error) {
-        console.error('미션 목록 불러오기 실패:', error);
-        setMissions([]);
-      }
-    };
-
-    fetchMissions();
-  }, []);
-
-  useEffect(() => {
-    // 일일계획 조회, GET, /api/missions/custom
-    const fetchMissions = async () => {
-      try {
-        const data = await MissionsAPI.getDailyMissions();
-        setDailyMissions(data);
-      } catch (error) {
-        console.error('미션 목록 불러오기 실패:', error);
-        setDailyMissions([]);
-      }
-    };
-
-    fetchMissions();
-  }, []);
 
   return (
     <>
       <Screen>
-        <Title>{todayKR}</Title>
-
-        {/* 일일 계획 카드 */}
-        <DailyPlanCard dailyMissions={dailyMissions} onClickAdd={onAddMission} />
-
-        {/* 추천 리스트 */}
-        <MissionListSection missions={missions} onAddMission={onAddMission} />
-
-        {/* 하단 CTA */}
-        <CTABar onNext={onNext} />
+        <div onClick={() => navigate(ROUTES.HOME)}>
+          <BackArrowIcon xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.06">
+            <path d="M63.94,24.28a14.28,14.28,0,0,0-20.36-20L4.1,44.42a14.27,14.27,0,0,0,0,20l38.69,39.35a14.27,14.27,0,0,0,20.35-20L48.06,68.41l60.66-.29a14.27,14.27,0,1,0-.23-28.54l-59.85.28,15.3-15.58Z" />
+          </BackArrowIcon>
+        </div>
+        <Header>
+          <Typography variant="title1Regular" color="default">
+            {todayKR}
+          </Typography>
+        </Header>
+        <Content>
+          <DailyPlanCard
+            dailyPlans={dailyPlans}
+            onClickAdd={openForCustom}
+            onClickPlan={openForPlan}
+            onTogglePlan={(id, isDone) => togglePlan.mutate({ id, isDone })}
+          />
+          <MissionListSection missions={missions} onAddMission={openForRecommended} />
+        </Content>
+        {/* <CTABar onNext={onNext} /> */}
       </Screen>
-      {openSheet && (
-        <Overlay onClick={onCloseSheet}>
-          <Sheet onClick={(e) => e.stopPropagation()}>
-            <Handle />
-            <SheetTitle>미션 추가</SheetTitle>
 
-            <Input
-              placeholder="자기소개서 나의 강점 3가지 정리해보기"
-              value={missionContent}
-              onChange={(e) => setMissionContent(e.target.value)}
-            />
-
-            <ChipRow>
-              {MISSION_TAGS.map(({ key, label, icon }) => (
-                <Chip
-                  key={key}
-                  onClick={() => setSelectedCategory(key)}
-                  data-selected={selectedCategory === key}
-                >
-                  <span aria-hidden>{icon}</span>
-                  <Typography as="span" variant="body1Regular" color="default">
-                    {label}
-                  </Typography>
-                </Chip>
-              ))}
-            </ChipRow>
-
-            <Primary onClick={handleAddToPlan}>일일 계획에 추가</Primary>
-
-            <Danger onClick={handleDeleteMission}>삭제하기</Danger>
-          </Sheet>
-        </Overlay>
-      )}
+      <MissionSheet
+        isOpen={isOpen}
+        mode={mode}
+        missionContent={missionContent}
+        selectedCategory={selectedCategory}
+        missionType={selectedMissionType}
+        onClose={closeSheet}
+        onContentChange={setMissionContent}
+        onCategoryChange={setSelectedCategory}
+        onConfirm={handleConfirm}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
     </>
   );
 }

@@ -5,7 +5,7 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: ${theme.spacing[5]};
+  gap: ${theme.spacing[3]};
   padding-block: ${theme.spacing[5]};
 `;
 

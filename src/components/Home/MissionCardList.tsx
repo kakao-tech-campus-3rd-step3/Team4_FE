@@ -1,5 +1,6 @@
 import { Typography } from '@/components/common/Typography';
-import { MissionItem, MissionIcon } from './Home.styles';
+import { MissionItem } from './Home.styles';
+import { Checkbox } from '@/pages/Missions/Missions.styles';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { MissionsAPI } from '@/api/missions';
 import type { Plan } from '@/api/types';
@@ -20,8 +21,15 @@ function MissionCardList() {
       ) : (
         dailyMissions.map((plan) => (
           <MissionItem key={plan.id}>
-            <MissionIcon />
-            <Typography variant="label2Regular" color="gray800">
+            <Checkbox type="checkbox" checked={plan.done} readOnly />
+            <Typography
+              variant="label2Regular"
+              color="gray800"
+              style={{
+                textDecoration: plan.done ? 'line-through' : 'none',
+                opacity: plan.done ? 0.6 : 1,
+              }}
+            >
               {plan.content}
             </Typography>
           </MissionItem>

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Outlet, useLocation } from 'react-router-dom';
-import { DESIGN_BASE, DESIGN_RATIO, PAGE_PADDING, SAFE_FALLBACK } from './constants/layout';
+import { DESIGN_BASE, DESIGN_RATIO } from './constants/layout';
 import { ROUTES } from './constants/routes';
 
 const AppViewport = styled.div`
@@ -40,24 +40,24 @@ const DeviceFrame = styled.div`
   position: relative;
 `;
 
-const AppLayout = styled.div`
-  /* ios safari 상하단 안전영역 대응 */
-  --safeTop: env(safe-area-inset-top, 0px);
-  --safeBottom: env(safe-area-inset-bottom, 0px);
+// const AppLayout = styled.div`
+//   /* ios safari 상하단 안전영역 대응 */
+//   --safeTop: env(safe-area-inset-top, 0px);
+//   --safeBottom: env(safe-area-inset-bottom, 0px);
 
-  padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
+//   padding-top: calc(max(var(--safeTop), ${SAFE_FALLBACK.TOP_MIN}px) + ${PAGE_PADDING.TOP_EXTRA}px);
 
-  padding-bottom: calc(
-    max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
-  );
+//   padding-bottom: calc(
+//     max(var(--safeBottom), ${SAFE_FALLBACK.BOTTOM_MIN}px) + ${PAGE_PADDING.BOTTOM_EXTRA}px
+//   );
 
-  padding-inline: ${({ theme }) => theme.spacing[9]};
+//   padding-inline: ${({ theme }) => theme.spacing[9]};
 
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
-  min-height: 100%;
-`;
+//   box-sizing: border-box;
+//   width: 100%;
+//   max-width: 100%;
+//   min-height: 100%;
+// `;
 
 const AppHorizontalLayout = styled.div`
   /* ios safari 상하단 안전영역 대응 */
@@ -125,7 +125,8 @@ const layoutConfig = ({ pathname }: { pathname: string }) => {
     },
     {
       match: () => true,
-      wrap: (ch: React.ReactNode) => mobileBaseLayout({ children: <AppLayout>{ch}</AppLayout> }),
+      wrap: (ch: React.ReactNode) =>
+        mobileBaseLayout({ children: <AppHorizontalLayout>{ch}</AppHorizontalLayout> }),
     },
   ];
 };
