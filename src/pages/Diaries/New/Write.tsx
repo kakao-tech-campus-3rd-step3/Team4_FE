@@ -62,7 +62,7 @@ function DiariesNewWrite() {
       {
         onSuccess: (data) => {
           toast.success('일기가 등록되었습니다!');
-          navigate(`${ROUTES.DIARIES}/${data.id}/${ROUTES.DIARIES_FEEDBACK}`);
+          navigate(`${ROUTES.DIARIES}/${data.id}/feedback`);
         },
         onError: () => {
           toast('일기 작성에 실패했습니다.');
