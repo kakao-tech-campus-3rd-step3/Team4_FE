@@ -26,7 +26,7 @@ function Home() {
       <GreetingSection />
       <CharacterSection onClick={() => router(ROUTES.CHARACTER)} />
       <MissionCard />
-      <DiaryCard onClick={() => router(ROUTES.DIARIES)} />
+      <DiaryCard onClick={() => router(`${ROUTES.DIARIES}/${ROUTES.DIARIES_DETAIL}`)} />
     </HomeContainer>
   );
 }
