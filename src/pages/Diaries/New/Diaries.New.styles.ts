@@ -148,17 +148,6 @@ export const DiaryText = styled.textarea`
   outline: none;
 `;
 
-export const MissionButton = styled.button`
-  position: absolute;
-  right: ${({ theme }) => theme.spacing[3]};
-  bottom: ${({ theme }) => theme.spacing[3]};
-  font-size: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  padding: 6px ${({ theme }) => theme.spacing[3]};
-  border-radius: ${({ theme }) => theme.spacing[2]};
-`;
-
 // 바텀시트 스타일
 export const BottomSheetOverlay = styled.div`
   position: fixed;

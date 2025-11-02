@@ -21,7 +21,6 @@ import {
   DiaryText,
   Handle,
   HeaderContainer,
-  MissionButton,
   NextButton,
   ToMood,
   WeatherButton,
@@ -92,11 +91,6 @@ function DiariesNewWrite() {
           onChange={(e) => setContent(e.target.value)}
           placeholder="오늘의 일기를 자유롭게 적어주세요"
         />
-        <MissionButton>
-          <Typography variant="body2Regular" color="gray0">
-            오늘 완료한 미션 가져오기
-          </Typography>
-        </MissionButton>
       </DiaryBox>
 
       <NextButton onClick={handleSubmit} disabled={createDiary.isPending}>
