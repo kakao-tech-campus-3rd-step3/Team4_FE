@@ -20,8 +20,11 @@ export type Mission = {
 
 export type Plan = {
   id: number;
+  missionId: number;
+  missionType: 'RECOMMENDED' | 'CUSTOM';
   content: string;
   category: CategoryEnum;
+  done: boolean;
 };
 
 export type Diary = {

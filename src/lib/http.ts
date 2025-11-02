@@ -2,8 +2,8 @@ import { AuthAPI } from '@/api/auth';
 import { ACCESS_TOKEN_KEY, HTTP_STATUS, REFRESH_TOKEN_KEY } from '@/constants/http';
 import { ROUTES } from '@/constants/routes';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 import { removeAuthToken, storeAuthToken } from '../utils/api';
+import { toast } from 'react-toastify';
 
 export const http = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
