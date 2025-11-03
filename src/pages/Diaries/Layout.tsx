@@ -2,8 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 function DiariesLayout() {
   return (
-    <div>
-      diary layout
+    <div style={{ marginTop: '50px' }}>
       <Outlet />
     </div>
   );
