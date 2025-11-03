@@ -20,7 +20,7 @@ export const ROUTES = {
   DIARIES_NEW: 'new',
   DIARIES_NEW_STEP: ':step',
   DIARIES_NEW_WRITE: 'write',
-  DIARIES_DETAIL: ':id',
+  DIARIES_DETAIL: 'detail',
   DIARIES_FEEDBACK: ':id/feedback',
 
   MISSIONS: '/missions',

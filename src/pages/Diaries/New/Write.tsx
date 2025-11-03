@@ -1,7 +1,6 @@
-import styled from '@emotion/styled';
 import { useMemo, useState } from 'react';
 import formatKRDate from '../../../utils/formatKRDate';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   TiWeatherCloudy,
   TiWeatherShower,
@@ -10,160 +9,93 @@ import {
   TiWeatherSunny,
 } from 'react-icons/ti';
 import { Typography } from '@/components/common/Typography';
+import type { EmotionEnum } from '@/api/types';
 import { ROUTES } from '@/constants/routes';
-
-const DateText = styled.p`
-  text-align: center;
-  color: ${({ theme }) => theme.colors.colorScale.gray900};
-  font-size: ${({ theme }) => theme.spacing[6]};
-  margin-bottom: ${({ theme }) => theme.spacing[4]};
-`;
-
-const WeatherButton = styled.button`
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background-color: ${({ theme }) => theme.colors.colorScale.brown400};
-  height: ${({ theme }) => theme.spacing[8]};
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: ${({ theme }) => theme.spacing[16]};
-`;
-
-const DiaryBox = styled.div`
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background: #f7efe4;
-  border-radius: ${({ theme }) => theme.spacing[2]};
-  padding: ${({ theme }) => theme.spacing[3]};
-  margin-bottom: ${({ theme }) => theme.spacing[5]};
-`;
-
-const DiaryText = styled.textarea`
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  font-size: 14px;
-  resize: none;
-  outline: none;
-`;
-
-const MissionButton = styled.button`
-  position: absolute;
-  right: ${({ theme }) => theme.spacing[3]};
-  bottom: ${({ theme }) => theme.spacing[3]};
-  font-size: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  padding: 6px ${({ theme }) => theme.spacing[3]};
-  border-radius: ${({ theme }) => theme.spacing[2]};
-`;
-
-const NextButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing[6]};
-  width: 100%;
-  padding: ${({ theme }) => theme.spacing[3]} 0;
-  border-radius: ${({ theme }) => theme.spacing[3]};
-  background: ${({ theme }) => theme.colors.colorScale.gray1000};
-  color: ${({ theme }) => theme.colors.colorScale.gray0};
-  font-size: 14px;
-  cursor: pointer;
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-`;
-
-// 바텀시트 스타일
-const BottomSheetOverlay = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-`;
-
-const BottomSheet = styled.div`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: #fffbea;
-  border-radius: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[4]} 0 0;
-  padding: ${({ theme }) => theme.spacing[4]};
-  animation: slideUp 0.3s ease-out;
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-`;
-
-const Handle = styled.div`
-  width: ${({ theme }) => theme.spacing[10]};
-  height: ${({ theme }) => theme.spacing[1]};
-  background: ${({ theme }) => theme.colors.colorScale.gray600};
-  border-radius: 2px;
-  margin: 0 auto ${({ theme }) => theme.spacing[3]};
-`;
-
-const WeatherOptions = styled.div`
-  display: flex;
-  justify-content: space-around;
-  gap: ${({ theme }) => theme.spacing[2]};
-`;
-
-const WeatherSelect = styled.button`
-  flex: 1;
-  padding: ${({ theme }) => theme.spacing[3]};
-  font-size: 18px;
-  background: ${({ theme }) => theme.colors.colorScale.brown100};
-  border: none;
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
-  cursor: pointer;
-
-  &:hover {
-    background: ${({ theme }) => theme.colors.colorScale.orange100};
-  }
-`;
+import { useCreateDiary } from '../hooks/useCreateDiary';
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import { toast } from 'react-toastify';
+import {
+  BottomSheet,
+  BottomSheetOverlay,
+  DiaryBox,
+  DiaryText,
+  Handle,
+  HeaderContainer,
+  NextButton,
+  ToMood,
+  WeatherButton,
+  WeatherOptions,
+  WeatherSelect,
+  WriteDateText,
+} from './Diaries.New.styles';
 
 function DiariesNewWrite() {
   const todayKR = useMemo(() => formatKRDate(new Date()), []);
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as { emotion?: EmotionEnum };
 
-  const gotoFeedback = () => {
-    navigate(`/${ROUTES.DIARIES}/${ROUTES.DIARIES_FEEDBACK}`);
+  const [isOpen, setIsOpen] = useState(false);
+  const [content, setContent] = useState('');
+  const [emotion, setEmotion] = useState<EmotionEnum | null>(state?.emotion ?? null);
+
+  const gotoMood = () => {
+    navigate(`${ROUTES.DIARIES}/${ROUTES.DIARIES_NEW}/mood`);
+  };
+
+  const createDiary = useCreateDiary();
+
+  const handleSubmit = () => {
+    if (!content.trim()) {
+      toast.warn('일기 내용을 입력해주세요!');
+      return;
+    }
+
+    if (!emotion) {
+      toast.warn('감정을 선택해주세요!');
+      return;
+    }
+
+    createDiary.mutate(
+      { content, emotion },
+      {
+        onSuccess: (data) => {
+          toast.success('일기가 등록되었습니다!');
+          navigate(`${ROUTES.DIARIES}/${data.id}/feedback`);
+        },
+        onError: () => {
+          toast('일기 작성에 실패했습니다.');
+        },
+      },
+    );
   };
 
   return (
     <>
       <HeaderContainer>
-        <DateText>{todayKR}</DateText>
+        <ToMood onClick={gotoMood}>
+          <HiArrowNarrowLeft size={24} />
+        </ToMood>
+
+        <WriteDateText>
+          <Typography variant="title2Regular">{todayKR}</Typography>
+        </WriteDateText>
         <WeatherButton onClick={() => setIsOpen(true)}>
-          <Typography variant="label2Regular" style={{ fontSize: '1.2rem' }}>
-            +날씨
-          </Typography>
+          <Typography variant="body2Regular">+날씨</Typography>
         </WeatherButton>
       </HeaderContainer>
 
       <DiaryBox>
-        <DiaryText placeholder="오늘의 일기를 자유롭게 적어주세요" />
-        <MissionButton>
-          <Typography variant="label2Regular" color="gray0">
-            오늘 완료한 미션 가져오기
-          </Typography>
-        </MissionButton>
+        <DiaryText
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="오늘의 일기를 자유롭게 적어주세요"
+        />
       </DiaryBox>
 
-      <NextButton onClick={gotoFeedback}>
-        <Typography variant="label2Regular" color="gray0">
-          다음
+      <NextButton onClick={handleSubmit} disabled={createDiary.isPending}>
+        <Typography variant="body2Regular" color="gray0">
+          {createDiary.isPending ? '등록 중...' : '다음'}
         </Typography>
       </NextButton>
       {/* 바텀시트 */}
@@ -172,21 +104,23 @@ function DiariesNewWrite() {
           <BottomSheet onClick={(e) => e.stopPropagation()}>
             <Handle />
             <WeatherOptions>
-              <WeatherSelect>
-                <TiWeatherSunny />
-              </WeatherSelect>
-              <WeatherSelect>
-                <TiWeatherCloudy />
-              </WeatherSelect>
-              <WeatherSelect>
-                <TiWeatherShower />
-              </WeatherSelect>
-              <WeatherSelect>
-                <TiWeatherStormy />
-              </WeatherSelect>
-              <WeatherSelect>
-                <TiWeatherSnow />
-              </WeatherSelect>
+              {[
+                { icon: <TiWeatherSunny />, value: 'EXCELLENT' },
+                { icon: <TiWeatherCloudy />, value: 'GOOD' },
+                { icon: <TiWeatherShower />, value: 'SOSO' },
+                { icon: <TiWeatherStormy />, value: 'BAD' },
+                { icon: <TiWeatherSnow />, value: 'TERRIBLE' },
+              ].map((item) => (
+                <WeatherSelect
+                  key={item.value}
+                  onClick={() => {
+                    setEmotion(item.value as EmotionEnum);
+                    setIsOpen(false);
+                  }}
+                >
+                  {item.icon}
+                </WeatherSelect>
+              ))}
             </WeatherOptions>
           </BottomSheet>
         </BottomSheetOverlay>

@@ -1,4 +1,5 @@
 import type { ITEMS_CATEGORY } from '@/constants/api';
+import type { IconType } from 'react-icons';
 
 export type CategoryEnum = 'REFRESH' | 'EMPLOYMENT' | 'DAILY';
 
@@ -7,7 +8,7 @@ export type EmotionEnum = 'EXCELLENT' | 'GOOD' | 'SOSO' | 'BAD' | 'TERRIBLE' | '
 export type Emotion = {
   key: EmotionEnum;
   label: string;
-  emoji: string;
+  icon: IconType;
 };
 
 export type ItemCategoryEnum = (typeof ITEMS_CATEGORY)[keyof typeof ITEMS_CATEGORY];
@@ -28,9 +29,16 @@ export type Plan = {
 };
 
 export type Diary = {
+  id: number;
   emotion: EmotionEnum;
   content: string;
   feedback: string;
+  createdAt: string;
+};
+
+export type MonthlyDiary = {
+  id: number;
+  emotion: EmotionEnum;
   createdAt: string;
 };
 
