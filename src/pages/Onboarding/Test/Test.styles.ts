@@ -2,13 +2,14 @@ import { colorScale, semanticColors } from '@/styles/theme/colors';
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  min-height: 95vh;
+  min-height: 100dvh;
   background-color: ${semanticColors.brand.background};
   display: flex;
   flex-direction: column;
   flex: 1;
-
-  justify-content: space-between;
+  padding: 24px 0;
+  box-sizing: border-box;
+  gap: 16px;
 `;
 
 export const ProgressWrapper = styled.div``;
@@ -38,20 +39,20 @@ export const ProgressFill = styled.div<{ percent: number }>`
 
 export const Question = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 16px;
   color: ${semanticColors.text.default};
 `;
 
 export const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 40px;
+  margin-bottom: 16px;
   position: relative;
 `;
 
 export const Image = styled.img`
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   object-fit: contain;
 `;
 
@@ -66,12 +67,12 @@ export const LoadingOverlay = styled.div`
 export const Answers = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 `;
 
 export const AnswerButton = styled.button<{ selected: boolean }>`
   padding-inline: 10px;
-  padding-block: 10px;
+  padding-block: 8px;
   background-color: ${({ selected }) =>
     selected ? semanticColors.button.hover : semanticColors.button.default};
   border: 2px solid
@@ -83,7 +84,7 @@ export const AnswerButton = styled.button<{ selected: boolean }>`
 `;
 
 export const NextButton = styled.button`
-  padding: 13px;
+  padding: 10px;
   background-color: ${colorScale.gray950};
   border-radius: 8px;
   cursor: pointer;

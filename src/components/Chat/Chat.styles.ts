@@ -4,7 +4,7 @@ import { theme } from '@/styles/theme';
 export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   width: 100%;
 `;
 
@@ -13,6 +13,8 @@ export const HeaderSection = styled.div`
   align-items: center;
   border-bottom: 1.5px solid ${theme.colors.colorScale.brown100};
   padding-inline: ${theme.spacing[2]};
+  padding-top: max(env(safe-area-inset-top, 0px), ${theme.spacing[2]});
+  background-color: ${theme.colors.brand.background};
 `;
 
 export const BackButton = styled.button`
@@ -100,6 +102,8 @@ export const UserBubble = styled.div`
 
 export const InputSection = styled.div`
   border-top: 1.5px solid ${theme.colors.colorScale.brown100};
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), ${theme.spacing[2]});
+  background-color: ${theme.colors.brand.background};
 `;
 
 export const InputContainer = styled.div`

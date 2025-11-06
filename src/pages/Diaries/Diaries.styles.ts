@@ -11,6 +11,15 @@ export const ToHome = styled.button`
   padding-top: 6px;
   background-color: transparent;
   border: none;
+  color: ${({ theme }) => theme.colors.colorScale.gray900};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 export const NewDiaryButton = styled.button`
@@ -132,23 +141,11 @@ export const BalloonWrap = styled.div`
 export const Balloon = styled.div`
   background: ${({ theme }) => theme.colors.colorScale.brown400};
   color: ${({ theme }) => theme.colors.colorScale.gray900};
-  padding: ${({ theme }) => theme.spacing[3]} ${({ theme }) => theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[4]} ${({ theme }) => theme.spacing[5]};
   border-radius: ${({ theme }) => theme.spacing[2]};
   font-size: 13px;
   position: relative;
-  max-height: 180px;
-  overflow-y: auto;
-
-  &::-webkit-scrollbar {
-    width: ${({ theme }) => theme.spacing[1]};
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.colors.colorScale.gray600};
-    border-radius: ${({ theme }) => theme.spacing[3]};
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  max-width: 100%;
 `;
 
 export const BalloonTail = styled.div`
@@ -165,18 +162,21 @@ export const BalloonTail = styled.div`
 
 export const CatImg = styled.img`
   max-width: 100%;
-  height: auto;
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
 `;
 
 export const NextButton = styled.button`
-  margin-top: ${({ theme }) => theme.spacing[6]};
   width: 100%;
-  padding: ${({ theme }) => theme.spacing[3]} 0;
+  padding: ${({ theme }) => theme.spacing[4]} 0;
   border-radius: ${({ theme }) => theme.spacing[3]};
   background: ${({ theme }) => theme.colors.colorScale.gray1000};
   color: ${({ theme }) => theme.colors.colorScale.gray0};
   font-size: 14px;
   cursor: pointer;
+  border: none;
+  font-family: 'OngleipEoyeonce';
   &:disabled {
     opacity: 0.4;
     cursor: not-allowed;

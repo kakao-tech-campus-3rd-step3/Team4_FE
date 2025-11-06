@@ -6,8 +6,8 @@ import NextStepButton from './NextButton';
 
 const Image = styled.img`
   object-fit: contain;
-  width: 320px;
-  height: 320px;
+  width: 200px;
+  height: 200px;
 `;
 
 const Container = styled.div`
@@ -42,7 +42,7 @@ function Start() {
             잘했다냥!
           </Typography>
           <Typography variant="title2Regular" color="default">
-            냥토닥이랑 함께, 천천히 하나씩 이뤄가보자냥!
+            함께 천천히 하나씩 이뤄가보자냥!
           </Typography>
         </Content>
       </Container>

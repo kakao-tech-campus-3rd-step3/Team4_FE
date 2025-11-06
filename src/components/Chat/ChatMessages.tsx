@@ -73,7 +73,7 @@ export const ChatMessages = ({
           <div ref={messagesEndRef} />
         </>
       ) : (
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '40px' }}>
           <Typography variant="label2Regular" color="gray800">
             자유롭게 채팅을 시작해보세요!
           </Typography>

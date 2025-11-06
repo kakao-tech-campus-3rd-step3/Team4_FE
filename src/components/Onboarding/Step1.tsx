@@ -16,7 +16,7 @@ export const Container = styled.div`
 
 export const Image = styled.img`
   object-fit: contain;
-  width: 270px;
+  width: 200px;
 `;
 
 function Step1() {

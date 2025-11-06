@@ -13,6 +13,11 @@ const AppViewport = styled.div`
   background: ${({ theme }) => theme.colors.background.disabled};
 
   overflow: hidden;
+
+  /* 모바일/태블릿에서는 배경 제거 */
+  @media (max-width: 768px) {
+    background: ${({ theme }) => theme.colors.brand.background};
+  }
 `;
 
 const DeviceFrame = styled.div`
@@ -38,6 +43,13 @@ const DeviceFrame = styled.div`
   }
 
   position: relative;
+
+  /* 모바일/태블릿에서는 전체 너비 사용 */
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 100dvh;
+    aspect-ratio: unset;
+  }
 `;
 
 // const AppLayout = styled.div`
